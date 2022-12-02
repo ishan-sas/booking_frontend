@@ -23,9 +23,9 @@ export default function LeftSideBar() {
     <div>
       <Grid sx={{marginBottom: 2, padding: 2, borderRadius: 1, border: '1px solid #ebebeb'}}>
         <ul className='primary_menu' style={{listStyle: 'none', padding: 0, margin: 0}}>
-          <li style={menuListItem}>
+          {/* <li style={menuListItem}>
             <Link to="/admin" style={menuItem}><InboxIcon style={menuIcon} /> Dashboard</Link>
-          </li>
+          </li> */}
           <li style={menuListItem}>
             <Link to="/admin/appointments" style={menuItem}><InboxIcon style={menuIcon} /> Appointments</Link>
           </li>

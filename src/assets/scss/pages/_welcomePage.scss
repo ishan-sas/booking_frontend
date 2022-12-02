@@ -1,0 +1,11 @@
+.welcome_wrap {
+  padding: 5vh 0;
+  .map_warp {
+    display: flex;
+    float: right;
+    padding: 15px 20px;
+    align-items: center;
+    border-radius: 15px;
+    background: $primaryColor;
+  }
+}

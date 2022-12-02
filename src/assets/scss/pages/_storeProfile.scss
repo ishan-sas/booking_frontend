@@ -1,0 +1,77 @@
+.site__container {
+  .store_profile {
+    .date_picker {
+      padding-top: 15vh;
+      .form-group {
+        flex-direction: row;
+        margin-bottom: 20px;
+        .prefixes {
+          width: 120px;
+          font-size: 14px;
+          font-weight: 700;
+          text-align: right;
+          float: left;
+          margin: 18px 25px 0 0;
+        }
+        .suffixes {
+          font-size: 14px;
+          font-weight: 700;
+          text-align: left;
+          float: left;
+          margin: 18px 0 0 25px;
+        }
+        &.child_counter .MuiTextField-root {
+          width: 150px;
+        }
+      }
+    }
+    .button-row {
+      margin-top: 58px;
+      .theme-btn {
+        float: right;
+        margin-right: 5%;
+        &.button-link {
+          float: left;
+        }
+      }
+    }
+    .picked_date {
+      color: #000;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding-left: 10px;
+      margin-bottom: 22px;
+      border-left: 4px solid $primaryColor;
+      span {
+        font-size: 30px;
+        line-height: 1;
+        display: block;
+      }
+    }
+    .session_title {
+      color: #8e8e8e;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .slot_label {
+      text-align: center;
+      width: 100%;
+      display: block;
+      padding: 12px 0;
+      margin-left: 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      .MuiCheckbox-colorPrimary {
+        display: none;
+      }
+    }
+    .loading_wrap {
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+}

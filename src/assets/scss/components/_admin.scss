@@ -1,0 +1,70 @@
+.day-label {
+  color: #858585;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+}
+.slotBlock {
+  margin-bottom: 8px;
+  .MuiTextField-root {
+    width: calc(100% - 32px);
+  }
+  .removeBtn {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    svg {
+      color: red;
+      margin: 7px 0 0;
+    }
+  }
+}
+
+// .MuiInputBase-formControl {
+//   margin-bottom: 20px;
+// }
+
+.adm-page-title {
+  color: #4b4b4b;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  display: block;
+  margin: 0 0 25px !important;
+}
+
+.menu--tab{
+  .tab-title {
+    color: #4b4b4b;
+    font-size: 17px;
+    font-weight: 600;
+    margin: 0 0 15px;
+  }
+  .menu-tab {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 25px;
+    border-bottom: 1px solid #ebebeb;
+    li {
+      display: inline-block;
+      a {
+        color: #4b4b4b;
+        font-size: 13px;
+        font-weight: 500;
+        display: block;
+        text-decoration: none;
+        padding: 10px 30px 12px;
+      }
+      &:nth-child(1) a {
+        padding-left: 0;
+      }
+    }
+  }
+}  
+
+
+.store__dashboard {
+  tbody tr td {
+    padding: 5px 16px !important;
+  }
+}
+

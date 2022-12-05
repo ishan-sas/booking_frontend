@@ -1,6 +1,6 @@
 import React from "react";
 import axios from 'axios'; 
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, HashRouter, Route, Routes } from "react-router-dom"
 import { createTheme, ThemeProvider } from "@mui/material/styles"
 import { Protected } from "./ProtectedRoute/ProtectedRoute";
 import HomePage from "./components/site/pages/HomePage"
@@ -42,7 +42,7 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
 
         <Route exact path={"/"} element={<HomePage />} />
@@ -64,7 +64,7 @@ function App() {
         <Route exact path={"/admin/store-register"} element={<Protected component={StoreRegister} />} /> 
 
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </ThemeProvider>
   );
 }

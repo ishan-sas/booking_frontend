@@ -10,13 +10,13 @@ export default function Header() {
     <div style={{ borderBottom: '1px solid #efefef', marginBottom: 25 }}>
       <Grid container>
         <CssBaseline />
-        <Grid item md={3} sx={{ display: { md: 'block', sm: 'none' } }}>
+        <Grid item md={6} sx={{ display: { md: 'block', sm: 'none' } }}>
           <Link to="/" className="brand-logo">
             <img src={Logo} style={{ height: 35, display: 'flex', margin: '10px 0' }} />
           </Link>
         </Grid>
-        <Grid item xs={12} md={9}>
-          
+        <Grid item xs={12} md={6}>
+          <Link to={'/login'} style={{float: 'right'}}>Admin Login</Link>
         </Grid>
       </Grid>
     </div>

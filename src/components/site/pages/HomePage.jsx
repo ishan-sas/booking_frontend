@@ -36,7 +36,7 @@ export default function HomePage() {
               <Grid key={i} item sm={4} lg={3}>
                 <Link to={row.slug} className="store-card">
                   <Typography className='store-name'>{row.store_name}</Typography>
-                  <Typography className='store-address'>49 Commerce Street, Kaitaia 0410</Typography>       
+                  <Typography className='store-address'></Typography>       
                 </Link>
               </Grid>
             ))}

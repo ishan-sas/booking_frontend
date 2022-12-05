@@ -16,7 +16,7 @@ export default function StoreProfile(props) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [isDataLoading, setIsDataLoading] = useState(false);
-  const [ftrooms, setFtrooms] = useState(4);
+  const [storeProfile, setStoreProfile] = useState([]);
   const [morningSlots, setMorningSlots] = useState([]);
   const [eveningSlots, setEveningSlots] = useState([]);
   const [selectedDate, setSelectedDate] = useState();
@@ -24,14 +24,32 @@ export default function StoreProfile(props) {
   const [selectedSlotsLbl, setselectedSlotsLbl] = useState([]);
   const [selectedSlotsIds, setSelectedSlotsIds] = useState([]);
   const [selectedDateDisplay, setSelectedDateDisplay] = useState([]);
+  const [dateLabel, setDateLabel] = useState([]);
+  const [monthLabel, setMonthLabel] = useState([]);
 
   useEffect(() => {
+    getStoreProfile();
 
   }, [storeParams.slug]);
 
+  const getStoreProfile = () => {
+    axios.get(`/api/stores/${storeParams.slug}`).then(res => {
+      if(res.data.status === 200) {
+        setStoreProfile(res.data.store_profile);
+      }
+      else {
+        console.log(res.data.errors, "error");
+      }
+    });
+  }
+
   const handleSelectedDate = (value) => {
+    var req_date_lbl = moment(value.$d).format("DD");
+    var req_month_lbl = moment(value.$d).format("MMM");
     var req_date = moment(value.$d).format("DD.MM.YYYY");
     var req_date_display = moment(value.$d).format("YYYY.MM.DD");
+    setDateLabel(req_date_lbl);
+    setMonthLabel(req_month_lbl);
     setSelectedDate(req_date);
     setSelectedDateDisplay(req_date_display);
     setIsDataLoading(true);
@@ -100,8 +118,6 @@ export default function StoreProfile(props) {
               />
             </LocalizationProvider>
           </FormGroup>
-          {/* <Button onClick={() => submitSelectedSlot()} className="theme-btn" style={{marginTop: 20}}>Next</Button> */}
-
           <Box className="button-row" sx={{ justifyContent: 'space-between' }}>
             <Link to="/" className="theme-btn button-link">Back</Link>
             <Button onClick={() => submitSelectedSlot()} className="theme-btn">Next</Button>
@@ -117,7 +133,7 @@ export default function StoreProfile(props) {
 
           {isDataLoading && (
             <Grid sm={12}>
-              <Typography variant='body2' className='picked_date'>Mon<Typography variant='span'>22</Typography></Typography>
+              <Typography variant='body2' className='picked_date'>{monthLabel}<Typography variant='span'>{dateLabel}</Typography></Typography>
             </Grid>
           )}
 
@@ -126,36 +142,32 @@ export default function StoreProfile(props) {
               <Grid item sm={12} md={6}>
                 <Typography className='session_title'>Morning Slots</Typography>
                 <Grid container spacing={2}>
-                  {/* <Grid item sm={12} md={6}>
-                    <FormControlLabel
-                      value=''
-                      label='08:00 - 08:30'
-                      className='slot_label'
-                      control={<Checkbox value='' onChange={e => handleCheckboxChange(e)} />}
-                    />
-                  </Grid>
-                  <Grid item sm={12} md={6}>
-                    <FormControlLabel
-                      value=''
-                      label='08:30 - 09:00'
-                      className='slot_label'
-                      control={<Checkbox value='' onChange={e => handleCheckboxChange(e)} />}
-                    />
-                  </Grid> */}
-
                   {morningSlots.map((row, i) => (
-                    <Grid key={i} item sm={12}>
-                      <FormControlLabel
-                        value={row.id}
-                        label={<div>{row.time_slot} - {4 - row.kids_count}</div>}
-                        control={<Checkbox value={row.slot} onChange={e => handleCheckboxChange(e, row.time_slot)} />}
-                        disabled={
-                          row.kids_count === 4 ||
-                          ( (5 - row.kids_count) <= noOfChild )
-                            ? true
-                            : false
-                        }
-                      />
+                    <Grid key={i} item sm={12} className="slot_grid">
+                      <div className='slot_wrap'>  
+                        <Typography>{row.time_slot}</Typography>
+                        <FormControlLabel
+                          value={row.id}
+                          label={(() => {
+                            const options = [];
+                            for (let i = 1; i <= storeProfile.no_of_ftrooms-row.kids_count; i++) {
+                              options.push(<div className='ft_block'></div>);
+                            }
+                            for (let i = 1; i <= row.kids_count; i++) {  
+                              options.push(<div className='ft_block booked'></div>);
+                            } 
+                            return options;
+                          })()}
+                          control={<Checkbox value={row.slot} onChange={e => handleCheckboxChange(e, row.time_slot)} />}
+                          disabled={
+                            row.kids_count === storeProfile.no_of_ftrooms-row ||
+                            ( ( storeProfile.no_of_ftrooms - row.kids_count + 1 ) <= noOfChild )
+                              ? true
+                              : false
+                          }
+                          className="slot_block"
+                        />
+                      </div>
                     </Grid>
                   ))}
                 </Grid>
@@ -163,37 +175,33 @@ export default function StoreProfile(props) {
               <Grid item sm={6}>
                 <Typography className='session_title'>Evening Slots</Typography>
                 <Grid container spacing={2}>
-                  {/* <Grid item sm={12} md={6}>
-                    <FormControlLabel
-                      value=''
-                      label='08:00 - 08:30'
-                      className='slot_label'
-                      control={<Checkbox value='' onChange={e => handleCheckboxChange(e)} />}
-                    />
-                  </Grid>
-                  <Grid item sm={12} md={6}>
-                    <FormControlLabel
-                      value=''
-                      label='08:30 - 09:00'
-                      className='slot_label'
-                      control={<Checkbox value='' onChange={e => handleCheckboxChange(e)} />}
-                    />
-                  </Grid> */}
-
                   {eveningSlots.map((row, i) => (
-                    <Grid key={i} item sm={12}>
+                    <Grid key={i} item sm={12} className="slot_grid">
+                    <div className='slot_wrap'>  
+                      <Typography>{row.time_slot}</Typography>
                       <FormControlLabel
                         value={row.id}
-                        label={<div>{row.time_slot} - {4 - row.kids_count}</div>}
+                        label={(() => {
+                          const options = [];
+                          for (let i = 1; i <= storeProfile.no_of_ftrooms-row.kids_count; i++) {
+                            options.push(<div className='ft_block'></div>);
+                          }
+                          for (let i = 1; i <= row.kids_count; i++) {  
+                            options.push(<div className='ft_block booked'></div>);
+                          } 
+                          return options;
+                        })()}
                         control={<Checkbox value={row.slot} onChange={e => handleCheckboxChange(e, row.time_slot)} />}
                         disabled={
-                          row.kids_count === 4 ||
-                          ( (5 - row.kids_count) < noOfChild )
+                          row.kids_count === storeProfile.no_of_ftrooms-row ||
+                          ( ( storeProfile.no_of_ftrooms - row.kids_count + 1 ) <= noOfChild )
                             ? true
                             : false
                         }
+                        className="slot_block"
                       />
-                    </Grid>
+                    </div>
+                  </Grid>
                   ))}
                 </Grid>
               </Grid>

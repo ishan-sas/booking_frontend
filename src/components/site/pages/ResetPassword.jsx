@@ -5,7 +5,7 @@ import { Grid, Container, Box, FormGroup, Button, TextField, Typography } from '
 
 import Logo from '../../../assets/images/logo-w.png'
 
-export default function LoginPage(props) {
+export default function ResetPassword(props) {
   const navigate = useNavigate();
 
   const [formInput, setFormInput] = useState({
@@ -56,7 +56,7 @@ export default function LoginPage(props) {
       <Container className='login_page'>
         <Grid container className='login_container'>
           <Grid item sm={12} md={6} pr={6}>
-            <Typography variant='h2'>Login</Typography>
+            <Typography variant='h2'>Reset your password</Typography>
             <Typography variant='body2' className='body-intro'>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s standard dummy.</Typography>
             <Box component={"form"} onSubmit={loginSubmit}>
               <FormGroup className="form-group">
@@ -69,24 +69,13 @@ export default function LoginPage(props) {
                   value={formInput.email || ''}
                 />
               </FormGroup>
-              <FormGroup className="form-group">
-                <TextField
-                  type='password'
-                  fullWidth
-                  label="Password"
-                  name="password"
-                  onChange={handleInput}
-                  value={formInput.password || ''}
-                />
-              </FormGroup>
               <Button
                 fullWidth
                 variant={"outlined"}
                 type={"submit"}
                 className="theme_btn"
-              >Login</Button>
-              <Link to="/password-reset" className='theme-btn button-link reset-link'>Forgot password?</Link> 
-              <Link to="/register" className='theme-btn button-link'>Register</Link> 
+              >Request</Button>
+              <Link to="/login" className='theme-btn button-link'>Login</Link> 
             </Box>
           </Grid>
           <Grid item sm={12} md={6}>

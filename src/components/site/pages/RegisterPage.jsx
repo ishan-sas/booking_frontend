@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import { useNavigate } from 'react-router-dom'
-import { Grid, Box, FormGroup, Button, TextField, Switch } from '@mui/material'
-import MasterLayout from "../MasterLayout"
+import { Link, useNavigate } from 'react-router-dom'
+import { Grid, Container, Box, FormGroup, Button, TextField, Switch, Typography } from '@mui/material'
+
+import Logo from '../../../assets/images/logo-w.png'
 
 export default function RegisterPage(props) {
   const navigate = useNavigate();
@@ -34,10 +35,11 @@ export default function RegisterPage(props) {
       email: formInput.email,
       password: formInput.password,
       contact_no: formInput.contact_no,
-      user_role: 1,
+      user_role: 2, // 1: store user, 2: customers
       is_subscribe: isSubscribe,
       status: 1
     }
+    console.log(data);
     axios.get('sanctum/csrf-cookie').then(response => {
       axios.post('/api/register', data).then(res => {
         if (res.data.status === 200) {
@@ -54,10 +56,12 @@ export default function RegisterPage(props) {
   }
 
   return (
-    <MasterLayout title={"Submit Request"}>
-      <Grid container className="store_page">
-        <Grid item sm={12} md={6}>
-
+    <Grid container className="site__container">
+    <Container className='login_page'>
+      <Grid container className='login_container'>
+        <Grid item sm={12} md={6} pr={6}>
+          <Typography variant='h2'>Register</Typography>
+          <Typography variant='body2' className='body-intro'>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s standard dummy.</Typography>
           <Box component={"form"} onSubmit={registerSubmit}>
             <FormGroup className="form-group">
               <TextField
@@ -99,7 +103,7 @@ export default function RegisterPage(props) {
                 value={formInput.password || ''}
               />
             </FormGroup>
-            <FormGroup className="form-group">
+            <FormGroup className="form-group" style={{marginTop: '-8px'}}>
               Is subscribe?
               <Switch onClick={() => handleSubscribeToggle()} />
             </FormGroup>
@@ -109,11 +113,18 @@ export default function RegisterPage(props) {
               variant={"outlined"}
               type={"submit"}
             >Register</Button>
+            <Link to="/login" className='theme-btn button-link'>Login</Link> 
           </Box>
-
         </Grid>
-      </Grid>
-    </MasterLayout>
+        <Grid item sm={12} md={6}>
+          <Link to="/" className="brand-logo">
+            <img src={Logo} style={{ height: 35 }} />
+          </Link>
+        </Grid>
+      </Grid>  
+    </Container>
+  </Grid>
+
   )
 }
 

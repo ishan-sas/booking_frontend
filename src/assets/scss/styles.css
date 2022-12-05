@@ -141,6 +141,19 @@
 .store__dashboard tbody tr td {
   padding: 5px 16px !important;
 }
+.store__dashboard tbody tr td .status_sign {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  border-radius: 100px;
+  background: #ccc;
+}
+.store__dashboard tbody tr td .status_sign.completed {
+  background: #00ba07;
+}
+.store__dashboard tbody tr td .status_sign.rejected {
+  background: #f00;
+}
 
 .welcome_wrap {
   padding: 5vh 0;
@@ -152,6 +165,63 @@
   align-items: center;
   border-radius: 15px;
   background: #040033;
+}
+
+.login_page .login_container {
+  min-height: 95vh;
+  align-items: center;
+  z-index: 5;
+  position: relative;
+  font-family: Poppins;
+}
+.login_page .login_container .form-group {
+  font-family: Poppins;
+}
+.login_page .login_container .form-group .MuiSwitch-root {
+  margin: -7px 0 10px -8px;
+}
+.login_page::after {
+  content: "";
+  height: 100vh;
+  width: 50%;
+  top: 0;
+  right: 0;
+  position: absolute;
+  background: #040033;
+}
+.login_page h2 {
+  color: #040033;
+  font-size: 35px !important;
+  font-weight: 500 !important;
+  margin: 0 0 2px !important;
+}
+.login_page .body-intro {
+  color: #b6b6b6;
+  margin-bottom: 20px;
+}
+.login_page .brand-logo {
+  height: 38px;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+}
+.login_page .MuiOutlinedInput-root {
+  margin-bottom: 20px;
+}
+.login_page .button-link {
+  color: #9f9f9f !important;
+  text-align: center !important;
+  padding: 12px 0;
+  display: block;
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+.login_page .button-link .reset-link {
+  font-size: 10px;
+  padding: 0;
+  letter-spacing: 0.5px;
+  text-transform: capitalize;
+  text-align: left !important;
 }
 
 .site__container .store_profile .date_picker {
@@ -207,6 +277,7 @@
   color: #8e8e8e;
   font-size: 11px;
   font-weight: 700;
+  margin-bottom: 15px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
 }
@@ -226,6 +297,48 @@
   height: 100%;
   display: flex;
   align-items: center;
+}
+.site__container .slot_wrap {
+  text-align: center;
+  padding: 5px 0;
+  display: inline-block;
+  border-radius: 5px;
+  border: 2px solid #dddddd;
+}
+.site__container .slot_wrap p {
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: -24px;
+}
+.site__container .slot_wrap .slot_block {
+  width: 170px;
+  margin: 0;
+  padding: 18px 0 0;
+}
+.site__container .slot_grid {
+  padding-top: 5px !important;
+}
+.site__container .slot_grid .slot_block {
+  width: 180px;
+  display: block;
+  margin: 7px auto 0;
+  position: relative;
+}
+.site__container .slot_grid .slot_block .MuiCheckbox-root {
+  top: -4px;
+  left: 2px;
+  padding: 0;
+  position: absolute;
+}
+.site__container .slot_grid .slot_block .ft_block {
+  width: 15px;
+  height: 15px;
+  margin: 0 2px;
+  display: inline-block;
+  background: #040033;
+}
+.site__container .slot_grid .slot_block .ft_block.booked {
+  opacity: 0.5;
 }
 
 .site__container .submission_page {

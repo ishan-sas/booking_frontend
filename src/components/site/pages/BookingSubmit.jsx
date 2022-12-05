@@ -22,6 +22,7 @@ export default function BookingSubmit(props) {
     is_subscribe: '',
   });
   const [newAccount, setNewAccount] = useState(true);
+  const [isSubscribe, setIsSubscribe] = useState(false);
   
   const handleInput = (e) => {
     e.persist();
@@ -43,6 +44,14 @@ export default function BookingSubmit(props) {
     margin: '1px 10px 0 0',
   }
 
+  const handleSubscribeToggle = (e) => {
+    setIsSubscribe((prevState) => {
+      return {
+        isSubscribe: !prevState.isSubscribe
+      };
+    });
+  }
+
   const registerWithSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -51,7 +60,7 @@ export default function BookingSubmit(props) {
       password: formInput.password,
       contact_no: formInput.contact_no,
       user_role: 2,
-      is_subscribe: 0,
+      is_subscribe: isSubscribe,
 
       stores_id: state.data.storeId, 
       time_slots_id: state.data.selectedSlotsIds,
@@ -187,6 +196,10 @@ export default function BookingSubmit(props) {
                     onChange={handleInput}
                     value={formInput.password || ''}
                   />
+                </FormGroup>
+                <FormGroup className="form-group" style={{marginTop: '-8px'}}>
+                  Is subscribe?
+                  <Switch onClick={() => handleSubscribeToggle()} />
                 </FormGroup>
                 <Button
                   fullWidth

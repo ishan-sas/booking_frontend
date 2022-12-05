@@ -10,8 +10,9 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 700,
+  width: 800,
   bgcolor: 'background.paper',
+  borderRadius: '8px',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
@@ -23,6 +24,9 @@ export default function Appointments() {
   const [selectedBooking, setSelectedBooking] = React.useState(false);
   const [status, setStatus] = React.useState('');
   const [statusSummery, setStatusSummery] = React.useState([]);
+  const [timeList, setTimeList] = useState([]);
+  const [customerList, setCustomerList] = useState([]);
+  var storeId = localStorage.getItem('store_id');
   const handleClose = () => setOpen(false);
   const [formInput, setFormInput] = useState({
     extra_note: '',
@@ -30,6 +34,8 @@ export default function Appointments() {
 
 	useEffect(() => {
     getAppointmentList();
+    //getTimeList();
+    getCustomerList();
 
   }, []);
 
@@ -40,6 +46,28 @@ export default function Appointments() {
 			}
 		});
 	}
+
+  const getTimeList = () => {
+    axios.get(`/api/get-time-label`).then(res => {
+      if (res.data.status === 200) {
+        setTimeList(res.data.get_data);
+      }
+      else if (res.data.status === 404) {
+        console.log(res.message, "message");
+      }
+    });
+  }
+
+  const getCustomerList = () => {
+    axios.get(`/api/get-customers`).then(res => {
+      if (res.data.status === 200) {
+        setCustomerList(res.data.get_data);
+      }
+      else if (res.data.status === 404) {
+        console.log(res.message, "message");
+      }
+    });
+  }
 
   const handleOpen = (e, id) => {
     axios.get(`/api/get-status-summery/${id}`).then(res => {
@@ -92,7 +120,7 @@ export default function Appointments() {
               <TableCell>Appointment ID</TableCell>
               <TableCell>Customer</TableCell>
               <TableCell>Date</TableCell>
-              <TableCell>Time</TableCell>
+              <TableCell></TableCell>
               <TableCell>Kids</TableCell>
               <TableCell></TableCell>
             </TableRow>
@@ -103,15 +131,28 @@ export default function Appointments() {
                 key={item}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell>{row.status}</TableCell>
-                <TableCell>{row.id}</TableCell>
-                <TableCell>{row.user_id}</TableCell>
+                <TableCell>
+                  {(() => {
+                    const options = [];
+                    if (row.status == 1) {
+                      options.push(<div className='status_sign completed'></div>);
+                    }
+                    if (row.status == 2) {
+                      options.push(<div className='status_sign pending'></div>);
+                    }
+                    if (row.status == 0) {
+                      options.push(<div className='status_sign rejected'></div>);
+                    }
+                    return options;
+                  })()}
+                </TableCell>
+                <TableCell>#{row.id}</TableCell>
+                <TableCell>{customerList.map (item => item.id == row.user_id ? item.name : '' )}</TableCell>
                 <TableCell>{row.booking_date}</TableCell>
-                <TableCell>{row.time_slots_id}</TableCell>
+                <TableCell>{timeList.map (item => item.id == row.time_slots_id ? item.time_slot : '' )}</TableCell>
                 <TableCell>{row.no_of_kids}</TableCell>
                 <TableCell>
-                  {/* <Link className="table-btn" to={`/edit-project/${row.id}`}>EDIT</Link> */}
-                  <Button onClick={ e => handleOpen(e, row.id) }>Open modal</Button>
+                  <Button onClick={ e => handleOpen(e, row.id) }>View</Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -126,10 +167,13 @@ export default function Appointments() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
+          <Grid >
+
+          </Grid>
           <Typography id="modal-modal-title" variant="h6" component="h2">
             #{selectedBooking}
           </Typography>
-            <Grid container spacing={2}>
+          <Grid container spacing={2}>
             {statusSummery?.map((row, i) => (
               <Grid key={i} item sm={4} lg={3}>
                 <Typography className='store-name'>{row.status}</Typography>

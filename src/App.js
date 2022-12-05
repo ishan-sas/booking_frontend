@@ -44,6 +44,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <HashRouter>
         <Routes>
+          
 
         <Route exact path={"/"} element={<HomePage />} />
         <Route exact path={"/contact"} element={<ContactPage />} />

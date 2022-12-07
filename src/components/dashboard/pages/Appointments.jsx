@@ -40,7 +40,7 @@ export default function Appointments() {
   }, []);
 
   const getAppointmentList = () => {
-		axios.get(`/api/bookings-by-store/avondale`).then(res => {
+		axios.get(`/api/bookings-by-store/${storeId}`).then(res => {
 			if(res.data.status === 200) {
 				setAppointmentList(res.data.get_data);
 			}

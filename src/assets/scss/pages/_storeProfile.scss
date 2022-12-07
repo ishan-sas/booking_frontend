@@ -1,7 +1,6 @@
 .site__container {
   .store_profile {
     .date_picker {
-      padding-top: 15vh;
       .form-group {
         flex-direction: row;
         margin-bottom: 20px;
@@ -25,36 +24,25 @@
         }
       }
     }
-    .button-row {
-      margin-top: 58px;
-      .theme-btn {
-        float: right;
-        margin-right: 5%;
-        &.button-link {
-          float: left;
-        }
-      }
-    }
     .picked_date {
-      color: #000;
-      font-size: 14px;
-      font-weight: 700;
+      color: $secondaryColor;
+      font-size: 18px;
+      font-weight: 800;
+      margin-top: 10px;
       text-transform: uppercase;
-      padding-left: 10px;
-      margin-bottom: 22px;
-      border-left: 4px solid $primaryColor;
       span {
-        font-size: 30px;
-        line-height: 1;
+        font-size: 42px;
+        line-height: 0.8;
         display: block;
+        margin-bottom: 4px;
       }
     }
     .session_title {
-      color: #8e8e8e;
-      font-size: 11px;
+      color: $secondaryColor;
+      font-size: 12px;
       font-weight: 700;
-      margin-bottom: 15px;
-      letter-spacing: 0.5px;
+      margin: 5px 0 25px;
+      letter-spacing: 0.75px;
       text-transform: uppercase;
     }
     .slot_label {
@@ -76,46 +64,65 @@
     }
   }
   .slot_wrap {
-    text-align: center;
-    padding: 5px 0;
+    padding-left: 22px;
     display: inline-block;
-    border-radius: 5px;
-    border: 2px solid #dddddd;
     p {
       font-size: 12px;
       font-weight: 700;
       margin-bottom: -24px;
     }
     .slot_block {
-      width: 170px;
       margin: 0;
-      padding: 18px 0 0;
+      padding: 15px 0 0;
     }
   }
   .slot_grid {
+    flex-basis: 50%;
+    float: left;
     padding-top: 5px !important;
     .slot_block {
-      width: 180px;
       display: block;
       margin: 7px auto 0;
       position: relative;
       .MuiCheckbox-root {
-        top: -4px;
-        left: 2px;
+        top: -2px;
+        left: -25px;
         padding: 0;
         position: absolute;
+        svg.MuiSvgIcon-root {
+          width: 19px;
+        }
       }
       .ft_block {
-        width: 15px;
-        height: 15px;
-        margin: 0 2px;
+        width: 13px;
+        height: 13px;
+        margin: 0 3px;
         display: inline-block;
-        background: $primaryColor;
+        background: $secondaryColor;
         &.booked {
           opacity: 0.5;
+        }
+        &:nth-child(1) {
+          margin-left: 1px;
         }
       }
     }
   }
-
+  .col_title {
+    margin-bottom: 42px;
+    border-bottom: 3px solid;
+    h4 {
+      color: $primaryColor;
+      font-size: 28px;
+      font-weight: 900;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+  }
+  .time_col {
+    border-top: 4px solid $primaryColor;
+  }
+  .button-row {
+    margin-top: 35px;
+  }
 }

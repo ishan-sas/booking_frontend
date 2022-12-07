@@ -20,7 +20,7 @@ export default function StoreProfile(props) {
   const [morningSlots, setMorningSlots] = useState([]);
   const [eveningSlots, setEveningSlots] = useState([]);
   const [selectedDate, setSelectedDate] = useState();
-  const [noOfChild, setNoOfChild] = useState();
+  const [noOfChild, setNoOfChild] = useState(1);
   const [selectedSlotsLbl, setselectedSlotsLbl] = useState([]);
   const [selectedSlotsIds, setSelectedSlotsIds] = useState([]);
   const [selectedDateDisplay, setSelectedDateDisplay] = useState([]);
@@ -95,19 +95,19 @@ export default function StoreProfile(props) {
 
   return (
     <MasterLayout title={"Store page"}>
-      <Grid container className="store_profile">
-        <Grid item sm={12} md={6} className="date_picker">
-          <Typography className='welcome__text'><span>When</span> and<span> howmany <br /></span> Childrens for Booking?</Typography>
+      <Grid container spacing={4} mt={4} className="store_profile">
+        <Grid item sm={12} md={4} className="date_picker">
+          <Grid className='col_title'>
+            <Typography variant='h4'>When and howmany childerns for booking</Typography>
+          </Grid>
           <FormGroup className="form-group child_counter">
-            <Typography className="prefixes">for</Typography>
             <Counter
+              label="For"
               onChange={(e) => getNoOfChild(e)}
-              min={1}
+              value={1}
             />
-            <Typography className="suffixes">Child</Typography>
           </FormGroup>
           <FormGroup className="form-group">
-            <Typography className="prefixes">It will be on</Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
                 label="Select a Date"
@@ -119,12 +119,11 @@ export default function StoreProfile(props) {
             </LocalizationProvider>
           </FormGroup>
           <Box className="button-row" sx={{ justifyContent: 'space-between' }}>
-            <Link to="/" className="theme-btn button-link">Back</Link>
-            <Button onClick={() => submitSelectedSlot()} className="theme-btn">Next</Button>
+            <Button onClick={() => submitSelectedSlot()} className="theme-btn" style={{float: 'right'}}>Next</Button>
+            <Link to="/" className="theme-btn secondary-btn">Back</Link>
           </Box>
-
         </Grid>
-        <Grid item sm={6}>
+        <Grid item sm={8}>
           {loading && (
             <div className='loading_wrap'>
               <img src={LoadingImg} style={{ height: 70, display: 'block', margin: '0 auto' }} />
@@ -132,77 +131,83 @@ export default function StoreProfile(props) {
           )}
 
           {isDataLoading && (
-            <Grid sm={12}>
-              <Typography variant='body2' className='picked_date'>{monthLabel}<Typography variant='span'>{dateLabel}</Typography></Typography>
+            <Grid container>
+              <Grid item sm={12} md={6} pl={8}>
+                <Typography variant='body2' className='picked_date'>{monthLabel}<Typography variant='span'>{dateLabel}</Typography></Typography>
+              </Grid>
             </Grid>
           )}
 
           {isDataLoading && (
-            <Grid container spacing={2}>
-              <Grid item sm={12} md={6}>
-                <Typography className='session_title'>Morning Slots</Typography>
-                <Grid container spacing={2}>
-                  {morningSlots.map((row, i) => (
-                    <Grid key={i} item sm={12} className="slot_grid">
-                      <div className='slot_wrap'>  
-                        <Typography>{row.time_slot}</Typography>
-                        <FormControlLabel
-                          value={row.id}
-                          label={(() => {
-                            const options = [];
-                            for (let i = 1; i <= storeProfile.no_of_ftrooms-row.kids_count; i++) {
-                              options.push(<div className='ft_block'></div>);
+            <Grid container>
+              <Grid item sm={12} md={6} pl={8}>
+                <Grid className="time_col">
+                  <Typography className='session_title'>Morning Slots</Typography>
+                  <Grid container spacing={2} className="slot_row">
+                    {morningSlots.map((row, i) => (
+                      <Grid key={i} item sm={12} className="slot_grid">
+                        <div className='slot_wrap'>  
+                          <Typography>{row.time_slot}</Typography>
+                          <FormControlLabel
+                            value={row.id}
+                            label={(() => {
+                              const options = [];
+                              for (let i = 1; i <= storeProfile.no_of_ftrooms-row.kids_count; i++) {
+                                options.push(<div className='ft_block'></div>);
+                              }
+                              for (let i = 1; i <= row.kids_count; i++) {  
+                                options.push(<div className='ft_block booked'></div>);
+                              } 
+                              return options;
+                            })()}
+                            control={<Checkbox value={row.slot} onChange={e => handleCheckboxChange(e, row.time_slot)} />}
+                            disabled={
+                              row.kids_count === storeProfile.no_of_ftrooms-row ||
+                              ( ( storeProfile.no_of_ftrooms - row.kids_count + 1 ) <= noOfChild )
+                                ? true
+                                : false
                             }
-                            for (let i = 1; i <= row.kids_count; i++) {  
-                              options.push(<div className='ft_block booked'></div>);
-                            } 
-                            return options;
-                          })()}
-                          control={<Checkbox value={row.slot} onChange={e => handleCheckboxChange(e, row.time_slot)} />}
-                          disabled={
-                            row.kids_count === storeProfile.no_of_ftrooms-row ||
-                            ( ( storeProfile.no_of_ftrooms - row.kids_count + 1 ) <= noOfChild )
-                              ? true
-                              : false
-                          }
-                          className="slot_block"
-                        />
-                      </div>
-                    </Grid>
-                  ))}
+                            className="slot_block"
+                          />
+                        </div>
+                      </Grid>
+                    ))}
+                  </Grid>
                 </Grid>
               </Grid>
-              <Grid item sm={6}>
-                <Typography className='session_title'>Evening Slots</Typography>
-                <Grid container spacing={2}>
-                  {eveningSlots.map((row, i) => (
-                    <Grid key={i} item sm={12} className="slot_grid">
-                    <div className='slot_wrap'>  
-                      <Typography>{row.time_slot}</Typography>
-                      <FormControlLabel
-                        value={row.id}
-                        label={(() => {
-                          const options = [];
-                          for (let i = 1; i <= storeProfile.no_of_ftrooms-row.kids_count; i++) {
-                            options.push(<div className='ft_block'></div>);
-                          }
-                          for (let i = 1; i <= row.kids_count; i++) {  
-                            options.push(<div className='ft_block booked'></div>);
-                          } 
-                          return options;
-                        })()}
-                        control={<Checkbox value={row.slot} onChange={e => handleCheckboxChange(e, row.time_slot)} />}
-                        disabled={
-                          row.kids_count === storeProfile.no_of_ftrooms-row ||
-                          ( ( storeProfile.no_of_ftrooms - row.kids_count + 1 ) <= noOfChild )
-                            ? true
-                            : false
-                        }
-                        className="slot_block"
-                      />
-                    </div>
+              <Grid item sm={12} md={6} pl={8}>
+                <Grid className="time_col">
+                  <Typography className='session_title'>Evening Slots</Typography>
+                  <Grid container spacing={2} className="slot_row">
+                    {eveningSlots.map((row, i) => (
+                      <Grid key={i} item sm={12} className="slot_grid">
+                        <div className='slot_wrap'>  
+                          <Typography>{row.time_slot}</Typography>
+                          <FormControlLabel
+                            value={row.id}
+                            label={(() => {
+                              const options = [];
+                              for (let i = 1; i <= storeProfile.no_of_ftrooms-row.kids_count; i++) {
+                                options.push(<div className='ft_block'></div>);
+                              }
+                              for (let i = 1; i <= row.kids_count; i++) {  
+                                options.push(<div className='ft_block booked'></div>);
+                              } 
+                              return options;
+                            })()}
+                            control={<Checkbox value={row.slot} onChange={e => handleCheckboxChange(e, row.time_slot)} />}
+                            disabled={
+                              row.kids_count === storeProfile.no_of_ftrooms-row ||
+                              ( ( storeProfile.no_of_ftrooms - row.kids_count + 1 ) <= noOfChild )
+                                ? true
+                                : false
+                            }
+                            className="slot_block"
+                          />
+                        </div>
+                      </Grid>
+                    ))}
                   </Grid>
-                  ))}
                 </Grid>
               </Grid>
             </Grid>

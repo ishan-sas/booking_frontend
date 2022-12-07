@@ -29,20 +29,23 @@ export default function HomePage() {
   return (
     <MasterLayout title={"Home page"}>
       <Grid container className='welcome_wrap'>
-        <Grid item sm={12} md={7}>
-          <Typography className='welcome__text'><span>Select</span> your <br />preferred <span>store...</span></Typography>
+        <Grid item sm={12} md={8}>
+          <Grid className='col_title' mt={2}>
+            <Typography variant='h4'>Select your <br />preferred store</Typography>
+          </Grid>
           <Grid container spacing={2}>
             {storeList.map((row, i) => (
-              <Grid key={i} item sm={4} lg={3}>
+              <Grid key={i} item sm={4} md={3} mt={0}>
                 <Link to={row.slug} className="store-card">
                   <Typography className='store-name'>{row.store_name}</Typography>
-                  <Typography className='store-address'></Typography>       
+                  <Typography className='store-address'>521 Rosebank Road, Avondale, Auckland 1026</Typography>    
+                  <Typography className='store-contact'>09 8 287 430</Typography>   
                 </Link>
               </Grid>
             ))}
           </Grid>
         </Grid>
-        <Grid item sm={5} sx={{display: { md: 'block', sm: 'none'} }}>
+        <Grid item sm={4} pl={5} sx={{display: { md: 'block', sm: 'none'} }}>
           <div className='map_warp'>    
             <img src={NZMap} />
           </div>

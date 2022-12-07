@@ -20,7 +20,7 @@ import Users from "./components/dashboard/pages/Users"
 import StoreRegister from "./components/dashboard/pages/StoreRegister"
 import AddNewUser from "./components/dashboard/pages/AddNewUser"
 
-//axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+// axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 axios.defaults.baseURL = 'http://api.booking.theuniformshoppe.co.nz/';
 axios.defaults.headers.post['Content-Type'] = "application/json";
 axios.defaults.headers.post['Accept'] = "application/json";
@@ -44,7 +44,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <HashRouter>
         <Routes>
-          
+
 
         <Route exact path={"/"} element={<HomePage />} />
         <Route exact path={"/contact"} element={<ContactPage />} />

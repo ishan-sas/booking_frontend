@@ -1,17 +1,20 @@
 .site__container {
   .theme-btn {
     color: #fff;
-    font-size: 13px;
-    font-weight: 700;
-    padding: 12px 35px;
-    min-width: 150px;
-    letter-spacing: 1px;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.5;
+    padding: 8px 12px;
+    display: inline-block;
+    text-transform: uppercase;
+    min-width: 120px;
+    text-align: center;
+    letter-spacing: 2px;
     border-radius: 100px;
-    background: $primaryColor;
-    &.button-link {
-      color: #777;
-      text-align: left;
-      background: transparent;
+    text-decoration: none !important;
+    background: $secondaryColor;
+    &.secondary-btn {
+      background-color: #6f7072;
     }
   }
 }

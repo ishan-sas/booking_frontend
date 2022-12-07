@@ -1,32 +1,44 @@
 .site__container {
   .submission_page {
-    padding-top: 5vh;
-    .button-row {
-      margin-bottom: 25px;
-    }
-    .MuiInputBase-formControl {
-      margin-bottom: 20px;
+    margin-top: 52px;
+    .col_title  {
+      margin-bottom: 0;
     }
     .summery_block {
-      display: block;
-      width: 100%;
-      padding: 28px 28px 10px;
-      border-radius: 10px;
-      border: 2px solid $primaryColor;
+      color: #fff;
+      padding: 24px 15px 15px;
+      border-radius: 0 0 15px 15px;
+      background: $secondaryColor;
+      svg {
+        color: #fff;
+      }
+      .selected_store  {
+        font-weight: 500;
+        letter-spacing: 0.5px;
+        padding-left: 30px;
+        padding-bottom: 5px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #fff;
+        svg {
+          float: none !important;
+          display: inline-block;
+          margin: 0px 0 -3px !important;
+        }
+      }
       ul {
-        padding: 0;
-        margin: 0;
         list-style: none;
+        padding-left: 30px;
+        margin: 0;
         li {
           font-size: 14px;
-          font-weight: 600;
-          margin-bottom: 18px;
+          font-weight: 300;
+          letter-spacing: 1px;
+          margin-bottom: 10px;
         }
       }
     }
-    .backBtn {
-      display: block;
-      margin: 10px auto 0;
+    .MuiInputBase-formControl {
+      margin-bottom: 22px;
     }
   }
 }

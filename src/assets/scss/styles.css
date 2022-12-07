@@ -28,56 +28,46 @@
   background: transparent;
 }
 
-.site__container .welcome__text {
-  color: #040033;
-  font-size: 42px;
-  font-weight: 600;
-  line-height: 1.1;
-  margin-bottom: 38px;
-}
-.site__container .welcome__text span {
-  color: #0080ff;
-}
-
 .site__container .theme-btn {
   color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 12px 35px;
-  min-width: 150px;
-  letter-spacing: 1px;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 1.5;
+  padding: 8px 12px;
+  display: inline-block;
+  text-transform: uppercase;
+  min-width: 120px;
+  text-align: center;
+  letter-spacing: 2px;
   border-radius: 100px;
-  background: #040033;
+  text-decoration: none !important;
+  background: #0d6de5;
 }
-.site__container .theme-btn.button-link {
-  color: #777;
-  text-align: left;
-  background: transparent;
+.site__container .theme-btn.secondary-btn {
+  background-color: #6f7072;
 }
 
 .site__container .store-card {
-  color: #040033;
+  color: #333;
   text-decoration: none;
-  text-align: center;
-  display: block;
-  padding: 25px 5px 20px;
-  border-radius: 10px;
-  background: #e0e0e0;
-  border: 2px solid #d8d8d8;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 5px;
 }
 .site__container .store-card .store-name {
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-transform: uppercase;
 }
 .site__container .store-card .store-address {
-  color: #676767;
   font-size: 12px;
   font-weight: 500;
-  margin: 30px 0 0;
+}
+.site__container .store-card .store-contact {
+  font-size: 12px;
+  font-weight: 500;
+  margin: 8px 0 0;
 }
 .site__container .store-card:hover {
-  border-color: #040033;
+  color: #0d6de5;
 }
 
 .day-label {
@@ -154,6 +144,9 @@
 .store__dashboard tbody tr td .status_sign.rejected {
   background: #f00;
 }
+.store__dashboard .MuiInputBase-formControl {
+  margin-bottom: 20px;
+}
 
 .welcome_wrap {
   padding: 5vh 0;
@@ -165,6 +158,9 @@
   align-items: center;
   border-radius: 15px;
   background: #040033;
+}
+.welcome_wrap .map_warp img {
+  max-width: 100%;
 }
 
 .login_page .login_container {
@@ -208,25 +204,7 @@
 .login_page .MuiOutlinedInput-root {
   margin-bottom: 20px;
 }
-.login_page .button-link {
-  color: #9f9f9f !important;
-  text-align: center !important;
-  padding: 12px 0;
-  display: block;
-  margin-top: 5px;
-  text-transform: uppercase;
-}
-.login_page .button-link .reset-link {
-  font-size: 10px;
-  padding: 0;
-  letter-spacing: 0.5px;
-  text-transform: capitalize;
-  text-align: left !important;
-}
 
-.site__container .store_profile .date_picker {
-  padding-top: 15vh;
-}
 .site__container .store_profile .date_picker .form-group {
   flex-direction: row;
   margin-bottom: 20px;
@@ -249,36 +227,25 @@
 .site__container .store_profile .date_picker .form-group.child_counter .MuiTextField-root {
   width: 150px;
 }
-.site__container .store_profile .button-row {
-  margin-top: 58px;
-}
-.site__container .store_profile .button-row .theme-btn {
-  float: right;
-  margin-right: 5%;
-}
-.site__container .store_profile .button-row .theme-btn.button-link {
-  float: left;
-}
 .site__container .store_profile .picked_date {
-  color: #000;
-  font-size: 14px;
-  font-weight: 700;
+  color: #0d6de5;
+  font-size: 18px;
+  font-weight: 800;
+  margin-top: 10px;
   text-transform: uppercase;
-  padding-left: 10px;
-  margin-bottom: 22px;
-  border-left: 4px solid #040033;
 }
 .site__container .store_profile .picked_date span {
-  font-size: 30px;
-  line-height: 1;
+  font-size: 42px;
+  line-height: 0.8;
   display: block;
+  margin-bottom: 4px;
 }
 .site__container .store_profile .session_title {
-  color: #8e8e8e;
-  font-size: 11px;
+  color: #0d6de5;
+  font-size: 12px;
   font-weight: 700;
-  margin-bottom: 15px;
-  letter-spacing: 0.5px;
+  margin: 5px 0 25px;
+  letter-spacing: 0.75px;
   text-transform: uppercase;
 }
 .site__container .store_profile .slot_label {
@@ -299,11 +266,8 @@
   align-items: center;
 }
 .site__container .slot_wrap {
-  text-align: center;
-  padding: 5px 0;
+  padding-left: 22px;
   display: inline-block;
-  border-radius: 5px;
-  border: 2px solid #dddddd;
 }
 .site__container .slot_wrap p {
   font-size: 12px;
@@ -311,90 +275,123 @@
   margin-bottom: -24px;
 }
 .site__container .slot_wrap .slot_block {
-  width: 170px;
   margin: 0;
-  padding: 18px 0 0;
+  padding: 15px 0 0;
 }
 .site__container .slot_grid {
+  flex-basis: 50%;
+  float: left;
   padding-top: 5px !important;
 }
 .site__container .slot_grid .slot_block {
-  width: 180px;
   display: block;
   margin: 7px auto 0;
   position: relative;
 }
 .site__container .slot_grid .slot_block .MuiCheckbox-root {
-  top: -4px;
-  left: 2px;
+  top: -2px;
+  left: -25px;
   padding: 0;
   position: absolute;
 }
+.site__container .slot_grid .slot_block .MuiCheckbox-root svg.MuiSvgIcon-root {
+  width: 19px;
+}
 .site__container .slot_grid .slot_block .ft_block {
-  width: 15px;
-  height: 15px;
-  margin: 0 2px;
+  width: 13px;
+  height: 13px;
+  margin: 0 3px;
   display: inline-block;
-  background: #040033;
+  background: #0d6de5;
 }
 .site__container .slot_grid .slot_block .ft_block.booked {
   opacity: 0.5;
 }
+.site__container .slot_grid .slot_block .ft_block:nth-child(1) {
+  margin-left: 1px;
+}
+.site__container .col_title {
+  margin-bottom: 42px;
+  border-bottom: 3px solid;
+}
+.site__container .col_title h4 {
+  color: #040033;
+  font-size: 28px;
+  font-weight: 900;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+.site__container .time_col {
+  border-top: 4px solid #040033;
+}
+.site__container .button-row {
+  margin-top: 35px;
+}
 
 .site__container .submission_page {
-  padding-top: 5vh;
+  margin-top: 52px;
 }
-.site__container .submission_page .button-row {
-  margin-bottom: 25px;
-}
-.site__container .submission_page .MuiInputBase-formControl {
-  margin-bottom: 20px;
+.site__container .submission_page .col_title {
+  margin-bottom: 0;
 }
 .site__container .submission_page .summery_block {
-  display: block;
-  width: 100%;
-  padding: 28px 28px 10px;
-  border-radius: 10px;
-  border: 2px solid #040033;
+  color: #fff;
+  padding: 24px 15px 15px;
+  border-radius: 0 0 15px 15px;
+  background: #0d6de5;
+}
+.site__container .submission_page .summery_block svg {
+  color: #fff;
+}
+.site__container .submission_page .summery_block .selected_store {
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  padding-left: 30px;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #fff;
+}
+.site__container .submission_page .summery_block .selected_store svg {
+  float: none !important;
+  display: inline-block;
+  margin: 0px 0 -3px !important;
 }
 .site__container .submission_page .summery_block ul {
-  padding: 0;
-  margin: 0;
   list-style: none;
+  padding-left: 30px;
+  margin: 0;
 }
 .site__container .submission_page .summery_block ul li {
   font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 18px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
 }
-.site__container .submission_page .backBtn {
-  display: block;
-  margin: 10px auto 0;
+.site__container .submission_page .MuiInputBase-formControl {
+  margin-bottom: 22px;
 }
 
 .thank_you-message {
   width: 50%;
   text-align: center;
   display: block;
-  margin: 12% auto 0;
-}
-.thank_you-message .msg-box {
-  padding: 25px 35px 30px;
-  border-radius: 10px;
-  border: 2px solid #ccc;
+  margin: 8% auto 0;
 }
 .thank_you-message .msg-box .thnk-title {
-  font-size: 32px;
-  font-weight: 800;
+  font-size: 28px;
+  font-weight: 700;
   text-transform: uppercase;
+  margin-bottom: 32px;
+  padding-bottom: 15px;
+  border-bottom: 3px solid #040033;
 }
 .thank_you-message .msg-box .appoint_no {
-  font-size: 30px;
+  color: #fff;
+  font-size: 34px;
   font-weight: 600;
   display: inline-block;
-  padding: 0 30px;
-  margin: 15px 0 0;
-  border-radius: 5px;
-  background: #e5e5e5;
-  border: 2px solid #ccc;
+  padding: 0px 38px;
+  margin: 15px 0 20px;
+  border-radius: 100px;
+  background: #0d6de5;
 }/*# sourceMappingURL=styles.css.map */

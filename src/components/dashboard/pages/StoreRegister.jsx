@@ -11,7 +11,8 @@ export default function StoreRegister() {
     email: '',
     password: '',
     contact_no: '',
-    no_of_ftrooms: ''
+    no_of_ftrooms: '',
+    address: ''
   });
 
   const handleInput = (e) => {
@@ -26,6 +27,7 @@ export default function StoreRegister() {
       email: formInput.email,
       password: formInput.password,
       contact_no: formInput.contact_no,
+      address: formInput.address,
       no_of_ftrooms: formInput.no_of_ftrooms,
       user_role: 1,
       is_subscribe: 0,
@@ -73,16 +75,6 @@ export default function StoreRegister() {
         </FormGroup>
         <FormGroup className="form-group">
           <TextField
-            type='tel'
-            fullWidth
-            label="Contact No"
-            name="contact_no"
-            onChange={handleInput}
-            value={formInput.contact_no || ''}
-          />
-        </FormGroup>
-        <FormGroup className="form-group">
-          <TextField
             type='text'
             fullWidth
             label="Email"
@@ -99,6 +91,28 @@ export default function StoreRegister() {
             name="password"
             onChange={handleInput}
             value={formInput.password || ''}
+          />
+        </FormGroup>
+        <FormGroup className="form-group">
+          <TextField
+            type='number'
+            fullWidth
+            label="Contact No"
+            name="contact_no"
+            onChange={handleInput}
+            value={formInput.contact_no || ''}
+          />
+        </FormGroup>
+        <FormGroup className="form-group">
+          <TextField
+            multiline
+            rows={3}
+            type='text'
+            fullWidth
+            label="Address"
+            name="address"
+            onChange={handleInput}
+            value={formInput.address || ''}
           />
         </FormGroup>
 

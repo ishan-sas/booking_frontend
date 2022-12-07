@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import { TableContainer, Paper, Table, TableBody, TableHead, TableRow, TableCell, Typography, Button, Box, 
-  Modal, FormGroup, TextField, Select, FormControl, InputLabel, MenuItem, Grid } from '@mui/material'
+import {
+  TableContainer, Paper, Table, TableBody, TableHead, TableRow, TableCell, Typography, Button, Box,
+  Modal, FormGroup, TextField, Select, FormControl, InputLabel, MenuItem, Grid
+} from '@mui/material'
 import MasterLayout from "../MasterLayout"
 
 const style = {
@@ -32,7 +34,7 @@ export default function Appointments() {
     extra_note: '',
   });
 
-	useEffect(() => {
+  useEffect(() => {
     getAppointmentList();
     //getTimeList();
     getCustomerList();
@@ -40,12 +42,12 @@ export default function Appointments() {
   }, []);
 
   const getAppointmentList = () => {
-		axios.get(`/api/bookings-by-store/${storeId}`).then(res => {
-			if(res.data.status === 200) {
-				setAppointmentList(res.data.get_data);
-			}
-		});
-	}
+    axios.get(`/api/bookings-by-store/${storeId}`).then(res => {
+      if (res.data.status === 200) {
+        setAppointmentList(res.data.get_data);
+      }
+    });
+  }
 
   const getTimeList = () => {
     axios.get(`/api/get-time-label`).then(res => {
@@ -71,11 +73,11 @@ export default function Appointments() {
 
   const handleOpen = (e, id) => {
     axios.get(`/api/get-status-summery/${id}`).then(res => {
-			if(res.data.status === 200) {
-				console.log(res.data.get_data);
+      if (res.data.status === 200) {
+        console.log(res.data.get_data);
         setStatusSummery(res.data.get_data);
-			}
-		});
+      }
+    });
     setSelectedBooking(id);
     setOpen(true);
   }
@@ -147,12 +149,12 @@ export default function Appointments() {
                   })()}
                 </TableCell>
                 <TableCell>#{row.id}</TableCell>
-                <TableCell>{customerList.map (item => item.id == row.user_id ? item.name : '' )}</TableCell>
+                <TableCell>{customerList.map(item => item.id == row.user_id ? item.name : '')}</TableCell>
                 <TableCell>{row.booking_date}</TableCell>
-                <TableCell>{timeList.map (item => item.id == row.time_slots_id ? item.time_slot : '' )}</TableCell>
+                <TableCell>{timeList.map(item => item.id == row.time_slots_id ? item.time_slot : '')}</TableCell>
                 <TableCell>{row.no_of_kids}</TableCell>
                 <TableCell>
-                  <Button onClick={ e => handleOpen(e, row.id) }>View</Button>
+                  <Button onClick={e => handleOpen(e, row.id)}>View</Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -165,6 +167,7 @@ export default function Appointments() {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        className="booking-modal"
       >
         <Box sx={style}>
           <Grid >
@@ -174,44 +177,56 @@ export default function Appointments() {
             #{selectedBooking}
           </Typography>
           <Grid container spacing={2}>
-            {statusSummery?.map((row, i) => (
-              <Grid key={i} item sm={4} lg={3}>
-                <Typography className='store-name'>{row.status}</Typography>
-                <Typography className='store-name'>{row.extra_note}</Typography>      
+            <Grid item sm={6} lg={6}>
+              <Box component={"form"} onSubmit={updateStatus}>
+                <FormGroup className="form-group">
+                  <TextField
+                    multiline
+                    rows={4}
+                    type='text'
+                    fullWidth
+                    label="Extra Note"
+                    name="extra_note"
+                    onChange={handleInput}
+                    value={formInput.extra_note || ''}
+                  />
+                </FormGroup>
+                <FormControl style={{width: '100%'}}>
+                  <InputLabel>Status</InputLabel>
+                  <Select
+                    fullWidth
+                    value={status}
+                    label="Status"
+                    onChange={handleChange}
+                  >
+                    <MenuItem value={0}>Rejected</MenuItem>
+                    <MenuItem value={2}>Pending</MenuItem>
+                    <MenuItem value={1}>Completed</MenuItem>
+                  </Select>
+                </FormControl>
+                <Button
+                  fullWidth
+                  variant={"outlined"}
+                  type={"submit"}
+                >Update</Button>
+              </Box>
+            </Grid>
+            <Grid item sm={6} lg={6}>
+              <Grid container pl={2}>
+                {statusSummery?.map((row, i) => (
+                  <Grid key={i} item sm={12} className="status_block">
+                    <Typography className='status_lbl'>
+                      { row.status == 1 ? 'Completed':'' }
+                      { row.status == 2 ? 'Pending':'' }
+                      { row.status == 3 ? 'Rejected':'' }
+                    </Typography>
+                    <Typography className='extra_note'>{row.extra_note}</Typography>
+                    <Typography className='date'>Updated: {row.created_at}</Typography>
+                  </Grid>
+                ))}
               </Grid>
-            ))}
+            </Grid>
           </Grid>
-          <Box component={"form"} onSubmit={updateStatus}>
-            <FormGroup className="form-group">
-              <TextField
-                multiline
-                rows={4}
-                type='text'
-                fullWidth
-                label="Extra Note"
-                name="extra_note"
-                onChange={handleInput}
-                value={formInput.extra_note || ''}
-              />
-            </FormGroup>
-            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-              <InputLabel>Status</InputLabel>
-              <Select
-                value={status}
-                label="Status"
-                onChange={handleChange}
-              >
-                <MenuItem value={0}>Rejected</MenuItem>
-                <MenuItem value={2}>Pending</MenuItem>
-                <MenuItem value={1}>Completed</MenuItem>
-              </Select>
-            </FormControl>
-            <Button
-              fullWidth
-              variant={"outlined"}
-              type={"submit"}
-            >Update</Button>
-          </Box>
         </Box>
       </Modal>
 

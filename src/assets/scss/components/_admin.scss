@@ -83,4 +83,23 @@
     margin-bottom: 20px;
   }
 }
+.booking-modal {
+  .MuiInputBase-formControl {
+    margin-bottom: 20px;
+  }
+  .status_block {
+    padding: 8px 10px;
+    border-radius: 4px;
+    margin: 0 0 10px !important;
+    background: #efefef;
+    border: 1px solid #c5c5c5;
+    p {
+      font-size: 14px;
+    }
+  }
+  .date {
+    font-size: 12px !important;
+    margin: 2px 0 0;
+  }
+}
 

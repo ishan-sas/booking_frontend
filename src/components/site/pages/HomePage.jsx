@@ -38,8 +38,8 @@ export default function HomePage() {
               <Grid key={i} item sm={4} md={3} mt={0}>
                 <Link to={row.slug} className="store-card">
                   <Typography className='store-name'>{row.store_name}</Typography>
-                  <Typography className='store-address'>521 Rosebank Road, Avondale, Auckland 1026</Typography>    
-                  <Typography className='store-contact'>09 8 287 430</Typography>   
+                  <Typography className='store-address'>{row.address}</Typography>    
+                  <Typography className='store-contact'>{row.contact_no}</Typography>   
                 </Link>
               </Grid>
             ))}

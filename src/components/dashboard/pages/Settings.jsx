@@ -4,22 +4,24 @@ import axios from 'axios'
 import MasterLayout from "../MasterLayout"
 
 export default function Settings() {
-  const [profileInput, setProfile] = useState({
-    name: '',
-    email: '',
+  const [formInput, setFormInput] = useState({
+    store_name: '',
+    no_of_ftrooms: '',
+    contact_no: '',
+    address: '',
   });
   const [error, setError] = useState([]);
 
   useEffect(() => {
-    // getAccountDetails();
-    
+    getProfileDetails();
+
   }, [localStorage.getItem('auth_id')]);
 
-  const getAccountDetails = () => {
-    const user_id = localStorage.getItem('auth_id');
-    axios.get(`/api/edit-account/${user_id}`).then(res => {
+  const getProfileDetails = () => {
+    const store_id = localStorage.getItem('store_id');
+    axios.get(`/api/edit-account/${store_id}`).then(res => {
       if (res.data.status === 200) {
-        setProfile(res.data.profile_data);
+        setFormInput(res.data.get_data);
       }
       else if (res.data.status === 404) {
         console.log(res.message);
@@ -29,119 +31,78 @@ export default function Settings() {
 
   const handleInput = (e) => {
     e.persist();
-    setProfile({ ...profileInput, [e.target.name]: e.target.value });
+    setFormInput({ ...formInput, [e.target.name]: e.target.value });
   }
 
   const updateProfile = (e) => {
     e.preventDefault();
-    // const user_id = localStorage.getItem('auth_id');
-    // const data = profileInput;
-    // axios.put(`/api/update-profile/${user_id}`, data).then(res => {
-    //   if (res.data.status === 200) {
-    //     console.log(res.data.message);
-    //     setError([]);
-    //   }
-    //   else if (res.data.status === 422) {
-    //     setError(res.data.errors);
-    //   }
-    //   else {
-    //     console.log(res.data.errors);
-    //   }
-    // });
+    const store_id = localStorage.getItem('store_id');
+    const data = formInput;
+    axios.put(`/api/update-account/${store_id}`, data).then(res => {
+      if (res.data.status === 200) {
+        console.log(res.data.message);
+        setError([]);
+      }
+      else if (res.data.status === 422) {
+        setError(res.data.errors);
+      }
+      else {
+        console.log(res.data.errors);
+      }
+    });
   }
 
   return (
     <MasterLayout title={"Settings"}>
-      <Typography className='adm-page-title'>Settings</Typography>
-
       <Box component={"form"} onSubmit={updateProfile}>
-        <Grid container>
-          <Grid item xs={8} className="form-col">
-            <Typography variant="span" className="form-group-title">Primary Account</Typography>
-            <FormGroup className="form-group">
-              <TextField
-                type='text'
-                fullWidth
-                label="Name"
-                name="name"
-                onChange={handleInput}
-                value={profileInput.name}
-              />
-              <Typography variant="span">{error.name}</Typography>
-            </FormGroup>
-            <FormGroup className="form-group">
-              <TextField
-                type='email'
-                fullWidth
-                label="Email"
-                name="email"
-                onChange={handleInput}
-                value={profileInput.email}
-              />
-              <Typography variant="span">{error.email}</Typography>
-            </FormGroup>
-            <Button
-              fullWidth
-              variant={"outlined"}
-              type={"submit"}
-              className="user__theme-btn"
-            >
-              Update Profile
-            </Button>
-          </Grid>
-        </Grid>
-
-        <Grid container>
-          <Grid item xs={8} className="form-col">
-            <Typography variant="span" className="form-group-title">Change Password</Typography>
-            <FormGroup className="form-group">
-              <TextField
-                type='password'
-                fullWidth
-                label="New password"
-                name="password"
-                onChange={handleInput}
-                value={profileInput.password}
-              />
-              <Typography variant="span">{error.password}</Typography>
-            </FormGroup>
-            <FormGroup className="form-group">
-              <TextField
-                type='password'
-                fullWidth
-                label="Confirm new password"
-                name="re_password"
-                onChange={handleInput}
-                value={profileInput.re_password}
-              />
-              <Typography variant="span">{error.re_password}</Typography>
-            </FormGroup>
-            <Button
-              fullWidth
-              variant={"outlined"}
-              type={"submit"}
-              className="user__theme-btn"
-            >
-              Update Password
-            </Button>
-          </Grid>
-        </Grid>
-
-        <Grid container>
-          <Grid item xs={8} className="form-col">
-            <Typography variant="span" className="form-group-title">Deactivate the account</Typography>
-            <Typography variant="body2">Components may have multiple widths defined, causing the layout to change at the defined breakpoint.</Typography>
-            <Button
-              fullWidth
-              variant={"outlined"}
-              type={"submit"}
-              className="user__theme-btn deactivate-btn"
-            >
-              Deactivate
-            </Button>
-          </Grid>
-        </Grid>
-
+        <Typography className='adm-page-title'>Settings</Typography>
+        <FormGroup className="form-group">
+          <TextField
+            type='text'
+            fullWidth
+            label="Store Name"
+            name="store_name"
+            onChange={handleInput}
+            value={formInput.store_name || ''}
+          />
+        </FormGroup>
+        <FormGroup className="form-group">
+          <TextField
+            type='number'
+            fullWidth
+            label="No of Fitton Rooms"
+            name="no_of_ftrooms"
+            onChange={handleInput}
+            value={formInput.no_of_ftrooms || ''}
+          />
+        </FormGroup>
+        <FormGroup className="form-group">
+          <TextField
+            multiline
+            rows={3}
+            type='text'
+            fullWidth
+            label="Address"
+            name="address"
+            onChange={handleInput}
+            value={formInput.address || ''}
+          />
+        </FormGroup>
+        <FormGroup className="form-group">
+          <TextField
+            type='number'
+            fullWidth
+            label="Contact No"
+            name="contact_no"
+            onChange={handleInput}
+            value={formInput.contact_no || ''}
+          />
+        </FormGroup>
+        <Button
+          variant={"outlined"}
+          type={"submit"}
+          className="theme-btn"
+        >Update</Button>
       </Box>
     </MasterLayout>
   )

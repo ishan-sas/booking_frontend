@@ -109,11 +109,11 @@ export default function RegisterPage(props) {
             </FormGroup>
 
             <Button
-              fullWidth
               variant={"outlined"}
               type={"submit"}
+              className="theme-btn"
             >Register</Button>
-            <Link to="/login" className='theme-btn button-link'>Login</Link> 
+            <Link to="/login" className='button-link'>Login</Link> 
           </Box>
         </Grid>
         <Grid item sm={12} md={6}>

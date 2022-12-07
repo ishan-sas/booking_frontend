@@ -80,13 +80,12 @@ export default function LoginPage(props) {
                 />
               </FormGroup>
               <Button
-                fullWidth
                 variant={"outlined"}
                 type={"submit"}
-                className="theme_btn"
+                className="theme-btn"
               >Login</Button>
-              <Link to="/password-reset" className='theme-btn button-link reset-link'>Forgot password?</Link> 
-              <Link to="/register" className='theme-btn button-link'>Register</Link> 
+              <Link to="/password-reset" className='button-link reset-link'>Forgot password?</Link> 
+              <Link to="/register" className='button-link'>Register</Link> 
             </Box>
           </Grid>
           <Grid item sm={12} md={6}>

@@ -32,9 +32,9 @@ export default function LeftSideBar() {
           <li style={menuListItem}>
             <Link to="/admin/time-slots" style={menuItem}><InboxIcon style={menuIcon} /> Time slots</Link>
           </li>
-          <li style={menuListItem}>
+          {/* <li style={menuListItem}>
             <Link to="/admin/users" style={menuItem}><InboxIcon style={menuIcon} /> Users</Link>
-          </li>
+          </li> */}
           <li style={menuListItem}>
             <Link to="/admin/settings" style={menuItem}><InboxIcon style={menuIcon} /> Settings</Link>
           </li>

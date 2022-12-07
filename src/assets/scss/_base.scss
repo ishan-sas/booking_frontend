@@ -1,6 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap');
+
+$primaryFont : 'Poppins', sans-serif;
 $primaryColor: #040033;
 $secondaryColor: #0d6de5;
 
+body {
+  font-family: $primaryFont;
+}
 .site__container {
   min-height: 100vh;
   background: #f1f5f9;

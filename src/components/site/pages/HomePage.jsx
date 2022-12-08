@@ -45,7 +45,7 @@ export default function HomePage() {
                   <Typography className='store-address'>{row.address}</Typography>    
                   <Typography className='store-contact'>{row.contact_no}</Typography>   
                 </Link>
-                <Button onClick={() => viewSchoolList(row.id)}>View Schools</Button>
+                {/* <Button onClick={() => viewSchoolList(row.id)}>View Schools</Button> */}
               </Grid>
             ))}
           </Grid>

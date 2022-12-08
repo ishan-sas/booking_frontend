@@ -86,11 +86,13 @@ export default function StoreProfile(props) {
       selectedSlotsLbl: selectedSlotsLbl,
       selectedSlotsIds: selectedSlotsIds
     }
-    navigate('/booking-submit', {
-      state: {
-        data: data
-      }
-    });
+    if(selectedSlotsIds != 0) {
+      navigate('/booking-submit', {
+        state: {
+          data: data
+        }
+      });
+    }
   }
 
   return (
@@ -98,7 +100,7 @@ export default function StoreProfile(props) {
       <Grid container spacing={4} mt={4} className="store_profile">
         <Grid item sm={12} md={4} className="date_picker">
           <Grid className='col_title'>
-            <Typography variant='h4'>When and howmany childerns for booking</Typography>
+            <Typography variant='h4'>When and how many childerns for booking</Typography>
           </Grid>
           <FormGroup className="form-group child_counter">
             <Counter
@@ -177,7 +179,7 @@ export default function StoreProfile(props) {
               </Grid>
               <Grid item sm={12} md={6} pl={8}>
                 <Grid className="time_col">
-                  <Typography className='session_title'>Evening Slots</Typography>
+                  <Typography className='session_title'>Afternoon Slots</Typography>
                   <Grid container spacing={2} className="slot_row">
                     {eveningSlots.map((row, i) => (
                       <Grid key={i} item sm={12} className="slot_grid">

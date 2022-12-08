@@ -155,6 +155,7 @@ export default function TimeSlots() {
                     type='text'
                     size="small"
                     name='time_slot'
+                    placeholder='08.00 - 08.30'
                     value={input.time_slot || ''}
                     onChange={event => handleMondayFormChange(index, event)}
                   />
@@ -166,7 +167,7 @@ export default function TimeSlots() {
                 </div>
               )
             })}
-            <Button type='button' variant="outlined" onClick={() => addMondayFields()} >Add More..</Button>
+            <Button type='button' variant="outlined" onClick={() => addMondayFields()} >New slot</Button>
           </Grid>
           <Grid item sx={{ width: 1/5 }}>
             <Typography className='day-label'>Tuesday</Typography>
@@ -189,6 +190,7 @@ export default function TimeSlots() {
                     type='text'
                     size="small"
                     name='time_slot'
+                    placeholder='08.00 - 08.30'
                     value={input.time_slot}
                     onChange={event => handleTuesdayFormChange(index, event)}
                   />
@@ -200,7 +202,7 @@ export default function TimeSlots() {
                 </div>
               )
             })}
-            <Button type='button' variant="outlined" onClick={() => addTuesdayFields()} >Add More..</Button>
+            <Button type='button' variant="outlined" onClick={() => addTuesdayFields()} >New slot</Button>
           </Grid>
           <Grid item sx={{ width: 1/5 }}>
             <Typography className='day-label'>Wednesday</Typography>
@@ -223,6 +225,7 @@ export default function TimeSlots() {
                     type='text'
                     size="small"
                     name='time_slot'
+                    placeholder='08.00 - 08.30'
                     value={input.time_slot}
                     onChange={event => handleWednesdayFormChange(index, event)}
                   />
@@ -234,7 +237,7 @@ export default function TimeSlots() {
                 </div>
               )
             })}
-            <Button type='button' variant="outlined" onClick={() => addWednesdayFields()} >Add More..</Button>
+            <Button type='button' variant="outlined" onClick={() => addWednesdayFields()} >New slot</Button>
           </Grid>
           <Grid item sx={{ width: 1/5 }}>
             <Typography className='day-label'>Thursday</Typography>
@@ -257,6 +260,7 @@ export default function TimeSlots() {
                     type='text'
                     size="small"
                     name='time_slot'
+                    placeholder='08.00 - 08.30'
                     value={input.time_slot}
                     onChange={event => handleThursdayFormChange(index, event)}
                   />
@@ -291,6 +295,7 @@ export default function TimeSlots() {
                     type='text'
                     size="small"
                     name='time_slot'
+                    placeholder='08.00 - 08.30'
                     value={input.time_slot}
                     onChange={event => handleFridayFormChange(index, event)}
                   />
@@ -302,15 +307,14 @@ export default function TimeSlots() {
                 </div>
               )
             })}
-            <Button type='button' variant="outlined" onClick={() => addFridayFields()} >Add More..</Button>
+            <Button type='button' variant="outlined" onClick={() => addFridayFields()} >New slot</Button>
           </Grid>
 
         </Grid>
         <Button
-          fullWidth
           variant={"outlined"}
           type={"submit"} 
-          style={{marginTop: 20}}>
+          style={{marginTop: 30}}>
           Save
         </Button>
       </form>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { Grid, Typography, Switch, FormGroup, Button, Box, TextField } from '@mui/material'
@@ -23,6 +23,11 @@ export default function BookingSubmit(props) {
   });
   const [newAccount, setNewAccount] = useState(true);
   const [isSubscribe, setIsSubscribe] = useState(false);
+
+  useEffect(() => {
+    getStoreInfo();
+
+  }, []);
 
   const handleInput = (e) => {
     e.persist();
@@ -50,6 +55,10 @@ export default function BookingSubmit(props) {
         isSubscribe: !prevState.isSubscribe
       };
     });
+  }
+
+  const getStoreInfo = () => {
+    console.log(state.data.storeId);
   }
 
   const registerWithSubmit = (e) => {
@@ -212,10 +221,10 @@ export default function BookingSubmit(props) {
             </Grid>
             <Grid item sm={12} md={5} pl={6}>
               <Box className="summery_block" >
-                <Typography className='selected_store'><PlaceIcon style={menuIcon} /> Avondale</Typography>
+                <Typography className='selected_store'><PlaceIcon style={menuIcon} /> {state.data.storeId}</Typography>
                 <ul>
                   <li><EventIcon style={menuIcon} /> {state.data.selectedDate}</li>
-                  <li><AccessAlarmIcon style={menuIcon} /> {state.data.selectedSlotsLbl}</li>
+                  <li><AccessAlarmIcon style={menuIcon} /> {state.data.selectedSlotsLbl} </li>
                   <li><FaceIcon style={menuIcon} /> {state.data.noOfChild} Kid(s)</li>
                 </ul>
               </Box>

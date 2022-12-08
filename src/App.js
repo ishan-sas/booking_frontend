@@ -19,6 +19,7 @@ import Settings from "./components/dashboard/pages/Settings"
 import Users from "./components/dashboard/pages/Users"
 import StoreRegister from "./components/dashboard/pages/StoreRegister"
 import AddNewUser from "./components/dashboard/pages/AddNewUser"
+import AddSchools from "./components/dashboard/pages/StoreSchools"
 
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 axios.defaults.baseURL = 'http://api.booking.theuniformshoppe.co.nz/';
@@ -61,6 +62,7 @@ function App() {
         <Route exact path={"/admin/settings"} element={<Protected component={Settings} />} />
         <Route exact path={"/admin/users"} element={<Protected component={Users} />} />
         <Route exact path={"/admin/add-new-user"} element={<Protected component={AddNewUser} />} />
+        <Route exact path={"/admin/add-schools"} element={<Protected component={AddSchools} />} />
 
         <Route exact path={"/admin/store-register"} element={<Protected component={StoreRegister} />} /> 
 

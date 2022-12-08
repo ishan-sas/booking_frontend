@@ -13,16 +13,17 @@
         color: #fff;
       }
       .selected_store  {
-        font-weight: 500;
+        font-weight: 600;
         letter-spacing: 0.5px;
         padding-left: 30px;
         padding-bottom: 5px;
         margin-bottom: 20px;
+        text-transform: capitalize;
         border-bottom: 1px solid #fff;
         svg {
           float: none !important;
           display: inline-block;
-          margin: 0px 0 -3px !important;
+          margin: 0px 14px -3px 0px !important;
         }
       }
       ul {

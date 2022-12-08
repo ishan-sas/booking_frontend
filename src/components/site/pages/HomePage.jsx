@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react'
 import axios from 'axios'
-import { Grid, Typography } from '@mui/material'
+import { Button, Grid, Typography } from '@mui/material'
 import { Link } from 'react-router-dom'
 import MasterLayout from "../MasterLayout"
 import { useState } from 'react'
 
-import NZMap from '../../../assets/images/nz-map.jpg'
+import NZMap from '../../../assets/images/nz-map.png'
 
 export default function HomePage() {
   const [storeList, setStoreList] = useState([]);
@@ -26,6 +26,10 @@ export default function HomePage() {
     });
   }
 
+  const viewSchoolList = (e) => {
+    alert(e);
+  }
+
   return (
     <MasterLayout title={"Home page"}>
       <Grid container className='welcome_wrap'>
@@ -41,6 +45,7 @@ export default function HomePage() {
                   <Typography className='store-address'>{row.address}</Typography>    
                   <Typography className='store-contact'>{row.contact_no}</Typography>   
                 </Link>
+                <Button onClick={() => viewSchoolList(row.id)}>View Schools</Button>
               </Grid>
             ))}
           </Grid>

@@ -12,6 +12,9 @@ import BookingSubmit from "./components/site/pages/BookingSubmit"
 import ThankYouPage from "./components/site/pages/ThankYouPage"
 import ResetPassword from "./components/site/pages/ResetPassword"
 
+import MyBookings from "./components/dashboard/pages/MyBookings"
+import AccountSettings from "./components/dashboard/pages/AccountSettings"
+
 import Dashboard from "./components/dashboard/Dashboard"
 import Appointments from "./components/dashboard/pages/Appointments"
 import TimeSlots from "./components/dashboard/pages/TimeSlots"
@@ -55,6 +58,9 @@ function App() {
         <Route exact path={"/booking-submit"} element={<BookingSubmit />} />
         <Route exact path={"/thank-you/:appoinmentid"} element={<ThankYouPage />} />
         <Route exact path={"/password-reset"} element={<ResetPassword />} />
+
+        <Route exact path={"/my-bookings"} element={<Protected component={MyBookings} />} />
+        <Route exact path={"/account-settings"} element={<Protected component={AccountSettings} />} />
         
         <Route exact path={"/admin"} element={<Protected component={Dashboard} />} />
         <Route exact path={"/admin/appointments"} element={<Protected component={Appointments} />} />

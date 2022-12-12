@@ -32,8 +32,11 @@ export default function AccountMenu() {
     e.preventDefault();
     axios.post('/api/logout').then(res => {
       if (res.data.status === 200) {
+        localStorage.removeItem('auth_id');
         localStorage.removeItem('auth_token');
+        localStorage.removeItem('auth_type');
         localStorage.removeItem('auth_name');
+        localStorage.removeItem('store_id');
         navigate('/login');
       }
     });

@@ -19,7 +19,7 @@ const style = {
   p: 4,
 };
 
-export default function Appointments() {
+export default function MyBookings() {
   const [appointmentList, setAppointmentList] = useState([]);
   const [open, setOpen] = React.useState(false);
   const [selectedBooking, setSelectedBooking] = React.useState(false);

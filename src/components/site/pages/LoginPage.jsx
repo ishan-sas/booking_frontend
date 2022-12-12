@@ -29,13 +29,14 @@ export default function LoginPage(props) {
         if (res.data.status === 200) {
           localStorage.setItem('auth_id', res.data.profileId);
           localStorage.setItem('auth_token', res.data.token);
+          localStorage.setItem('auth_type', res.data.usertype);
           localStorage.setItem('auth_name', res.data.username);
           localStorage.setItem('store_id', res.data.storeId);
           if (res.data.usertype === 1) {
-            navigate('/admin');
+            navigate('/admin/appointments');
           }
           else if (res.data.usertype === 2) {
-            navigate('/');
+            navigate('/my-bookings');
           }
           else {
             navigate('/login');

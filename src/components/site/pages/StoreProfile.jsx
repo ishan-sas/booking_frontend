@@ -72,6 +72,7 @@ export default function StoreProfile(props) {
   }
 
   const handleCheckboxChange = (e, i) => {
+    setselectedSlotsLbl([]);
     if (e.target.checked) {
       setselectedSlotsLbl([...selectedSlotsLbl, i]);
       setSelectedSlotsIds([...selectedSlotsIds, e.target.value]);

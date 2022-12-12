@@ -22,6 +22,7 @@ export default function LeftSideBar() {
   return (
     <div>
       <Grid sx={{marginBottom: 2, padding: 2, borderRadius: 1, border: '1px solid #ebebeb'}}>
+      { localStorage.getItem('auth_type') === '1' ?
         <ul className='primary_menu' style={{listStyle: 'none', padding: 0, margin: 0}}>
           {/* <li style={menuListItem}>
             <Link to="/admin" style={menuItem}><InboxIcon style={menuIcon} /> Dashboard</Link>
@@ -32,13 +33,26 @@ export default function LeftSideBar() {
           <li style={menuListItem}>
             <Link to="/admin/time-slots" style={menuItem}><InboxIcon style={menuIcon} /> Time slots</Link>
           </li>
-          {/* <li style={menuListItem}>
-            <Link to="/admin/users" style={menuItem}><InboxIcon style={menuIcon} /> Users</Link>
-          </li> */}
+          <li style={menuListItem}>
+            <Link to="/admin/add-schools" style={menuItem}><InboxIcon style={menuIcon} /> Schools</Link>
+          </li>
           <li style={menuListItem}>
             <Link to="/admin/settings" style={menuItem}><InboxIcon style={menuIcon} /> Settings</Link>
           </li>
+          {/* <li style={menuListItem}>
+            <Link to="/admin/users" style={menuItem}><InboxIcon style={menuIcon} /> Users</Link>
+          </li> */}
         </ul>
+      : 
+        <ul className='primary_menu' style={{listStyle: 'none', padding: 0, margin: 0}}>
+          <li style={menuListItem}>
+            <Link to="/my-bookings" style={menuItem}><InboxIcon style={menuIcon} /> My Bookings</Link>
+          </li>
+          <li style={menuListItem}>
+            <Link to="/account-settings" style={menuItem}><InboxIcon style={menuIcon} /> Settings</Link>
+          </li>
+        </ul>
+      }
       </Grid>
       <Typography style={{color: '#040033', fontSize: 12, fontWeight: 500}}>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</Typography>
     </div>

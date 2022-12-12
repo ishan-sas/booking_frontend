@@ -47,9 +47,19 @@ body {
   border-radius: 100px;
   text-decoration: none !important;
   background: #0d6de5;
+  border: 1px solid #0d6de5;
 }
 .site__container .theme-btn.secondary-btn {
   background-color: #6f7072;
+  border: 1px solid #6f7072;
+}
+.site__container .theme-btn.secondary-btn:hover {
+  color: #fff;
+  border: 1px solid #6f7072;
+}
+.site__container .theme-btn:hover {
+  color: #0d6de5;
+  border: 1px solid #0d6de5;
 }
 
 .site__container .store-card {

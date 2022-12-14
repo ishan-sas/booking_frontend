@@ -45,7 +45,7 @@ export default function StoreSchools() {
     const data = {
       schoolTimeSlots: schoolInputFields,
     }
-    console.log(data);
+    //console.log(data);
     axios.get('sanctum/csrf-cookie').then(response => {
       axios.post(`/api/store-schools/${storeId}`, data).then(res => {
         if(res.data.status === 200) {

@@ -64,7 +64,7 @@ export default function LoginPage(props) {
           <Grid item sm={12} md={6} pr={6}>
             <Box className='form-wrap'>
               <Typography variant='h2'>Login</Typography>
-              <Typography variant='body2' className='body-intro'>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s standard dummy.</Typography>
+              {/* <Typography variant='body2' className='body-intro'>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s standard dummy.</Typography> */}
               <Box component={"form"} onSubmit={loginSubmit}>
                 <FormGroup className="form-group">
                   <TextField

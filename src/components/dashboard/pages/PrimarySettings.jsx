@@ -81,7 +81,7 @@ export default function PrimarySettings() {
         <Button
           variant={"outlined"}
           type={"submit"}
-          className="theme-btn"
+          className="adm_theme-btn"
         >Update</Button>
       </Box>
     </MasterLayout>

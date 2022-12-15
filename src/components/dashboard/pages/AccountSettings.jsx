@@ -101,7 +101,7 @@ export default function AccountSettings() {
         <Button
           variant={"outlined"}
           type={"submit"}
-          className="theme-btn"
+          className="adm_theme-btn"
         >Update</Button>
       </Box>
     </MasterLayout>

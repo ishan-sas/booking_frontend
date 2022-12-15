@@ -433,7 +433,7 @@ export default function TimeSlots() {
           variant={"outlined"}
           type={"submit"} 
           style={{marginTop: 30}}
-          className="theme-btn">
+          className="adm_theme-btn">
           Save
         </Button>
       </form>

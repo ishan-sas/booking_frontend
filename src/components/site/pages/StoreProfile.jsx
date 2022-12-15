@@ -26,6 +26,7 @@ export default function StoreProfile(props) {
   const [selectedDateDisplay, setSelectedDateDisplay] = useState([]);
   const [dateLabel, setDateLabel] = useState([]);
   const [monthLabel, setMonthLabel] = useState([]);
+  // const [noOfChiledDisabled, setNoOfChiledDisabled] = useState(false);
 
   useEffect(() => {
     getStoreProfile();
@@ -77,6 +78,12 @@ export default function StoreProfile(props) {
       setselectedSlotsLbl([...selectedSlotsLbl, i]);
       setSelectedSlotsIds([...selectedSlotsIds, e.target.value]);
     }
+    // if(selectedSlotsIds !== 0) {
+    //   setNoOfChiledDisabled(true);
+    // }
+    // else {
+    //   setNoOfChiledDisabled(false);
+    // }
   }
 
   const submitSelectedSlot = () => {
@@ -108,6 +115,7 @@ export default function StoreProfile(props) {
               label="For"
               onChange={(e) => getNoOfChild(e)}
               value={1}
+              // disabled = {(noOfChiledDisabled) ? "disabled" : ""}
             />
           </FormGroup>
           <FormGroup className="form-group">
@@ -213,6 +221,14 @@ export default function StoreProfile(props) {
                   </Grid>
                 </Grid>
               </Grid>
+
+              <Grid item sm={12} pt={4} pl={8}>
+                <ul className='key'>
+                  <li><Box style={{background: '#0d6de5'}}></Box>Available</li>
+                  <li><Box style={{background: '#a5a5a5'}}></Box>Booked</li>
+                </ul>
+              </Grid>
+
             </Grid>
           )}
         </Grid>

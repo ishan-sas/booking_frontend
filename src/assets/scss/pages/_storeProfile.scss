@@ -100,7 +100,7 @@
         display: inline-block;
         background: $secondaryColor;
         &.booked {
-          opacity: 0.5;
+          background-color: #a5a5a5;
         }
         &:nth-child(1) {
           margin-left: 1px;
@@ -124,5 +124,25 @@
   }
   .button-row {
     margin-top: 35px;
+  }
+  .key {
+    text-align: right;
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0;
+    padding-top: 12px;
+    border-top: 1px solid #e2e2e2;
+    li {
+      color: #333;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      div {
+        width: 15px;
+        height: 15px;
+        float: right;
+        margin: 2px 0px 0 8px;
+      }
+    }
   }
 }

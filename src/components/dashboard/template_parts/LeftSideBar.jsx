@@ -59,7 +59,7 @@ export default function LeftSideBar() {
       </Grid>
       <Typography style={{color: '#040033', fontSize: 12, fontWeight: 500}}>
         &copy; Copyright 2023 SAS creative | All Rights Reserved.<br />
-        Design & Developed by: <a href='http://sascreative.co.nz/' target='_blank'>SAS CREATIVE</a>
+        Design & Developed by: <a href='http://sascreative.co.nz/' target='_blank' rel="noreferrer">SAS CREATIVE</a>
       </Typography>
     </div>
   )

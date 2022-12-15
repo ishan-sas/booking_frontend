@@ -8,6 +8,12 @@ body {
   background: #f1f5f9;
 }
 
+.theme-btn {
+  min-width: 200px !important;
+  color: #fff !important;
+  background: #040033 !important;
+}
+
 .MuiTouchRipple-root {
   border-radius: 0 !important;
 }
@@ -349,7 +355,7 @@ body {
   background: #0d6de5;
 }
 .site__container .slot_grid .slot_block .ft_block.booked {
-  opacity: 0.5;
+  background-color: #a5a5a5;
 }
 .site__container .slot_grid .slot_block .ft_block:nth-child(1) {
   margin-left: 1px;
@@ -370,6 +376,26 @@ body {
 }
 .site__container .button-row {
   margin-top: 35px;
+}
+.site__container .key {
+  text-align: right;
+  list-style: none;
+  padding: 0;
+  margin: 5px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid #e2e2e2;
+}
+.site__container .key li {
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.site__container .key li div {
+  width: 15px;
+  height: 15px;
+  float: right;
+  margin: 2px 0px 0 8px;
 }
 
 .site__container .submission_page {

@@ -17,7 +17,6 @@ export default function StoreSchools() {
     axios.get(`/api/edit-storeschools/${storeId}`).then(res => {
       if (res.data.status === 200) {
         setSchoolInputFields(res.data.get_data);
-        //setSchoolInputFields(res.data.get_data.filter(element => element.day === 'Monday').map(element => element));
       }
       else if (res.data.status === 404) {
         console.log(res.message, "message");
@@ -34,7 +33,18 @@ export default function StoreSchools() {
     let newfield = { id: '', stores_id: storeId, school_name: '' }
     setSchoolInputFields([...schoolInputFields, newfield])
   }
-  const removeSchoolFields = (index) => {
+  const removeSchoolFields = (index, id) => {
+    axios.get('sanctum/csrf-cookie').then(response => {
+      axios.delete(`/api/remove-schools/${id}`).then(res => {
+        if(res.data.status === 200) {
+          window.location.reload(); 
+        }
+        else {
+          console.log(res.data.errors, "error");
+        }
+      });
+    });
+
     let data = [...schoolInputFields];
     data.splice(index, 1)
     setSchoolInputFields(data)
@@ -45,7 +55,6 @@ export default function StoreSchools() {
     const data = {
       schoolTimeSlots: schoolInputFields,
     }
-    //console.log(data);
     axios.get('sanctum/csrf-cookie').then(response => {
       axios.post(`/api/store-schools/${storeId}`, data).then(res => {
         if(res.data.status === 200) {
@@ -89,7 +98,7 @@ export default function StoreSchools() {
                   />
                   {
                     index ?
-                      <button type='button' onClick={() => removeSchoolFields(index)} className="removeBtn"><DeleteIcon /></button>
+                      <button type='button' onClick={() => removeSchoolFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                       : null
                   }
                 </div>
@@ -101,7 +110,8 @@ export default function StoreSchools() {
         <Button
           variant={"outlined"}
           type={"submit"} 
-          style={{marginTop: 30}}>
+          style={{marginTop: 30}}
+          className="theme-btn">
           Save
         </Button>
       </form>

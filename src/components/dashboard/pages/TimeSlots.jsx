@@ -43,7 +43,18 @@ export default function TimeSlots() {
     let newfield = { id: '', stores_id: storeId, day: 'Monday', time_slot: '' }
     setMondayInputFields([...mondayInputFields, newfield])
   }
-  const removeMondayFields = (index) => {
+  const removeMondayFields = (index, id) => {
+    axios.get('sanctum/csrf-cookie').then(response => {
+      axios.delete(`/api/remove-timeslot/${id}`).then(res => {
+        if(res.data.status === 200) {
+          window.location.reload(); 
+        }
+        else {
+          console.log(res.data.errors, "error");
+        }
+      });
+    });
+
     let data = [...mondayInputFields];
     data.splice(index, 1)
     setMondayInputFields(data)
@@ -58,7 +69,18 @@ export default function TimeSlots() {
     let newfield = { id: '', stores_id: storeId, day: 'Tuesday', time_slot: '' }
     setTuesdayInputFields([...tuesdayInputFields, newfield])
   }
-  const removeTuesdayFields = (index) => {
+  const removeTuesdayFields = (index, id) => {
+    axios.get('sanctum/csrf-cookie').then(response => {
+      axios.delete(`/api/remove-timeslot/${id}`).then(res => {
+        if(res.data.status === 200) {
+          window.location.reload(); 
+        }
+        else {
+          console.log(res.data.errors, "error");
+        }
+      });
+    });
+
     let data = [...tuesdayInputFields];
     data.splice(index, 1)
     setTuesdayInputFields(data)
@@ -73,7 +95,18 @@ export default function TimeSlots() {
     let newfield = { id: '', stores_id: storeId, day: 'Wednesday', time_slot: '' }
     setWednesdayInputFields([...wednesdayInputFields, newfield])
   }
-  const removeWednesdayFields = (index) => {
+  const removeWednesdayFields = (index, id) => {
+    axios.get('sanctum/csrf-cookie').then(response => {
+      axios.delete(`/api/remove-timeslot/${id}`).then(res => {
+        if(res.data.status === 200) {
+          window.location.reload(); 
+        }
+        else {
+          console.log(res.data.errors, "error");
+        }
+      });
+    });
+    
     let data = [...wednesdayInputFields];
     data.splice(index, 1)
     setWednesdayInputFields(data)
@@ -88,7 +121,18 @@ export default function TimeSlots() {
     let newfield = { id: '', stores_id: storeId, day: 'Thursday', time_slot: '' }
     setThursdayInputFields([...thursdayInputFields, newfield])
   }
-  const removeThursdayFields = (index) => {
+  const removeThursdayFields = (index, id) => {
+    axios.get('sanctum/csrf-cookie').then(response => {
+      axios.delete(`/api/remove-timeslot/${id}`).then(res => {
+        if(res.data.status === 200) {
+          window.location.reload(); 
+        }
+        else {
+          console.log(res.data.errors, "error");
+        }
+      });
+    });
+
     let data = [...thursdayInputFields];
     data.splice(index, 1)
     setThursdayInputFields(data)
@@ -103,7 +147,17 @@ export default function TimeSlots() {
     let newfield = { id: '', stores_id: storeId, day: 'Friday', time_slot: '' }
     setFridayInputFields([...fridayInputFields, newfield])
   }
-  const removeFridayFields = (index) => {
+  const removeFridayFields = (index, id) => {
+    axios.get('sanctum/csrf-cookie').then(response => {
+      axios.delete(`/api/remove-timeslot/${id}`).then(res => {
+        if(res.data.status === 200) {
+          window.location.reload(); 
+        }
+        else {
+          console.log(res.data.errors, "error");
+        }
+      });
+    });
     let data = [...fridayInputFields];
     data.splice(index, 1)
     setFridayInputFields(data)
@@ -118,7 +172,18 @@ export default function TimeSlots() {
     let newfield = { id: '', stores_id: storeId, day: 'Saturday', time_slot: '' }
     setSaturdayInputFields([...saturdayInputFields, newfield])
   }
-  const removeSaturdayFields = (index) => {
+  const removeSaturdayFields = (index, id) => {
+    axios.get('sanctum/csrf-cookie').then(response => {
+      axios.delete(`/api/remove-timeslot/${id}`).then(res => {
+        if(res.data.status === 200) {
+          window.location.reload(); 
+        }
+        else {
+          console.log(res.data.errors, "error");
+        }
+      });
+    });
+
     let data = [...saturdayInputFields];
     data.splice(index, 1)
     setSaturdayInputFields(data)
@@ -179,7 +244,7 @@ export default function TimeSlots() {
                   />
                   {
                     index ?
-                      <button type='button' onClick={() => removeMondayFields(index)} className="removeBtn"><DeleteIcon /></button>
+                      <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                       : null
                   }
                 </div>
@@ -214,7 +279,7 @@ export default function TimeSlots() {
                   />
                   {
                     index ?
-                      <button type='button' onClick={() => removeTuesdayFields(index)} className="removeBtn"><DeleteIcon /></button>
+                      <button type='button' onClick={() => removeTuesdayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                       : null
                   }
                 </div>
@@ -249,7 +314,7 @@ export default function TimeSlots() {
                   />
                   {
                     index ?
-                      <button type='button' onClick={() => removeWednesdayFields(index)} className="removeBtn"><DeleteIcon /></button>
+                      <button type='button' onClick={() => removeWednesdayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                       : null
                   }
                 </div>
@@ -284,13 +349,13 @@ export default function TimeSlots() {
                   />
                   {
                     index ?
-                      <button type='button' onClick={() => removeThursdayFields(index)} className="removeBtn"><DeleteIcon /></button>
+                      <button type='button' onClick={() => removeThursdayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                       : null
                   }
                 </div>
               )
             })}
-            <Button type='button' variant="outlined" onClick={() => addThursdayFields()} >Add More..</Button>
+            <Button type='button' variant="outlined" onClick={() => addThursdayFields()} >New slot</Button>
           </Grid>
           <Grid item sx={{ width: 1/6 }}>
             <Typography className='day-label'>Friday</Typography>
@@ -319,7 +384,7 @@ export default function TimeSlots() {
                   />
                   {
                     index ?
-                      <button type='button' onClick={() => removeFridayFields(index)} className="removeBtn"><DeleteIcon /></button>
+                      <button type='button' onClick={() => removeFridayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                       : null
                   }
                 </div>
@@ -354,7 +419,7 @@ export default function TimeSlots() {
                   />
                   {
                     index ?
-                      <button type='button' onClick={() => removeSaturdayFields(index)} className="removeBtn"><DeleteIcon /></button>
+                      <button type='button' onClick={() => removeSaturdayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                       : null
                   }
                 </div>
@@ -367,7 +432,8 @@ export default function TimeSlots() {
         <Button
           variant={"outlined"}
           type={"submit"} 
-          style={{marginTop: 30}}>
+          style={{marginTop: 30}}
+          className="theme-btn">
           Save
         </Button>
       </form>

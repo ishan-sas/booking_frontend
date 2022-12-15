@@ -207,6 +207,7 @@ export default function Appointments() {
                   fullWidth
                   variant={"outlined"}
                   type={"submit"}
+                  className="theme-btn"
                 >Update</Button>
               </Box>
             </Grid>

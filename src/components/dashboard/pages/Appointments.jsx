@@ -120,6 +120,8 @@ export default function Appointments() {
               <TableCell>Status</TableCell>
               <TableCell>Appointment ID</TableCell>
               <TableCell>Customer</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Contact No</TableCell>
               <TableCell>Date</TableCell>
               <TableCell></TableCell>
               <TableCell>Kids</TableCell>
@@ -149,6 +151,10 @@ export default function Appointments() {
                 </TableCell>
                 <TableCell>#{row.id}</TableCell>
                 <TableCell>{customerList.map(item => item.id === row.user_id ? item.name : '')}</TableCell>
+
+                <TableCell>{customerList.map(item => item.id === row.user_id ? item.email : '')}</TableCell>
+                <TableCell>{customerList.map(item => item.id === row.user_id ? item.contact_no : '')}</TableCell>
+
                 <TableCell>{row.booking_date}</TableCell>
                 <TableCell>{timeList.map(item => item.id === row.time_slots_id ? item.time_slot : '')}</TableCell>
                 <TableCell>{row.no_of_kids}</TableCell>

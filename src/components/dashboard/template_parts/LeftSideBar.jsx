@@ -54,7 +54,10 @@ export default function LeftSideBar() {
         </ul>
       }
       </Grid>
-      <Typography style={{color: '#040033', fontSize: 12, fontWeight: 500}}>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</Typography>
+      <Typography style={{color: '#040033', fontSize: 12, fontWeight: 500}}>
+        &copy; Copyright 2023 SAS creative | All Rights Reserved.<br />
+        Design & Developed by: <a href='http://sascreative.co.nz/' target='_blank'>SAS CREATIVE</a>
+      </Typography>
     </div>
   )
 }

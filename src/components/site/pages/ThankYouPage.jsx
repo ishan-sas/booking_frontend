@@ -16,7 +16,7 @@ export default function ThankYouPage() {
           <img src={Logo} style={{ height: 40, margin: '0px 0px 35px' }} />
           <Box className='msg-box'>
             <Typography className='thnk-title'>Thank you</Typography>
-            <Typography style={{fontSize: '15px', marginBottom: '20px'}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. </Typography>
+            <Typography style={{fontSize: '15px', marginBottom: '20px'}}></Typography>
             <Typography className='appoint_no'>#{lastPart}</Typography>
           </Box>
           <Button onClick={() => navigate(-3)} className="theme-btn secondary-btn" >Back</Button> 

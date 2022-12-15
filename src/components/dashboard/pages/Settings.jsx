@@ -9,6 +9,7 @@ export default function Settings() {
     no_of_ftrooms: '',
     contact_no: '',
     address: '',
+    email: ''
   });
   const [error, setError] = useState([]);
 
@@ -96,6 +97,16 @@ export default function Settings() {
             name="contact_no"
             onChange={handleInput}
             value={formInput.contact_no || ''}
+          />
+        </FormGroup>
+        <FormGroup className="form-group">
+          <TextField
+            type='email'
+            fullWidth
+            label="Email"
+            name="email"
+            onChange={handleInput}
+            value={formInput.email || ''}
           />
         </FormGroup>
         <Button

@@ -39,10 +39,10 @@ export default function LeftSideBar() {
           <li style={menuListItem}>
             <Link to="/admin/store-settings" style={menuItem}><InboxIcon style={menuIcon} /> Store Settings</Link>
           </li>
-          <li style={menuListItem}>
+          {/* <li style={menuListItem}>
             <Link to="/admin/primary-settings" style={menuItem}><InboxIcon style={menuIcon} /> Primary Settings</Link>
           </li>
-          {/* <li style={menuListItem}>
+          <li style={menuListItem}>
             <Link to="/admin/users" style={menuItem}><InboxIcon style={menuIcon} /> Users</Link>
           </li> */}
         </ul>

@@ -10,6 +10,7 @@ export default function TimeSlots() {
   const [wednesdayInputFields, setWednesdayInputFields] = useState([{id: '', wednesday: ''}])
   const [thursdayInputFields, setThursdayInputFields] = useState([{id: '', thursday: ''}])
   const [fridayInputFields, setFridayInputFields] = useState([{id: '', friday: ''}])
+  const [saturdayInputFields, setSaturdayInputFields] = useState([{id: '', saturday: ''}])
   var storeId = localStorage.getItem('store_id');
 
   useEffect(() => {
@@ -25,6 +26,7 @@ export default function TimeSlots() {
         setWednesdayInputFields(res.data.get_data.filter(element => element.day === 'Wednesday').map(element => element));
         setThursdayInputFields(res.data.get_data.filter(element => element.day === 'Thursday').map(element => element));
         setFridayInputFields(res.data.get_data.filter(element => element.day === 'Friday').map(element => element));
+        setSaturdayInputFields(res.data.get_data.filter(element => element.day === 'Saturday').map(element => element));
       }
       else if (res.data.status === 404) {
         console.log(res.message, "message");
@@ -107,6 +109,21 @@ export default function TimeSlots() {
     setFridayInputFields(data)
   }
 
+  const handleSaturdayFormChange = (index, event) => {
+    let data = [...saturdayInputFields];
+    data[index][event.target.name] = event.target.value;
+    setSaturdayInputFields(data);
+  }
+  const addSaturdayFields = () => {
+    let newfield = { id: '', stores_id: storeId, day: 'Saturday', time_slot: '' }
+    setSaturdayInputFields([...saturdayInputFields, newfield])
+  }
+  const removeSaturdayFields = (index) => {
+    let data = [...saturdayInputFields];
+    data.splice(index, 1)
+    setSaturdayInputFields(data)
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -114,7 +131,8 @@ export default function TimeSlots() {
       tuesdayTimeSlots: tuesdayInputFields,
       wednesdayTimeSlots: wednesdayInputFields,
       thursdayTimeSlots: thursdayInputFields,
-      fridayTimeSlots: fridayInputFields
+      fridayTimeSlots: fridayInputFields,
+      saturdayTimeSlots: saturdayInputFields
     }
     axios.get('sanctum/csrf-cookie').then(response => {
       axios.post(`/api/store-timeslots/${storeId}`, data).then(res => {
@@ -134,7 +152,7 @@ export default function TimeSlots() {
 
       <form onSubmit={onSubmit}>
         <Grid container>
-          <Grid item sx={{ width: 1/5 }}>
+          <Grid item sx={{ width: 1/6 }}>
             <Typography className='day-label'>Monday</Typography>
             {mondayInputFields.map((input, index) => {
               return (
@@ -169,7 +187,7 @@ export default function TimeSlots() {
             })}
             <Button type='button' variant="outlined" onClick={() => addMondayFields()} >New slot</Button>
           </Grid>
-          <Grid item sx={{ width: 1/5 }}>
+          <Grid item sx={{ width: 1/6 }}>
             <Typography className='day-label'>Tuesday</Typography>
             {tuesdayInputFields.map((input, index) => {
               return (
@@ -204,7 +222,7 @@ export default function TimeSlots() {
             })}
             <Button type='button' variant="outlined" onClick={() => addTuesdayFields()} >New slot</Button>
           </Grid>
-          <Grid item sx={{ width: 1/5 }}>
+          <Grid item sx={{ width: 1/6 }}>
             <Typography className='day-label'>Wednesday</Typography>
             {wednesdayInputFields.map((input, index) => {
               return (
@@ -239,7 +257,7 @@ export default function TimeSlots() {
             })}
             <Button type='button' variant="outlined" onClick={() => addWednesdayFields()} >New slot</Button>
           </Grid>
-          <Grid item sx={{ width: 1/5 }}>
+          <Grid item sx={{ width: 1/6 }}>
             <Typography className='day-label'>Thursday</Typography>
             {thursdayInputFields.map((input, index) => {
               return (
@@ -274,7 +292,7 @@ export default function TimeSlots() {
             })}
             <Button type='button' variant="outlined" onClick={() => addThursdayFields()} >Add More..</Button>
           </Grid>
-          <Grid item sx={{ width: 1/5 }}>
+          <Grid item sx={{ width: 1/6 }}>
             <Typography className='day-label'>Friday</Typography>
             {fridayInputFields.map((input, index) => {
               return (
@@ -308,6 +326,41 @@ export default function TimeSlots() {
               )
             })}
             <Button type='button' variant="outlined" onClick={() => addFridayFields()} >New slot</Button>
+          </Grid>
+          <Grid item sx={{ width: 1/6 }}>
+            <Typography className='day-label'>Saturday</Typography>
+            {saturdayInputFields.map((input, index) => {
+              return (
+                <div key={index} className="slotBlock">
+                  <input
+                    type='hidden'
+                    name='id'
+                    value={input.id || ''}
+                    onChange={event => handleSaturdayFormChange(index, event)}
+                  />
+                  <input
+                    type='hidden'
+                    name='day'
+                    value={input.day || ''}
+                    onChange={event => handleSaturdayFormChange(index, event)}
+                  />
+                  <TextField
+                    type='text'
+                    size="small"
+                    name='time_slot'
+                    placeholder='08.00 - 08.30'
+                    value={input.time_slot}
+                    onChange={event => handleSaturdayFormChange(index, event)}
+                  />
+                  {
+                    index ?
+                      <button type='button' onClick={() => removeSaturdayFields(index)} className="removeBtn"><DeleteIcon /></button>
+                      : null
+                  }
+                </div>
+              )
+            })}
+            <Button type='button' variant="outlined" onClick={() => addSaturdayFields()} >New slot</Button>
           </Grid>
 
         </Grid>

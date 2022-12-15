@@ -19,6 +19,7 @@ import Dashboard from "./components/dashboard/Dashboard"
 import Appointments from "./components/dashboard/pages/Appointments"
 import TimeSlots from "./components/dashboard/pages/TimeSlots"
 import Settings from "./components/dashboard/pages/Settings"
+import PrimarySettings from "./components/dashboard/pages/PrimarySettings"
 import Users from "./components/dashboard/pages/Users"
 import StoreRegister from "./components/dashboard/pages/StoreRegister"
 import AddNewUser from "./components/dashboard/pages/AddNewUser"
@@ -65,7 +66,8 @@ function App() {
         <Route exact path={"/admin"} element={<Protected component={Dashboard} />} />
         <Route exact path={"/admin/appointments"} element={<Protected component={Appointments} />} />
         <Route exact path={"/admin/time-slots"} element={<Protected component={TimeSlots} />} />
-        <Route exact path={"/admin/settings"} element={<Protected component={Settings} />} />
+        <Route exact path={"/admin/store-settings"} element={<Protected component={Settings} />} />
+        <Route exact path={"/admin/primary-settings"} element={<Protected component={PrimarySettings} />} />
         <Route exact path={"/admin/users"} element={<Protected component={Users} />} />
         <Route exact path={"/admin/add-new-user"} element={<Protected component={AddNewUser} />} />
         <Route exact path={"/admin/add-schools"} element={<Protected component={AddSchools} />} />

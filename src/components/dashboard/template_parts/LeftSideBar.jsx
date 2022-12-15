@@ -37,7 +37,10 @@ export default function LeftSideBar() {
             <Link to="/admin/add-schools" style={menuItem}><InboxIcon style={menuIcon} /> Schools</Link>
           </li>
           <li style={menuListItem}>
-            <Link to="/admin/settings" style={menuItem}><InboxIcon style={menuIcon} /> Settings</Link>
+            <Link to="/admin/store-settings" style={menuItem}><InboxIcon style={menuIcon} /> Store Settings</Link>
+          </li>
+          <li style={menuListItem}>
+            <Link to="/admin/primary-settings" style={menuItem}><InboxIcon style={menuIcon} /> Primary Settings</Link>
           </li>
           {/* <li style={menuListItem}>
             <Link to="/admin/users" style={menuItem}><InboxIcon style={menuIcon} /> Users</Link>

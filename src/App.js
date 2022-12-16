@@ -24,6 +24,7 @@ import Users from "./components/dashboard/pages/Users"
 import StoreRegister from "./components/dashboard/pages/StoreRegister"
 import AddNewUser from "./components/dashboard/pages/AddNewUser"
 import AddSchools from "./components/dashboard/pages/StoreSchools"
+import UnavailableDates from "./components/dashboard/pages/UnavailableDates"
 
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 axios.defaults.baseURL = 'http://api.booking.theuniformshoppe.co.nz/';
@@ -55,7 +56,7 @@ function App() {
         <Route exact path={"/contact"} element={<ContactPage />} />
         <Route exact path={"/register"} element={<RegisterPage />} />
         <Route exact path={"/login"} element={<LoginPage />} />
-        {/* <Route exact path={"/:slug"} element={<StoreProfile />} /> */}
+        <Route exact path={"/:slug"} element={<StoreProfile />} />
         <Route exact path={"/booking-submit"} element={<BookingSubmit />} />
         <Route exact path={"/thank-you/:appoinmentid"} element={<ThankYouPage />} />
         <Route exact path={"/password-reset"} element={<ResetPassword />} />
@@ -71,6 +72,7 @@ function App() {
         <Route exact path={"/admin/users"} element={<Protected component={Users} />} />
         <Route exact path={"/admin/add-new-user"} element={<Protected component={AddNewUser} />} />
         <Route exact path={"/admin/add-schools"} element={<Protected component={AddSchools} />} />
+        <Route exact path={"/admin/add-unavailable-dates"} element={<Protected component={UnavailableDates} />} />
 
         <Route exact path={"/admin/store-register"} element={<Protected component={StoreRegister} />} /> 
 

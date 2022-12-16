@@ -111,12 +111,8 @@ export default function BookingSubmit(props) {
         if (res.data.status === 200) {
           localStorage.setItem('auth_token', res.data.token);
           localStorage.setItem('auth_name', res.data.username);
-          //localStorage.setItem('appointment_id', res.data.get_data);
           navigate(`/thank-you/${res.data.get_data}`);
         }
-        // else {
-        //   setRegister({ ...registerInput, error_list: res.data.validation_errors });
-        // }
       });
     });
   }

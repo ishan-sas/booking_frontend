@@ -38,7 +38,7 @@ export default function HomePage() {
   const [open, setOpen] = React.useState(false);
   const handleClose = () => setOpen(false);
 
-  const [welcomeOpen, setWelcomeOpen] = React.useState(true);
+  const [welcomeOpen, setWelcomeOpen] = React.useState(false);
   const handleWelcomeClose = () => setWelcomeOpen(false); 
 
   useEffect(() => {
@@ -82,12 +82,12 @@ export default function HomePage() {
           <Grid container spacing={2}>
             {storeList.map((row, i) => (
               <Grid key={i} item sm={4} md={3} mt={0}>
-                <Typography onClick={e => handleWelcomeOpen(row.store_name)} className="store-card">
-                {/* <Link to={row.slug} className="store-card"> */}
+                {/* <Typography onClick={e => handleWelcomeOpen(row.store_name)} className="store-card"> */}
+                <Link to={row.slug} className="store-card">
                   <Typography className='store-name'>{row.store_name}</Typography>
                   <Typography className='store-address'>{row.address}</Typography>    
                   <Typography className='store-contact'>{row.contact_no}</Typography>   
-                </Typography>
+                </Link>
                 <Button onClick={e => viewSchoolList(e, row.id)} className="theme-btn"
                   style={{fontSize: '10px', fontWeight: 300, lineHeight: 1.5, padding: '5px 12px', marginTop: '5px'}}
                 >View Schools</Button>

@@ -26,6 +26,7 @@ export default function StoreProfile(props) {
   const [selectedDateDisplay, setSelectedDateDisplay] = useState([]);
   const [dateLabel, setDateLabel] = useState([]);
   const [monthLabel, setMonthLabel] = useState([]);
+  const [unavailableDate, setUnavailableDate] = useState(false);
   // const [noOfChiledDisabled, setNoOfChiledDisabled] = useState(false);
 
   useEffect(() => {
@@ -53,19 +54,39 @@ export default function StoreProfile(props) {
     setMonthLabel(req_month_lbl);
     setSelectedDate(req_date);
     setSelectedDateDisplay(req_date_display);
-    setIsDataLoading(true);
-    setLoading(false);
 
-    axios.get(`/api/get-slots/${storeParams.slug}/${req_date}/${noOfChild}`).then(res => {
+    // console.log(req_date_display);
+
+    axios.get(`/api/get-unavailable-dates/${storeParams.slug}/${req_date_display}`).then(res => {
+      console.log((res.data.get_data).length);
       if(res.data.status === 200) {
-        setMorningSlots(res.data.timeslots.filter(element => element.session === 'AM').map(element => element));
-        setEveningSlots(res.data.timeslots.filter(element => element.session === 'PM').map(element => element));
+        if( (res.data.get_data).length == 0 ) {
+          setUnavailableDate(false);
+          setIsDataLoading(true);
+          setLoading(false);
+        }
+        else {
+          setUnavailableDate(true);
+          setIsDataLoading(false);
+          setLoading(false);
+        }
       }
       else {
         console.log(res.data.errors, "error");
       }
     });
 
+    if(unavailableDate === true) {
+      axios.get(`/api/get-slots/${storeParams.slug}/${req_date}/${noOfChild}`).then(res => {
+        if(res.data.status === 200) {
+          setMorningSlots(res.data.timeslots.filter(element => element.session === 'AM').map(element => element));
+          setEveningSlots(res.data.timeslots.filter(element => element.session === 'PM').map(element => element));
+        }
+        else {
+          console.log(res.data.errors, "error");
+        }
+      });
+    }
   };
 
   const getNoOfChild = (e) => {
@@ -78,12 +99,6 @@ export default function StoreProfile(props) {
       setselectedSlotsLbl([...selectedSlotsLbl, i]);
       setSelectedSlotsIds([...selectedSlotsIds, e.target.value]);
     }
-    // if(selectedSlotsIds !== 0) {
-    //   setNoOfChiledDisabled(true);
-    // }
-    // else {
-    //   setNoOfChiledDisabled(false);
-    // }
   }
 
   const submitSelectedSlot = () => {
@@ -108,7 +123,7 @@ export default function StoreProfile(props) {
       <Grid container spacing={4} mt={4} className="store_profile">
         <Grid item sm={12} md={4} className="date_picker">
           <Grid className='col_title'>
-            <Typography variant='h4'>When and how many childerns for booking</Typography>
+            <Typography variant='h4'>When and how many children for booking</Typography>
           </Grid>
           <FormGroup className="form-group child_counter">
             <Counter
@@ -231,6 +246,13 @@ export default function StoreProfile(props) {
 
             </Grid>
           )}
+
+          {unavailableDate && (
+            <div className='loading_wrap'>
+              <Typography style={{display: 'block', margin: '0 auto'}}>Sorry! there are no timeslots available on this date.</Typography>
+            </div>
+          )}
+
         </Grid>
       </Grid>
     </MasterLayout>

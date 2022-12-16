@@ -139,7 +139,7 @@ export default function HomePage() {
       >
         <Box sx={welcomeStyle} style={{textAlign: 'center'}}>
           {/* <Typography style={{fontSize: '15px', fontWeight: 700, textTransform: 'uppercase', margin: '0 0 12px'}}>Note</Typography>   */}
-          <Typography style={{fontSize: '15px', fontWeight: 500, textTransform: 'uppercase', margin: '0 0 12px'}}>APOLOGIES, OUR BOOKING SYSTEM IS CURRENTLY FACING TECHNICAL ISSUES.<br />
+          <Typography style={{fontSize: '15px', fontWeight: 500, margin: '0 0 12px'}}>APOLOGIES, OUR BOOKING SYSTEM IS CURRENTLY FACING TECHNICAL ISSUES.<br />
           PLEASE RING 0273038087 OR EMAIL longbayshop@sas.co.nz<br />
           TO MAKE A BOOKING</Typography>
           {/* <Typography style={{fontSize: 14}}>

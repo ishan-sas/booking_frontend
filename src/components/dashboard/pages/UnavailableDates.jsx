@@ -1,16 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Button, TextField, Grid, Typography } from '@mui/material'
+import { Button, TextField, Grid, Typography, Select, MenuItem, Box, Modal, FormGroup, Checkbox, FormControlLabel } from '@mui/material'
 import MasterLayout from '../MasterLayout'
 import DeleteIcon from '@mui/icons-material/Delete'
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import moment from 'moment'
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+// import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+// import moment from 'moment'
+import swal from 'sweetalert';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 600,
+  bgcolor: 'background.paper',
+  borderRadius: '5px',
+  boxShadow: 24,
+  p: '20px 25px',
+};
 
 export default function UnavailableDates() {
   var storeId = localStorage.getItem('store_id');
-  const [unavailableDateInputFields, setUnavailableDateInputFields] = useState([{id: '', stores_id:storeId, unave_date: ''}])
+  const [unavailableDateInputFields, setUnavailableDateInputFields] = useState([{ id: '', stores_id: storeId, unave_date: '', unave_type: '' }])
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => setOpen(false);
+  const [slotList, setSlotList] = useState([]);
+  const [selectedDate, setSelectedDate] = useState([]);
+  const [selectedSlotsIds, setSelectedSlotsIds] = useState([]);
+  const [checkedSlotList, setCheckedSlotList] = useState([]);
 
   useEffect(() => {
     getDateData();
@@ -29,21 +48,20 @@ export default function UnavailableDates() {
   }
 
   const handleDateFormChange = (index, event) => {
-    // var req_date_display = moment(value.$d).format("YYYY.MM.DD");
     let data = [...unavailableDateInputFields];
     data[index][event.target.name] = event.target.value;
     setUnavailableDateInputFields(data);
   }
   const addDateFields = () => {
-    let newfield = { id: '', stores_id: storeId, unave_date: '' }
+    let newfield = { id: '', stores_id: storeId, unave_date: '', unave_type: '' }
     setUnavailableDateInputFields([...unavailableDateInputFields, newfield])
   }
   const removeDateFields = (index, id) => {
-    if(id) {
+    if (id) {
       axios.get('sanctum/csrf-cookie').then(response => {
         axios.delete(`/api/remove-unavaidates/${id}`).then(res => {
-          if(res.data.status === 200) {
-            //window.location.reload(); 
+          if (res.data.status === 200) {
+            swal("Good job!", "You clicked the button!", "success");
           }
           else {
             console.log(res.data.errors, "error");
@@ -51,10 +69,58 @@ export default function UnavailableDates() {
         });
       });
     }
-
     let data = [...unavailableDateInputFields];
     data.splice(index, 1)
     setUnavailableDateInputFields(data)
+  }
+
+  const handleSlots = (e, stores_id, unave_date) => {
+    setSelectedDate(unave_date);
+    axios.get(`/api/get-unavailable-slots/${stores_id}/${unave_date}`).then(res => {
+      if (res.data.status === 200) {
+        setSlotList(res.data.get_data);
+      }
+    });
+    axios.get(`/api/get-unavailable-date-slots/${stores_id}/${unave_date}`).then(res => {
+      if (res.data.status === 200) {
+        const unavailableSlots = JSON.parse(res.data.unavailable_slots.time_slot_id);
+        setSelectedSlotsIds(unavailableSlots);
+      
+      }
+    });
+    setOpen(true);
+  }
+
+  const checkUnavailableChecked = slotId => {
+    return (selectedSlotsIds.findIndex(x => x == slotId) > -1);
+  }
+  const handleCheckoutChange = (e, id) => {
+    if (e.target.checked) {
+      setSelectedSlotsIds([...selectedSlotsIds, e.target.value]);
+    }
+    if(!e.target.checked){
+      let updatedSlots = selectedSlotsIds.filter((slotId) => slotId !== e.target.value);
+      setSelectedSlotsIds([...updatedSlots]);
+    }
+  }
+ 
+  const timeSlotSubmit = (e) => {
+    e.preventDefault();
+    const data = {
+      storeId: storeId,
+      selectedDate: selectedDate,
+      clickedSlots: selectedSlotsIds,
+    }
+    axios.get('sanctum/csrf-cookie').then(response => {
+      axios.post(`/api/store-unavailable-slots/${storeId}`, data).then(res => {
+        if (res.data.status === 200) {
+          window.location.reload(); 
+        }
+        else {
+          console.log(res.data.errors, "error");
+        }
+      });
+    });
   }
 
   const onSubmit = (e) => {
@@ -64,8 +130,8 @@ export default function UnavailableDates() {
     }
     axios.get('sanctum/csrf-cookie').then(response => {
       axios.post(`/api/store-unavailable-dates/${storeId}`, data).then(res => {
-        if(res.data.status === 200) {
-          window.location.reload(); 
+        if (res.data.status === 200) {
+          swal("Good job!", "You clicked the button!", "success");
         }
         else {
           console.log(res.data.errors, "error");
@@ -80,44 +146,71 @@ export default function UnavailableDates() {
 
       <form onSubmit={onSubmit}>
         <Grid container>
-          <Grid item sx={{ width: 2/6 }}>
+          <Grid item sx={{ width: 5 / 6 }}>
             {unavailableDateInputFields.map((input, index) => {
               return (
                 <div key={index} className="slotBlock">
-                  <input
-                    type='hidden'
-                    name='id'
-                    value={input.id || ''}
-                    onChange={event => handleDateFormChange(index, event)}
-                  />
-                  <input
-                    type='hidden'
-                    name='stores_id'
-                    value={input.stores_id || ''}
-                    onChange={event => handleDateFormChange(index, event)}
-                  />
-                  <TextField
-                    type='text'
-                    size="small"
-                    name='unave_date'
-                    value={input.unave_date || ''}
-                    placeholder='YYYY.MM.DD'
-                    onChange={event => handleDateFormChange(index, event)}
-                  />
-                  {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DesktopDatePicker
-                      name='unave_date'
-                      inputFormat="YYYY.MM.DD"
-                      value={input.unave_date || ''}
+                  <Grid container>
+                    <input
+                      type='hidden'
+                      name='id'
+                      value={input.id || ''}
                       onChange={event => handleDateFormChange(index, event)}
-                      renderInput={(params) => <TextField {...params} />}
                     />
-                  </LocalizationProvider> */}
-                  {
-                    index ?
-                      <button type='button' onClick={() => removeDateFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
+                    <input
+                      type='hidden'
+                      name='stores_id'
+                      value={input.stores_id || ''}
+                      onChange={event => handleDateFormChange(index, event)}
+                    />
+                    <Grid item sx={{ width: 2 / 8 }}>
+                      <TextField
+                        type='text'
+                        size="small"
+                        name='unave_date'
+                        value={input.unave_date || ''}
+                        placeholder='DD.MM.YYYY'
+                        onChange={event => handleDateFormChange(index, event)}
+                      />
+                    </Grid>
+                    <Grid item sx={{ width: 2 / 8 }}>
+                      <Select
+                        fullWidth
+                        size="small"
+                        value={input.unave_type || ''}
+                        name='unave_type'
+                        label="Type"
+                        onChange={event => handleDateFormChange(index, event)}
+                      >
+                        <MenuItem value={1}>Full date</MenuItem>
+                        <MenuItem value={2}>Selected slots</MenuItem>
+                      </Select>
+                    </Grid>
+                    {input.unave_type === 2 ?
+                      <Grid item sx={{ width: 1 / 8 }}>
+                        <Button onClick={e => handleSlots(e, input.stores_id, input.unave_date)} className="theme-btn"
+                          style={{ fontSize: '10px', fontWeight: 300, lineHeight: 1.5, padding: '5px 12px', marginTop: '5px' }}
+                        >Add Slots</Button>
+                      </Grid>
                       : null
-                  }
+                    }
+                    {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <DesktopDatePicker
+                        name='unave_date'
+                        inputFormat="YYYY.MM.DD"
+                        value={input.unave_date || ''}
+                        onChange={event => handleDateFormChange(index, event)}
+                        renderInput={(params) => <TextField {...params} />}
+                      />
+                    </LocalizationProvider> */}
+                    <Grid item sx={{ width: 2 / 8 }}>
+                      {
+                        index ?
+                          <button type='button' onClick={() => removeDateFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
+                          : null
+                      }
+                    </Grid>
+                  </Grid>
                 </div>
               )
             })}
@@ -126,12 +219,50 @@ export default function UnavailableDates() {
         </Grid>
         <Button
           variant={"outlined"}
-          type={"submit"} 
-          style={{marginTop: 30}}
+          type={"submit"}
+          style={{ marginTop: 30 }}
           className="adm_theme-btn">
           Save
         </Button>
       </form>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className="booking-modal"
+      >
+        <Box sx={style}>
+          <Grid container spacing={2}>
+            <Grid item sm={6} lg={6}>
+              <form onSubmit={timeSlotSubmit}>
+                <FormGroup>
+                  {slotList.map((row, i) => (
+                    <FormControlLabel
+                      key={row.id}
+                      checked={checkUnavailableChecked(row.id)}
+                      value={row.id}
+                      label={row.time_slot}
+                      control={<Checkbox 
+                        value={row.slot} 
+                        onChange={e => handleCheckoutChange(e, row.id)} />}
+                    />
+                  ))}
+                </FormGroup>
+                <Button
+                  variant={"outlined"}
+                  type={"submit"}
+                  style={{ marginTop: 30 }}
+                  className="adm_theme-btn">
+                  Save
+                </Button>
+              </form>
+            </Grid>
+          </Grid>
+        </Box>
+      </Modal>
+
     </MasterLayout>
   )
 }

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import {
-  TableContainer, Paper, Table, TableBody, TableHead, TableRow, TableCell, Typography, Button, Box,
-  Modal, FormGroup, TextField, Select, FormControl, InputLabel, MenuItem, Grid
-} from '@mui/material'
+import { TableContainer, Paper, Table, TableBody, TableHead, TableRow, TableCell, Typography, Button, Box,
+  Modal, FormGroup, TextField, Select, FormControl, InputLabel, MenuItem, Grid } from '@mui/material'
 import MasterLayout from "../MasterLayout"
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
+import SearchIcon from '@mui/icons-material/Search'
+import moment from 'moment'
 
 const style = {
   position: 'absolute',
@@ -19,6 +22,12 @@ const style = {
   p: 4,
 };
 
+const menuIcon = {
+  fontSize: 18,
+  float: 'left',
+  margin: '1px 5px 0 0',
+}
+
 export default function Appointments() {
   const [appointmentList, setAppointmentList] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -27,15 +36,17 @@ export default function Appointments() {
   const [statusSummery, setStatusSummery] = React.useState([]);
   const [timeList, setTimeList] = useState([]);
   const [customerList, setCustomerList] = useState([]);
+  const [selectedDateDisplay, setSelectedDateDisplay] = useState([]);
   var storeId = localStorage.getItem('store_id');
   const handleClose = () => setOpen(false);
   const [formInput, setFormInput] = useState({
     extra_note: '',
   });
+  const [searchFormInput, setSearchFormInput] = useState([]);
 
   useEffect(() => {
     getAppointmentList();
-    //getTimeList();
+    getTimeList();
     getCustomerList();
 
   }, []);
@@ -73,7 +84,6 @@ export default function Appointments() {
   const handleOpen = (e, id) => {
     axios.get(`/api/get-status-summery/${id}`).then(res => {
       if (res.data.status === 200) {
-        console.log(res.data.get_data);
         setStatusSummery(res.data.get_data);
       }
     });
@@ -81,13 +91,36 @@ export default function Appointments() {
     setOpen(true);
   }
 
+  const handleSelectedDate = (value) => {
+    var req_date_display = moment(value.$d).format("YYYY.MM.DD");
+    let filterDate = moment(value.$d).format("DD.MM.YYYY");
+    axios.get(`/api/bookings-by-date/${storeId}/${filterDate}`).then(res => {
+      if (res.data.status === 200) {
+        setAppointmentList(res.data.get_data);
+      }
+    });
+    setSelectedDateDisplay(req_date_display);
+  }
+
   const handleInput = (e) => {
     e.persist();
     setFormInput({ ...formInput, [e.target.name]: e.target.value });
   }
 
+  const handleSearchInput = (e) => {
+    setSearchFormInput(e.target.value);
+  }
+
   const handleChange = (e) => {
     setStatus(e.target.value);
+  }
+
+  const stringSearch = () => {
+    axios.get(`/api/bookings-by-string/${storeId}/${searchFormInput}`).then(res => {
+      if (res.data.status === 200) {
+        setAppointmentList(res.data.get_data);
+      }
+    });
   }
 
   const updateStatus = (e) => {
@@ -111,19 +144,49 @@ export default function Appointments() {
 
   return (
     <MasterLayout title={"Appointments"}>
-      <Typography className='adm-page-title'>Appointment</Typography>
+      <Typography className='adm-page-title' style={{marginBottom: '5px'}}>Appointment</Typography>
+      <Grid container spacing={2} mb={2}>
+        <Grid item md={4} flex sx={{ flexDirection: 'row-reverse' }}>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DesktopDatePicker
+              label="Select a Date"
+              inputFormat="DD.MM.YYYY"
+              value={selectedDateDisplay}
+              onChange={handleSelectedDate}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+        </Grid>
+        <Grid item>
+          <TextField
+            type='text'
+            fullWidth
+            label="By ID"
+            name="filter"
+            style={{width: '200px', display: 'inline-block'}}
+            onChange={handleSearchInput}
+            //value={formInput.store_name || ''}
+          />
+          <Button
+            variant={"outlined"}
+            type={"button"}
+            onClick={stringSearch}
+            style={{width: '30px', height: '55px', display: 'inline-block'}}
+          ><SearchIcon /></Button>
+        </Grid>
+      </Grid>
 
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow>
               <TableCell>Status</TableCell>
-              <TableCell>Appointment ID</TableCell>
+              <TableCell>ID</TableCell>
               <TableCell>Customer</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Contact No</TableCell>
               <TableCell>Date</TableCell>
-              <TableCell></TableCell>
+              <TableCell style={{minWidth: '135px'}}>Time Slot</TableCell>
               <TableCell>Kids</TableCell>
               <TableCell></TableCell>
             </TableRow>
@@ -156,7 +219,7 @@ export default function Appointments() {
                 <TableCell>{customerList.map(item => item.id === row.user_id ? item.contact_no : '')}</TableCell>
 
                 <TableCell>{row.booking_date}</TableCell>
-                <TableCell>{timeList.map(item => item.id === row.time_slots_id ? item.time_slot : '')}</TableCell>
+                <TableCell>{timeList.map(item => item.id == JSON.parse(row.time_slots_id) ? item.time_slot : '')}</TableCell>
                 <TableCell>{row.no_of_kids}</TableCell>
                 <TableCell>
                   <Button onClick={e => handleOpen(e, row.id)}>View</Button>

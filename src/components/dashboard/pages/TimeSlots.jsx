@@ -176,7 +176,7 @@ export default function TimeSlots() {
     axios.get('sanctum/csrf-cookie').then(response => {
       axios.delete(`/api/remove-timeslot/${id}`).then(res => {
         if(res.data.status === 200) {
-          window.location.reload(); 
+          // window.location.reload(); 
         }
         else {
           console.log(res.data.errors, "error");

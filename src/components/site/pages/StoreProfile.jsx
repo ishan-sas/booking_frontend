@@ -55,10 +55,7 @@ export default function StoreProfile(props) {
     setSelectedDate(req_date);
     setSelectedDateDisplay(req_date_display);
 
-    // console.log(req_date_display);
-
-    axios.get(`/api/get-unavailable-dates/${storeParams.slug}/${req_date_display}`).then(res => {
-      console.log((res.data.get_data).length);
+    axios.get(`/api/get-unavailable-dates/${storeParams.slug}/${req_date}`).then(res => {
       if(res.data.status === 200) {
         if( (res.data.get_data).length == 0 ) {
           setUnavailableDate(false);
@@ -76,9 +73,10 @@ export default function StoreProfile(props) {
       }
     });
 
-    if(unavailableDate === true) {
+    if(unavailableDate === false) {
       axios.get(`/api/get-slots/${storeParams.slug}/${req_date}/${noOfChild}`).then(res => {
         if(res.data.status === 200) {
+          console.log(res.data.timeslots);
           setMorningSlots(res.data.timeslots.filter(element => element.session === 'AM').map(element => element));
           setEveningSlots(res.data.timeslots.filter(element => element.session === 'PM').map(element => element));
         }
@@ -137,9 +135,10 @@ export default function StoreProfile(props) {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
                 label="Select a Date"
-                inputFormat="YYYY.MM.DD"
+                inputFormat="DD.MM.YYYY"
                 value={selectedDateDisplay}
                 onChange={handleSelectedDate}
+                minDate={moment().toDate()}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
@@ -173,7 +172,7 @@ export default function StoreProfile(props) {
                     {morningSlots.map((row, i) => (
                       <Grid key={i} item sm={12} className="slot_grid">
                         <div className='slot_wrap'>  
-                          <Typography>{row.time_slot}</Typography>
+                          <Typography>{row.time_slot} - {row.id}</Typography>
                           <FormControlLabel
                             value={row.id}
                             label={(() => {

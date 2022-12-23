@@ -172,7 +172,7 @@ export default function StoreProfile(props) {
                     {morningSlots.map((row, i) => (
                       <Grid key={i} item sm={12} className="slot_grid">
                         <div className='slot_wrap'>  
-                          <Typography>{row.time_slot} - {row.id}</Typography>
+                          <Typography>{row.time_slot}</Typography>
                           <FormControlLabel
                             value={row.id}
                             label={(() => {

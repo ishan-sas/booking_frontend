@@ -40,7 +40,7 @@ export default function LeftSideBar() {
             <Link to="/admin/store-settings" style={menuItem}><InboxIcon style={menuIcon} /> Store Settings</Link>
           </li>
           <li style={menuListItem}>
-            <Link to="/admin/add-unavailable-dates" style={menuItem}><InboxIcon style={menuIcon} /> Unavailable Dates</Link>
+            <Link to="/admin/add-unavailable-dates" style={menuItem}><InboxIcon style={menuIcon} /> Unavailable Dates/Slots</Link>
           </li>
           {/* <li style={menuListItem}>
             <Link to="/admin/users" style={menuItem}><InboxIcon style={menuIcon} /> Users</Link>

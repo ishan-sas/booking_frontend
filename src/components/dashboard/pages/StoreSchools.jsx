@@ -34,17 +34,18 @@ export default function StoreSchools() {
     setSchoolInputFields([...schoolInputFields, newfield])
   }
   const removeSchoolFields = (index, id) => {
-    axios.get('sanctum/csrf-cookie').then(response => {
-      axios.delete(`/api/remove-schools/${id}`).then(res => {
-        if(res.data.status === 200) {
-          window.location.reload(); 
-        }
-        else {
-          console.log(res.data.errors, "error");
-        }
+    if (id) {
+      axios.get('sanctum/csrf-cookie').then(response => {
+        axios.delete(`/api/remove-schools/${id}`).then(res => {
+          if(res.data.status === 200) {
+            window.location.reload(); 
+          }
+          else {
+            console.log(res.data.errors, "error");
+          }
+        });
       });
-    });
-
+    }
     let data = [...schoolInputFields];
     data.splice(index, 1)
     setSchoolInputFields(data)

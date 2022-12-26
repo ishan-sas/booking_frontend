@@ -142,7 +142,7 @@ export default function UnavailableDates() {
 
   return (
     <MasterLayout title={"Unavailable Dates"}>
-      <Typography className='adm-page-title'>Setup unavailable dates</Typography>
+      <Typography className='adm-page-title'>Setup Unavailable Dates/Slots</Typography>
 
       <form onSubmit={onSubmit}>
         <Grid container>

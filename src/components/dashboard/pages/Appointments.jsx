@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 import { TableContainer, Paper, Table, TableBody, TableHead, TableRow, TableCell, Typography, Button, Box,
   Modal, FormGroup, TextField, Select, FormControl, InputLabel, MenuItem, Grid } from '@mui/material'
 import MasterLayout from "../MasterLayout"
@@ -115,6 +116,14 @@ export default function Appointments() {
     setStatus(e.target.value);
   }
 
+  const handlePDFDownloader = (value) => {
+    axios.get(`/api/downloadPDF`).then(res => {
+      if (res.data.status === 200) {
+        console.log(res);
+      }
+    });
+  }
+
   const stringSearch = () => {
     axios.get(`/api/bookings-by-string/${storeId}/${searchFormInput}`).then(res => {
       if (res.data.status === 200) {
@@ -177,6 +186,7 @@ export default function Appointments() {
       </Grid>
 
       <TableContainer component={Paper}>
+        <Button onClick={handlePDFDownloader}>PDF Download</Button>
         <Table sx={{ minWidth: 650 }}>
           <TableHead>
             <TableRow>

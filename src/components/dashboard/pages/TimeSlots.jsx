@@ -44,17 +44,18 @@ export default function TimeSlots() {
     setMondayInputFields([...mondayInputFields, newfield])
   }
   const removeMondayFields = (index, id) => {
-    axios.get('sanctum/csrf-cookie').then(response => {
-      axios.delete(`/api/remove-timeslot/${id}`).then(res => {
-        if(res.data.status === 200) {
-          window.location.reload(); 
-        }
-        else {
-          console.log(res.data.errors, "error");
-        }
+    if (id) {
+      axios.get('sanctum/csrf-cookie').then(response => {
+        axios.delete(`/api/remove-timeslot/${id}`).then(res => {
+          if(res.data.status === 200) {
+            window.location.reload(); 
+          }
+          else {
+            console.log(res.data.errors, "error");
+          }
+        });
       });
-    });
-
+    }
     let data = [...mondayInputFields];
     data.splice(index, 1)
     setMondayInputFields(data)
@@ -70,17 +71,18 @@ export default function TimeSlots() {
     setTuesdayInputFields([...tuesdayInputFields, newfield])
   }
   const removeTuesdayFields = (index, id) => {
-    axios.get('sanctum/csrf-cookie').then(response => {
-      axios.delete(`/api/remove-timeslot/${id}`).then(res => {
-        if(res.data.status === 200) {
-          window.location.reload(); 
-        }
-        else {
-          console.log(res.data.errors, "error");
-        }
+    if (id) {
+      axios.get('sanctum/csrf-cookie').then(response => {
+        axios.delete(`/api/remove-timeslot/${id}`).then(res => {
+          if(res.data.status === 200) {
+            window.location.reload(); 
+          }
+          else {
+            console.log(res.data.errors, "error");
+          }
+        });
       });
-    });
-
+    }
     let data = [...tuesdayInputFields];
     data.splice(index, 1)
     setTuesdayInputFields(data)
@@ -96,17 +98,18 @@ export default function TimeSlots() {
     setWednesdayInputFields([...wednesdayInputFields, newfield])
   }
   const removeWednesdayFields = (index, id) => {
-    axios.get('sanctum/csrf-cookie').then(response => {
-      axios.delete(`/api/remove-timeslot/${id}`).then(res => {
-        if(res.data.status === 200) {
-          window.location.reload(); 
-        }
-        else {
-          console.log(res.data.errors, "error");
-        }
+    if (id) {
+      axios.get('sanctum/csrf-cookie').then(response => {
+        axios.delete(`/api/remove-timeslot/${id}`).then(res => {
+          if(res.data.status === 200) {
+            window.location.reload(); 
+          }
+          else {
+            console.log(res.data.errors, "error");
+          }
+        });
       });
-    });
-    
+    }
     let data = [...wednesdayInputFields];
     data.splice(index, 1)
     setWednesdayInputFields(data)
@@ -122,17 +125,18 @@ export default function TimeSlots() {
     setThursdayInputFields([...thursdayInputFields, newfield])
   }
   const removeThursdayFields = (index, id) => {
-    axios.get('sanctum/csrf-cookie').then(response => {
-      axios.delete(`/api/remove-timeslot/${id}`).then(res => {
-        if(res.data.status === 200) {
-          window.location.reload(); 
-        }
-        else {
-          console.log(res.data.errors, "error");
-        }
+    if (id) {
+      axios.get('sanctum/csrf-cookie').then(response => {
+        axios.delete(`/api/remove-timeslot/${id}`).then(res => {
+          if(res.data.status === 200) {
+            window.location.reload(); 
+          }
+          else {
+            console.log(res.data.errors, "error");
+          }
+        });
       });
-    });
-
+    }
     let data = [...thursdayInputFields];
     data.splice(index, 1)
     setThursdayInputFields(data)
@@ -148,16 +152,18 @@ export default function TimeSlots() {
     setFridayInputFields([...fridayInputFields, newfield])
   }
   const removeFridayFields = (index, id) => {
-    axios.get('sanctum/csrf-cookie').then(response => {
-      axios.delete(`/api/remove-timeslot/${id}`).then(res => {
-        if(res.data.status === 200) {
-          window.location.reload(); 
-        }
-        else {
-          console.log(res.data.errors, "error");
-        }
+    if (id) {
+      axios.get('sanctum/csrf-cookie').then(response => {
+        axios.delete(`/api/remove-timeslot/${id}`).then(res => {
+          if(res.data.status === 200) {
+            window.location.reload(); 
+          }
+          else {
+            console.log(res.data.errors, "error");
+          }
+        });
       });
-    });
+    }
     let data = [...fridayInputFields];
     data.splice(index, 1)
     setFridayInputFields(data)
@@ -173,17 +179,18 @@ export default function TimeSlots() {
     setSaturdayInputFields([...saturdayInputFields, newfield])
   }
   const removeSaturdayFields = (index, id) => {
-    axios.get('sanctum/csrf-cookie').then(response => {
-      axios.delete(`/api/remove-timeslot/${id}`).then(res => {
-        if(res.data.status === 200) {
-          // window.location.reload(); 
-        }
-        else {
-          console.log(res.data.errors, "error");
-        }
+    if (id) {
+      axios.get('sanctum/csrf-cookie').then(response => {
+        axios.delete(`/api/remove-timeslot/${id}`).then(res => {
+          if(res.data.status === 200) {
+            window.location.reload(); 
+          }
+          else {
+            console.log(res.data.errors, "error");
+          }
+        });
       });
-    });
-
+    }
     let data = [...saturdayInputFields];
     data.splice(index, 1)
     setSaturdayInputFields(data)

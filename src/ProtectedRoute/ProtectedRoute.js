@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Navigate } from 'react-router-dom';
 
+import LoadingImg from '../../src/assets/images/loading.gif'
+
 export const Protected = ({ component: Component, ...rest }) => {
     const navigate = useNavigate();
     const [Authenticated, setAuthenticated] = useState(false);
@@ -39,7 +41,9 @@ export const Protected = ({ component: Component, ...rest }) => {
     });
 
     if(Loading) {
-        return <h1>Loading...</h1>
+        return <div className='loading_wrap'>
+            <img src={LoadingImg} style={{ height: 70, display: 'block', margin: '18% auto 0' }} />
+        </div>
     }
 
     if (localStorage.getItem('auth_token')) { 

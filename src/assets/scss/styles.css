@@ -172,6 +172,10 @@ body {
   margin-bottom: 2px;
 }
 
+.datePicker .MuiOutlinedInput-input {
+  height: 0.4375em !important;
+}
+
 .booking-modal .MuiInputBase-formControl {
   margin-bottom: 20px;
 }
@@ -188,6 +192,18 @@ body {
 .booking-modal .date {
   font-size: 12px !important;
   margin: 2px 0 0;
+}
+.booking-modal .bookingpop-summery {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px;
+}
+.booking-modal .bookingpop-summery li p {
+  width: 142px;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 2px;
 }
 
 .welcome_wrap {

@@ -28,6 +28,10 @@ export default function AccountMenu() {
     setAnchorEl(null);
   };
 
+  const openSettings = () => {
+    navigate('/admin/store-settings');
+  }
+
   const logoutSubmit = (e) => {
     e.preventDefault();
     axios.post('/api/logout').then(res => {
@@ -95,8 +99,8 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem>
-          <Avatar /> My account
+        <MenuItem onClick={openSettings}>
+          <Avatar /> Settings
         </MenuItem>
         <MenuItem component={"form"} onSubmit={logoutSubmit}>
           <Button type={"submit"} sx={{ p: 0 }}>

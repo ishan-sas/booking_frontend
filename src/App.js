@@ -26,7 +26,7 @@ import AddNewUser from "./components/dashboard/pages/AddNewUser"
 import AddSchools from "./components/dashboard/pages/StoreSchools"
 import UnavailableDates from "./components/dashboard/pages/UnavailableDates"
 
-// axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+//axios.defaults.baseURL = 'http://127.0.0.1:8000/';
 axios.defaults.baseURL = 'http://api.booking.theuniformshoppe.co.nz/';
 axios.defaults.headers.post['Content-Type'] = "application/json";
 axios.defaults.headers.post['Accept'] = "application/json";
@@ -56,7 +56,7 @@ function App() {
         <Route exact path={"/contact"} element={<ContactPage />} />
         <Route exact path={"/register"} element={<RegisterPage />} />
         <Route exact path={"/login"} element={<LoginPage />} />
-        {/* <Route exact path={"/:slug"} element={<StoreProfile />} /> */}
+        <Route exact path={"/:slug"} element={<StoreProfile />} />
         <Route exact path={"/booking-submit"} element={<BookingSubmit />} />
         <Route exact path={"/thank-you/:appoinmentid"} element={<ThankYouPage />} />
         <Route exact path={"/password-reset"} element={<ResetPassword />} />

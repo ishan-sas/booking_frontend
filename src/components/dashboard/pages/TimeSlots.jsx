@@ -11,6 +11,7 @@ export default function TimeSlots() {
   const [thursdayInputFields, setThursdayInputFields] = useState([{id: '', thursday: ''}])
   const [fridayInputFields, setFridayInputFields] = useState([{id: '', friday: ''}])
   const [saturdayInputFields, setSaturdayInputFields] = useState([{id: '', saturday: ''}])
+  const [disableButton, setDisableButton] = useState(false)
   var storeId = localStorage.getItem('store_id');
 
   useEffect(() => {
@@ -48,7 +49,7 @@ export default function TimeSlots() {
       axios.get('sanctum/csrf-cookie').then(response => {
         axios.delete(`/api/remove-timeslot/${id}`).then(res => {
           if(res.data.status === 200) {
-            window.location.reload(); 
+            console.log(res.data);
           }
           else {
             console.log(res.data.errors, "error");
@@ -75,7 +76,7 @@ export default function TimeSlots() {
       axios.get('sanctum/csrf-cookie').then(response => {
         axios.delete(`/api/remove-timeslot/${id}`).then(res => {
           if(res.data.status === 200) {
-            window.location.reload(); 
+            console.log(res.data);
           }
           else {
             console.log(res.data.errors, "error");
@@ -102,7 +103,7 @@ export default function TimeSlots() {
       axios.get('sanctum/csrf-cookie').then(response => {
         axios.delete(`/api/remove-timeslot/${id}`).then(res => {
           if(res.data.status === 200) {
-            window.location.reload(); 
+            console.log(res.data);
           }
           else {
             console.log(res.data.errors, "error");
@@ -129,7 +130,7 @@ export default function TimeSlots() {
       axios.get('sanctum/csrf-cookie').then(response => {
         axios.delete(`/api/remove-timeslot/${id}`).then(res => {
           if(res.data.status === 200) {
-            window.location.reload(); 
+            console.log(res.data);
           }
           else {
             console.log(res.data.errors, "error");
@@ -156,7 +157,7 @@ export default function TimeSlots() {
       axios.get('sanctum/csrf-cookie').then(response => {
         axios.delete(`/api/remove-timeslot/${id}`).then(res => {
           if(res.data.status === 200) {
-            window.location.reload(); 
+            console.log(res.data);
           }
           else {
             console.log(res.data.errors, "error");
@@ -183,7 +184,7 @@ export default function TimeSlots() {
       axios.get('sanctum/csrf-cookie').then(response => {
         axios.delete(`/api/remove-timeslot/${id}`).then(res => {
           if(res.data.status === 200) {
-            window.location.reload(); 
+            console.log(res.data);
           }
           else {
             console.log(res.data.errors, "error");
@@ -198,6 +199,7 @@ export default function TimeSlots() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setDisableButton(true);
     const data = {
       mondayTimeSlots: mondayInputFields,
       tuesdayTimeSlots: tuesdayInputFields,
@@ -249,11 +251,12 @@ export default function TimeSlots() {
                     value={input.time_slot || ''}
                     onChange={event => handleMondayFormChange(index, event)}
                   />
-                  {
+                  <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
+                  {/* {
                     index ?
                       <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                       : null
-                  }
+                  } */}
                 </div>
               )
             })}
@@ -284,11 +287,7 @@ export default function TimeSlots() {
                     value={input.time_slot}
                     onChange={event => handleTuesdayFormChange(index, event)}
                   />
-                  {
-                    index ?
-                      <button type='button' onClick={() => removeTuesdayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
-                      : null
-                  }
+                  <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                 </div>
               )
             })}
@@ -319,11 +318,7 @@ export default function TimeSlots() {
                     value={input.time_slot}
                     onChange={event => handleWednesdayFormChange(index, event)}
                   />
-                  {
-                    index ?
-                      <button type='button' onClick={() => removeWednesdayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
-                      : null
-                  }
+                  <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                 </div>
               )
             })}
@@ -354,11 +349,7 @@ export default function TimeSlots() {
                     value={input.time_slot}
                     onChange={event => handleThursdayFormChange(index, event)}
                   />
-                  {
-                    index ?
-                      <button type='button' onClick={() => removeThursdayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
-                      : null
-                  }
+                  <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                 </div>
               )
             })}
@@ -389,11 +380,7 @@ export default function TimeSlots() {
                     value={input.time_slot}
                     onChange={event => handleFridayFormChange(index, event)}
                   />
-                  {
-                    index ?
-                      <button type='button' onClick={() => removeFridayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
-                      : null
-                  }
+                  <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                 </div>
               )
             })}
@@ -424,11 +411,7 @@ export default function TimeSlots() {
                     value={input.time_slot}
                     onChange={event => handleSaturdayFormChange(index, event)}
                   />
-                  {
-                    index ?
-                      <button type='button' onClick={() => removeSaturdayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
-                      : null
-                  }
+                  <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                 </div>
               )
             })}
@@ -437,6 +420,7 @@ export default function TimeSlots() {
 
         </Grid>
         <Button
+          disabled={disableButton}
           variant={"outlined"}
           type={"submit"} 
           style={{marginTop: 30}}

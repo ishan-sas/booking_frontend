@@ -13,7 +13,7 @@ export default function Header() {
         </Link>
       </Grid>
       <Grid item xs={12} md={12}>
-        <Typography style={{color: '#842029', background: '#f8d7da', borderRadius: '4px', padding: '10px 12px', border: '1px solid #f5c2c7'}}>This system is not for actual booking. Team is still working on this and please do not add live booking details</Typography>
+        <Typography style={{fontSize: '24px', fontWeight: '700', lineHeight: '1.35', color: '#842029', background: '#f8d7da', borderRadius: '4px', padding: '10px 12px', border: '1px solid #f5c2c7'}}>This system is not for actual booking. Team is still working on this and please do not add live booking details</Typography>
       </Grid>
     </Grid>
   )

@@ -206,6 +206,19 @@ body {
   margin-bottom: 2px;
 }
 
+/* Super Admin */
+.sa_theme-btn {
+  min-width: 100px;
+  font-size: 12px;
+  padding: 4px 5px;
+  text-align: center;
+  text-transform: uppercase;
+  display: inline-block;
+  text-decoration: none;
+  border: 1px solid;
+  border-radius: 2px;
+}
+
 .welcome_wrap {
   padding: 5vh 0;
 }

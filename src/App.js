@@ -21,13 +21,16 @@ import TimeSlots from "./components/dashboard/pages/TimeSlots"
 import Settings from "./components/dashboard/pages/Settings"
 import PrimarySettings from "./components/dashboard/pages/PrimarySettings"
 import Users from "./components/dashboard/pages/Users"
-import StoreRegister from "./components/dashboard/pages/StoreRegister"
 import AddNewUser from "./components/dashboard/pages/AddNewUser"
 import AddSchools from "./components/dashboard/pages/StoreSchools"
 import UnavailableDates from "./components/dashboard/pages/UnavailableDates"
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/';
-// axios.defaults.baseURL = 'http://api.booking.theuniformshoppe.co.nz/';
+import StoreRegister from "./components/admin/pages/StoreRegister"
+import StoreList from "./components/admin/pages/StoreList"
+import StorePasswordReset from "./components/admin/pages/StorePasswordReset"
+
+// axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+axios.defaults.baseURL = 'http://api.booking.theuniformshoppe.co.nz/';
 axios.defaults.headers.post['Content-Type'] = "application/json";
 axios.defaults.headers.post['Accept'] = "application/json";
 axios.defaults.withCredentials = true;
@@ -50,7 +53,6 @@ function App() {
     <ThemeProvider theme={theme}>
       <HashRouter>
         <Routes>
-
 
         <Route exact path={"/"} element={<HomePage />} />
         <Route exact path={"/contact"} element={<ContactPage />} />
@@ -75,6 +77,8 @@ function App() {
         <Route exact path={"/admin/add-unavailable-dates"} element={<Protected component={UnavailableDates} />} />
 
         <Route exact path={"/admin/store-register"} element={<Protected component={StoreRegister} />} /> 
+        <Route exact path={"/admin/store-list"} element={<Protected component={StoreList} />} /> 
+        <Route exact path={"/admin/store-reset/:id"} element={<Protected component={StorePasswordReset} />} /> 
 
         </Routes>
       </HashRouter>

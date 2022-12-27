@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useNavigate } from 'react-router-dom'
 import { Grid, Box, TextField, Typography, FormGroup, Button } from '@mui/material'
 import axios from 'axios'
-import MasterLayout from "../MasterLayout"
+import AdminLayout from "../AdminLayout"
 
 export default function StoreRegister() {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ export default function StoreRegister() {
   }
 
   return (
-    <MasterLayout title={"Settings"}>
+    <AdminLayout title={"Settings"}>
       <Typography className='adm-page-title'>Register New Store</Typography>
 
       <Box component={"form"} onSubmit={registerSubmit}>
@@ -123,6 +123,6 @@ export default function StoreRegister() {
         >Add New Store</Button>
       </Box>
 
-    </MasterLayout>
+    </AdminLayout>
   )
 }

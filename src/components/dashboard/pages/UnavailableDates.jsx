@@ -235,9 +235,9 @@ export default function UnavailableDates() {
       >
         <Box sx={style}>
           <Grid container spacing={2}>
-            <Grid item sm={6} lg={6}>
+            <Grid item sm={12} lg={12}>
               <form onSubmit={timeSlotSubmit}>
-                <FormGroup>
+                <FormGroup style={{height: '68vh', overflowY: 'auto', display: 'block'}}>
                   {slotList.map((row, i) => (
                     <FormControlLabel
                       key={row.id}
@@ -245,8 +245,8 @@ export default function UnavailableDates() {
                       value={row.id}
                       label={row.time_slot}
                       control={<Checkbox 
-                        value={row.slot} 
-                        onChange={e => handleCheckoutChange(e, row.id)} />}
+                      value={row.slot} 
+                      onChange={e => handleCheckoutChange(e, row.id)} />}
                     />
                   ))}
                 </FormGroup>

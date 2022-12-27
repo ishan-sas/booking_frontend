@@ -94,8 +94,8 @@ export default function LoginPage(props) {
                   >Login</Button>
                 </Grid>
                 <Grid style={{display: 'block', textAlign: 'center', margin: '15px 0 25px'}}>
-                  <Link to="/password-reset" className='button-link reset-link'>Forgot password?</Link>
-                  <br />
+                  {/* <Link to="/password-reset" className='button-link reset-link'>Forgot password?</Link>
+                  <br /> */}
                   <Link to="/register" className='button-link'>Register</Link>
                 </Grid>
               </Box>

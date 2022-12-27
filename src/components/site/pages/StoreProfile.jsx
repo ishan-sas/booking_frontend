@@ -74,6 +74,8 @@ export default function StoreProfile(props) {
     });
 
     if(unavailableDate === false) {
+      setMorningSlots([]);
+      setEveningSlots([]);
       axios.get(`/api/get-slots/${storeParams.slug}/${req_date}/${noOfChild}`).then(res => {
         if(res.data.status === 200) {
           console.log(res.data.timeslots);

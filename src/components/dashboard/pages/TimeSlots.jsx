@@ -287,7 +287,7 @@ export default function TimeSlots() {
                     value={input.time_slot}
                     onChange={event => handleTuesdayFormChange(index, event)}
                   />
-                  <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
+                  <button type='button' onClick={() => removeTuesdayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                 </div>
               )
             })}
@@ -318,7 +318,7 @@ export default function TimeSlots() {
                     value={input.time_slot}
                     onChange={event => handleWednesdayFormChange(index, event)}
                   />
-                  <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
+                  <button type='button' onClick={() => removeWednesdayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                 </div>
               )
             })}
@@ -349,7 +349,7 @@ export default function TimeSlots() {
                     value={input.time_slot}
                     onChange={event => handleThursdayFormChange(index, event)}
                   />
-                  <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
+                  <button type='button' onClick={() => removeThursdayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                 </div>
               )
             })}
@@ -380,7 +380,7 @@ export default function TimeSlots() {
                     value={input.time_slot}
                     onChange={event => handleFridayFormChange(index, event)}
                   />
-                  <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
+                  <button type='button' onClick={() => removeFridayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                 </div>
               )
             })}
@@ -411,7 +411,7 @@ export default function TimeSlots() {
                     value={input.time_slot}
                     onChange={event => handleSaturdayFormChange(index, event)}
                   />
-                  <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
+                  <button type='button' onClick={() => removeSaturdayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
                 </div>
               )
             })}

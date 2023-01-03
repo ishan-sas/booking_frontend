@@ -61,7 +61,7 @@ export default function UnavailableDates() {
       axios.get('sanctum/csrf-cookie').then(response => {
         axios.delete(`/api/remove-unavaidates/${id}`).then(res => {
           if (res.data.status === 200) {
-            swal("Good job!", "You clicked the button!", "success");
+            swal("Deleted", "Date/Time Successfully deleted", "success");
           }
           else {
             console.log(res.data.errors, "error");
@@ -131,7 +131,7 @@ export default function UnavailableDates() {
     axios.get('sanctum/csrf-cookie').then(response => {
       axios.post(`/api/store-unavailable-dates/${storeId}`, data).then(res => {
         if (res.data.status === 200) {
-          swal("Good job!", "You clicked the button!", "success");
+          swal("Success", "Date/Time Setup Successful", "success");
         }
         else {
           console.log(res.data.errors, "error");
@@ -186,7 +186,8 @@ export default function UnavailableDates() {
                         <MenuItem value={2}>Selected slots</MenuItem>
                       </Select>
                     </Grid>
-                    {input.unave_type === 2 ?
+                    {/* { (input.unave_type === 2) && (input.id !== 'undefined') ? */}
+                    { input.id !== '' && input.unave_type === 2 ?
                       <Grid item sx={{ width: 1 / 8 }}>
                         <Button onClick={e => handleSlots(e, input.stores_id, input.unave_date)} className="theme-btn"
                           style={{ fontSize: '10px', fontWeight: 300, lineHeight: 1.5, padding: '5px 12px', marginTop: '5px' }}

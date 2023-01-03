@@ -54,10 +54,12 @@ export default function StoreProfile(props) {
     setMonthLabel(req_month_lbl);
     setSelectedDate(req_date);
     setSelectedDateDisplay(req_date_display);
+    setselectedSlotsLbl([]);
+    setSelectedSlotsIds([]);
 
     axios.get(`/api/get-unavailable-dates/${storeParams.slug}/${req_date}`).then(res => {
       if(res.data.status === 200) {
-        if( (res.data.get_data).length == 0 ) {
+        if( res.data.get_data.length == 0 ) {
           setUnavailableDate(false);
           setIsDataLoading(true);
           setLoading(false);
@@ -78,9 +80,14 @@ export default function StoreProfile(props) {
       setEveningSlots([]);
       axios.get(`/api/get-slots/${storeParams.slug}/${req_date}/${noOfChild}`).then(res => {
         if(res.data.status === 200) {
-          console.log(res.data.timeslots);
-          setMorningSlots(res.data.timeslots.filter(element => element.session === 'AM').map(element => element));
-          setEveningSlots(res.data.timeslots.filter(element => element.session === 'PM').map(element => element));
+          if( res.data.timeslots.length !== 0 ) {
+            setMorningSlots(res.data.timeslots.filter(element => element.session === 'AM').map(element => element));
+            setEveningSlots(res.data.timeslots.filter(element => element.session === 'PM').map(element => element));
+          }
+          else {
+            setUnavailableDate(true);
+            setIsDataLoading(false);
+          }
         }
         else {
           console.log(res.data.errors, "error");
@@ -151,11 +158,11 @@ export default function StoreProfile(props) {
           </Box>
         </Grid>
         <Grid item sm={8}>
-          {loading && (
+          {/* {loading && (
             <div className='loading_wrap'>
               <img src={LoadingImg} style={{ height: 70, display: 'block', margin: '0 auto' }} />
             </div>
-          )}
+          )} */}
 
           {isDataLoading && (
             <Grid container>

@@ -23,9 +23,10 @@ export default function BookingSubmit(props) {
   });
   const [newAccount, setNewAccount] = useState(true);
   const [isSubscribe, setIsSubscribe] = useState(false);
+  const [validationError, setValidationError] = useState([]);
 
   useEffect(() => {
-    getStoreInfo();
+    //getStoreInfo();
 
   }, []);
 
@@ -57,9 +58,9 @@ export default function BookingSubmit(props) {
     });
   }
 
-  const getStoreInfo = () => {
-    console.log(state.data.storeId);
-  }
+  // const getStoreInfo = () => {
+  //   console.log(state.data.storeId);
+  // }
 
   const registerWithSubmit = (e) => {
     e.preventDefault();
@@ -83,12 +84,11 @@ export default function BookingSubmit(props) {
         if (res.data.status === 200) {
           localStorage.setItem('auth_token', res.data.token);
           localStorage.setItem('auth_name', res.data.username);
-          // localStorage.setItem('appointment_id', res.data.get_data);
           navigate(`/thank-you/${res.data.get_data}`);
         }
-        // else {
-        //   setRegister({ ...registerInput, error_list: res.data.validation_errors });
-        // }
+        else {
+          setValidationError(res.data);
+        }
       });
     });
   }
@@ -113,6 +113,9 @@ export default function BookingSubmit(props) {
           localStorage.setItem('auth_name', res.data.username);
           navigate(`/thank-you/${res.data.get_data}`);
         }
+        else {
+          setValidationError(res.data.message);
+        }
       });
     });
   }
@@ -127,6 +130,7 @@ export default function BookingSubmit(props) {
           <Grid container>
             <Grid item sm={12} md={7}>
               <Box mt={2} mb={4} style={{ width: '100%' }}>
+                <Typography>{validationError}</Typography>
                 <Typography style={{display: 'inline-block'}}>Do you have an account?</Typography>
                 <Switch {...label} onClick={() => handleToggleVisibility()} />
               </Box>

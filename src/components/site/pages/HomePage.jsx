@@ -73,7 +73,7 @@ export default function HomePage() {
 
   return (
     <MasterLayout title={"Home page"}>
-      <Grid container className='welcome_wrap'>
+      {/* <Grid container className='welcome_wrap'>
         <Grid item sm={12} md={8}>
           <Grid className='col_title' mt={2}>
             <Typography variant='h4'>Select your <br />preferred store</Typography>  
@@ -82,7 +82,6 @@ export default function HomePage() {
           <Grid container spacing={2}>
             {storeList.map((row, i) => (
               <Grid key={i} item sm={4} md={3} mt={0}>
-                {/* <Typography onClick={e => handleWelcomeOpen(row.store_name)} className="store-card"> */}
                 <Link to={row.slug} className="store-card">
                   <Typography className='store-name'>{row.store_name}</Typography>
                   <Typography className='store-address'>{row.address}</Typography>    
@@ -100,7 +99,7 @@ export default function HomePage() {
             <img src={NZMap} />
           </div>
         </Grid>
-      </Grid>
+      </Grid> */}
 
       <Modal
         open={open}

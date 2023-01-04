@@ -170,7 +170,7 @@ export default function Appointments() {
           <Grid item xs={12} md={12}>
             <Grid sx={{ padding: 2, borderRadius: 1, border: '1px solid #ebebeb' }}>
 
-                <Typography className='adm-page-title' style={{ marginBottom: '5px' }}>Appointment</Typography>
+                <Typography className='adm-page-title' style={{ marginBottom: '5px' }}>Appointments</Typography>
                 <Grid container spacing={2} mb={2}>
                   <Grid item md={3} flex sx={{ flexDirection: 'row-reverse' }} className="datePicker">
                     <LocalizationProvider dateAdapter={AdapterDayjs}>

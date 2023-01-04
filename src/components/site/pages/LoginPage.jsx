@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { Grid, Container, Box, FormGroup, Button, TextField, Typography } from '@mui/material'
+import swal from 'sweetalert'
 
 import Logo from '../../../assets/images/logo-w.png'
 
@@ -43,7 +44,7 @@ export default function LoginPage(props) {
           }
         }
         else if (res.data.status === 401) {
-          alert('error 401')
+          swal("Login Failed", "The email or password is incorrect", "error");
         } else {
           setFormInput({ ...formInput, error_list: res.data.validation_errors });
         }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Grid, Box, TextField, Typography, FormGroup, Button } from '@mui/material'
 import axios from 'axios'
 import MasterLayout from "../MasterLayout"
+import swal from 'sweetalert'
 
 export default function Settings() {
   const [formInput, setFormInput] = useState({
@@ -41,7 +42,7 @@ export default function Settings() {
     const data = formInput;
     axios.put(`/api/update-account/${store_id}`, data).then(res => {
       if (res.data.status === 200) {
-        console.log(res.data.message);
+        swal("Successfully Updated ", "", "success");
         setError([]);
       }
       else if (res.data.status === 422) {

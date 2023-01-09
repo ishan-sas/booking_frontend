@@ -132,6 +132,7 @@ export default function UnavailableDates() {
       axios.post(`/api/store-unavailable-dates/${storeId}`, data).then(res => {
         if (res.data.status === 200) {
           swal("Success", "Date/Time Setup Successful", "success");
+          window.location.reload();
         }
         else {
           console.log(res.data.errors, "error");

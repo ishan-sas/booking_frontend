@@ -70,7 +70,7 @@ export default function AccountSettings() {
           <TextField
             type='number'
             fullWidth
-            label="No of Fitton Rooms"
+            label="No of Fitting Rooms"
             name="no_of_ftrooms"
             onChange={handleInput}
             value={formInput.no_of_ftrooms || ''}

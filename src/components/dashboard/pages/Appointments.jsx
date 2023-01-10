@@ -141,6 +141,16 @@ export default function Appointments() {
     });
   }
 
+  const displayTimeLable = () => {
+    if(!timeSlotData || timeSlotData.length < 0) {
+      console.log(timeSlotData);
+      return '';      
+    }
+    return timeSlotData?.map((row, i) => (
+      <> { row && row.time_slot ? row.time_slot+', ' : '' } </>
+    ))
+  }
+
   const updateStatus = (e) => {
     e.preventDefault();
 
@@ -280,9 +290,7 @@ export default function Appointments() {
                         <ul className='bookingpop-summery'>
                           <li><Typography>Booking Date</Typography>: {bookingData.booking_date}</li>
                           <li><Typography>Booking Time</Typography>:
-                            {timeSlotData.map((row, i) => (
-                              <> {row.time_slot}, </>
-                            ))}
+                            {displayTimeLable()}
                           </li>
                           <li><Typography>No of Kids</Typography>: {bookingData.no_of_kids}</li>
                           <li><Typography>Customer Name</Typography>: {customerData.name}</li>

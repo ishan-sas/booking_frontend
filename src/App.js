@@ -58,7 +58,7 @@ function App() {
         <Route exact path={"/contact"} element={<ContactPage />} />
         <Route exact path={"/register"} element={<RegisterPage />} />
         <Route exact path={"/login"} element={<LoginPage />} />
-        {/* <Route exact path={"/:slug"} element={<StoreProfile />} /> */}
+        <Route exact path={"/:slug"} element={<StoreProfile />} />
         <Route exact path={"/booking-submit"} element={<BookingSubmit />} />
         <Route exact path={"/thank-you/:appoinmentid"} element={<ThankYouPage />} />
         <Route exact path={"/password-reset"} element={<ResetPassword />} />

@@ -73,7 +73,7 @@ export default function HomePage() {
 
   return (
     <MasterLayout title={"Home page"}>
-      {/* <Grid container className='welcome_wrap'>
+      <Grid container className='welcome_wrap'>
         <Grid item sm={12} md={8}>
           <Grid className='col_title' mt={2}>
             <Typography variant='h4'>Select your <br />preferred store</Typography>  
@@ -99,7 +99,7 @@ export default function HomePage() {
             <img src={NZMap} />
           </div>
         </Grid>
-      </Grid> */}
+      </Grid>
 
       <Modal
         open={open}

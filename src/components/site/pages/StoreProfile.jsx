@@ -9,13 +9,13 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import moment from 'moment'
 import Counter from 'react-mui-counter'
 
-import LoadingImg from '../../../assets/images/loading.gif'
+// import LoadingImg from '../../../assets/images/loading.gif'
 
 export default function StoreProfile(props) {
   const storeParams = useParams();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(true);
-  const [isDataLoading, setIsDataLoading] = useState(false);
+  // const [loading, setLoading] = useState(true);
+  // const [isDataLoading, setIsDataLoading] = useState(false);
   const [storeProfile, setStoreProfile] = useState([]);
   const [morningSlots, setMorningSlots] = useState([]);
   const [eveningSlots, setEveningSlots] = useState([]);
@@ -29,6 +29,9 @@ export default function StoreProfile(props) {
   const [unavailableDate, setUnavailableDate] = useState(false);
   // const [noOfChiledDisabled, setNoOfChiledDisabled] = useState(false);
 
+  useEffect(() => {
+    console.log("unavailableData", unavailableDate);
+  },[unavailableDate])
   useEffect(() => {
     getStoreProfile();
 
@@ -56,44 +59,41 @@ export default function StoreProfile(props) {
     setSelectedDateDisplay(req_date_display);
     setselectedSlotsLbl([]);
     setSelectedSlotsIds([]);
-
+    console.log("req_data", req_date);
+    let unavailability = false;
     axios.get(`/api/get-unavailable-dates/${storeParams.slug}/${req_date}`).then(res => {
+      console.log("res", res)
       if(res.data.status === 200) {
-        if( res.data.get_data.length == 0 ) {
-          setUnavailableDate(false);
-          setIsDataLoading(true);
-          setLoading(false);
+        console.log("res.data", res.data)
+        if( res.data.get_data.length === 0 ) {
+          
+          axios.get(`/api/get-slots/${storeParams.slug}/${req_date}/${noOfChild}`).then(res => {
+            if(res.data.status === 200) {
+              if( res.data.timeslots.length > 0 ) {
+                setMorningSlots(res.data.timeslots.filter(element => element.session === 'AM').map(element => element));
+                setEveningSlots(res.data.timeslots.filter(element => element.session === 'PM').map(element => element));
+              } else {
+                setMorningSlots([]);
+                setEveningSlots([]);
+              }
+             
+            }
+            else {
+              setMorningSlots([]);
+              setEveningSlots([]);
+              console.log(res.data.errors, "error");
+            }
+          });
         }
-        else {
-          setUnavailableDate(true);
-          setIsDataLoading(false);
-          setLoading(false);
-        }
+        
       }
       else {
         console.log(res.data.errors, "error");
       }
     });
+  
+   
 
-    if(unavailableDate === false) {
-      setMorningSlots([]);
-      setEveningSlots([]);
-      axios.get(`/api/get-slots/${storeParams.slug}/${req_date}/${noOfChild}`).then(res => {
-        if(res.data.status === 200) {
-          if( res.data.timeslots.length !== 0 ) {
-            setMorningSlots(res.data.timeslots.filter(element => element.session === 'AM').map(element => element));
-            setEveningSlots(res.data.timeslots.filter(element => element.session === 'PM').map(element => element));
-          }
-          else {
-            setUnavailableDate(true);
-            setIsDataLoading(false);
-          }
-        }
-        else {
-          console.log(res.data.errors, "error");
-        }
-      });
-    }
   };
 
   const getNoOfChild = (e) => {
@@ -125,54 +125,14 @@ export default function StoreProfile(props) {
     }
   }
 
-  return (
-    <MasterLayout title={"Store page"}>
-      <Grid container spacing={4} mt={4} className="store_profile">
-        <Grid item sm={12} md={4} className="date_picker">
-          <Grid className='col_title'>
-            <Typography variant='h4'>When and how many children for booking</Typography>
-          </Grid>
-          <FormGroup className="form-group child_counter">
-            <Counter
-              label="For"
-              onChange={(e) => getNoOfChild(e)}
-              value={1}
-              // disabled = {(noOfChiledDisabled) ? "disabled" : ""}
-            />
-          </FormGroup>
-          <FormGroup className="form-group">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DesktopDatePicker
-                label="Select a Date"
-                inputFormat="DD.MM.YYYY"
-                value={selectedDateDisplay}
-                onChange={handleSelectedDate}
-                minDate={moment().toDate()}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </LocalizationProvider>
-          </FormGroup>
-          <Box className="button-row" sx={{ justifyContent: 'space-between' }}>
-            <Button onClick={() => submitSelectedSlot()} className="theme-btn" style={{float: 'right'}}>Next</Button>
-            <Link to="/" className="theme-btn secondary-btn">Back</Link>
-          </Box>
-        </Grid>
-        <Grid item sm={8}>
-          {/* {loading && (
-            <div className='loading_wrap'>
-              <img src={LoadingImg} style={{ height: 70, display: 'block', margin: '0 auto' }} />
-            </div>
-          )} */}
-
-          {isDataLoading && (
+  const loader = () => {
+    if (eveningSlots.length > 0 || morningSlots.length > 0) {
+      return <>
             <Grid container>
               <Grid item sm={12} md={6} pl={8}>
                 <Typography variant='body2' className='picked_date'>{monthLabel}<Typography variant='span'>{dateLabel}</Typography></Typography>
               </Grid>
             </Grid>
-          )}
-
-          {isDataLoading && (
             <Grid container>
               <Grid item sm={12} md={6} pl={8}>
                 <Grid className="time_col">
@@ -253,13 +213,52 @@ export default function StoreProfile(props) {
               </Grid>
 
             </Grid>
-          )}
-
-          {unavailableDate && (
+            </>
+    } else {
+      return <div className='loading_wrap'>
+      <Typography style={{display: 'block', margin: '0 auto'}}>Sorry! there are no timeslots available on this date.</Typography>
+    </div>
+    }
+  }
+  return (
+    <MasterLayout title={"Store page"}>
+      <Grid container spacing={4} mt={4} className="store_profile">
+        <Grid item sm={12} md={4} className="date_picker">
+          <Grid className='col_title'>
+            <Typography variant='h4'>When and how many children for booking</Typography>
+          </Grid>
+          <FormGroup className="form-group child_counter">
+            <Counter
+              label="For"
+              onChange={(e) => getNoOfChild(e)}
+              value={1}
+              // disabled = {(noOfChiledDisabled) ? "disabled" : ""}
+            />
+          </FormGroup>
+          <FormGroup className="form-group">
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DesktopDatePicker
+                label="Select a Date"
+                inputFormat="DD.MM.YYYY"
+                value={selectedDateDisplay}
+                onChange={handleSelectedDate}
+                minDate={moment().toDate()}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
+          </FormGroup>
+          <Box className="button-row" sx={{ justifyContent: 'space-between' }}>
+            <Button onClick={() => submitSelectedSlot()} className="theme-btn" style={{float: 'right'}}>Next</Button>
+            <Link to="/" className="theme-btn secondary-btn">Back</Link>
+          </Box>
+        </Grid>
+        <Grid item sm={8}>
+          {/* {loading && (
             <div className='loading_wrap'>
-              <Typography style={{display: 'block', margin: '0 auto'}}>Sorry! there are no timeslots available on this date.</Typography>
+              <img src={LoadingImg} style={{ height: 70, display: 'block', margin: '0 auto' }} />
             </div>
-          )}
+          )} */}
+          {loader()}
 
         </Grid>
       </Grid>

@@ -87,7 +87,7 @@ export default function BookingSubmit(props) {
           navigate(`/thank-you/${res.data.get_data}`);
         }
         else {
-          setValidationError(res.data);
+          setValidationError(res.data.message);
         }
       });
     });
@@ -130,7 +130,6 @@ export default function BookingSubmit(props) {
           <Grid container>
             <Grid item sm={12} md={7}>
               <Box mt={2} mb={4} style={{ width: '100%' }}>
-                <Typography>{validationError}</Typography>
                 <Typography style={{display: 'inline-block'}}>Do you have an account?</Typography>
                 <Switch {...label} onClick={() => handleToggleVisibility()} />
               </Box>
@@ -157,6 +156,7 @@ export default function BookingSubmit(props) {
                       value={formInput.password || ''}
                     />
                   </FormGroup>
+                  <Typography style={{color: 'red'}}>{validationError}</Typography>
                   <Box className="button-row" mb={10} sx={{ justifyContent: 'space-between' }}>
                     <Button variant={"outlined"} type={"submit"} className="theme-btn" style={{float: 'right'}}>Login & Submit</Button>
                     <Button onClick={() => navigate(-1)} className="theme-btn secondary-btn" >Back</Button>
@@ -208,9 +208,10 @@ export default function BookingSubmit(props) {
                       />
                     </FormGroup>
                     <Box style={{ width: '100%', marginTop: '-10px' }}>
-                      <Typography style={{display: 'inline-block'}}>Is subscribe?</Typography>
+                      <Typography style={{display: 'inline-block'}}>Subscribe?</Typography>
                       <Switch onClick={() => handleSubscribeToggle()} />
                     </Box>
+                    <Typography style={{color: 'red'}}>{validationError}</Typography>
                     <Box className="button-row" mb={10} sx={{ justifyContent: 'space-between' }}>
                       <Button variant={"outlined"} type={"submit"} className="theme-btn" style={{float: 'right'}}>Register & Submit</Button>
                       <Button onClick={() => navigate(-1)} className="theme-btn secondary-btn" >Back</Button>

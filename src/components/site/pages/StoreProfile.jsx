@@ -27,10 +27,10 @@ export default function StoreProfile(props) {
   const [dateLabel, setDateLabel] = useState([]);
   const [monthLabel, setMonthLabel] = useState([]);
   const [unavailableDate, setUnavailableDate] = useState(false);
-  // const [noOfChiledDisabled, setNoOfChiledDisabled] = useState(false);
+  const [formValidate, setFormValidate] = useState(false);
 
   useEffect(() => {
-    console.log("unavailableData", unavailableDate);
+    //console.log("unavailableData", unavailableDate);
   },[unavailableDate])
   useEffect(() => {
     getStoreProfile();
@@ -97,7 +97,14 @@ export default function StoreProfile(props) {
   };
 
   const getNoOfChild = (e) => {
-    setNoOfChild(e);
+    if(e === 0 || e > storeProfile.no_of_ftrooms) {
+      setFormValidate(true);
+    }
+    else {
+      setFormValidate(false);
+      setNoOfChild(e);
+    }
+
   }
 
   const handleCheckboxChange = (e, i) => {
@@ -248,7 +255,12 @@ export default function StoreProfile(props) {
             </LocalizationProvider>
           </FormGroup>
           <Box className="button-row" sx={{ justifyContent: 'space-between' }}>
-            <Button onClick={() => submitSelectedSlot()} className="theme-btn" style={{float: 'right'}}>Next</Button>
+            <Button 
+              onClick={() => submitSelectedSlot()} 
+              className="theme-btn" 
+              style={{float: 'right'}}
+              disabled = {(formValidate) ? "disabled" : ""}
+            >Next</Button>
             <Link to="/" className="theme-btn secondary-btn">Back</Link>
           </Box>
         </Grid>

@@ -8,6 +8,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import moment from 'moment'
 import Counter from 'react-mui-counter'
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 
 // import LoadingImg from '../../../assets/images/loading.gif'
 
@@ -29,6 +31,8 @@ export default function StoreProfile(props) {
   const [unavailableDate, setUnavailableDate] = useState(false);
   const [formValidate, setFormValidate] = useState(false);
 
+  const disabledDates = ['2023-07-29', '2023-08-28'];
+
   useEffect(() => {
     //console.log("unavailableData", unavailableDate);
   },[unavailableDate])
@@ -36,6 +40,12 @@ export default function StoreProfile(props) {
     getStoreProfile();
 
   }, [storeParams.slug]);
+
+  const isDateDisabled = (date) => {
+    return disabledDates.some(disabledDate =>
+      new Date(disabledDate).toDateString() === date.toDateString()
+    );
+  };
 
   const getStoreProfile = () => {
     axios.get(`/api/stores/${storeParams.slug}`).then(res => {
@@ -49,22 +59,21 @@ export default function StoreProfile(props) {
   }
 
   const handleSelectedDate = (value) => {
-    var req_date_lbl = moment(value.$d).format("DD");
-    var req_month_lbl = moment(value.$d).format("MMM");
-    var req_date = moment(value.$d).format("DD.MM.YYYY");
-    var req_date_display = moment(value.$d).format("YYYY.MM.DD");
+    
+    var req_date_lbl = moment(value).format("DD");
+    var req_month_lbl = moment(value).format("MMM");
+    var req_date = moment(value).format("DD.MM.YYYY");
+    var req_date_display = moment(value).format("YYYY.MM.DD");
     setDateLabel(req_date_lbl);
     setMonthLabel(req_month_lbl);
     setSelectedDate(req_date);
     setSelectedDateDisplay(req_date_display);
     setselectedSlotsLbl([]);
     setSelectedSlotsIds([]);
-    console.log("req_data", req_date);
+
     let unavailability = false;
     axios.get(`/api/get-unavailable-dates/${storeParams.slug}/${req_date}`).then(res => {
-      console.log("res", res)
       if(res.data.status === 200) {
-        console.log("res.data", res.data)
         if( res.data.get_data.length === 0 ) {
           
           axios.get(`/api/get-slots/${storeParams.slug}/${req_date}/${noOfChild}`).then(res => {
@@ -243,7 +252,7 @@ export default function StoreProfile(props) {
             />
           </FormGroup>
           <FormGroup className="form-group">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
                 label="Select a Date"
                 inputFormat="DD.MM.YYYY"
@@ -252,14 +261,21 @@ export default function StoreProfile(props) {
                 minDate={moment().toDate()}
                 renderInput={(params) => <TextField {...params} />}
               />
-            </LocalizationProvider>
+            </LocalizationProvider> */}
+            <Calendar 
+              inputFormat="DD.MM.YYYY"
+              value={selectedDateDisplay}
+              onChange={handleSelectedDate}
+              minDate={new Date()} 
+              tileDisabled={({ date }) => isDateDisabled(date)}
+            />
           </FormGroup>
           <Box className="button-row" sx={{ justifyContent: 'space-between' }}>
             <Button 
               onClick={() => submitSelectedSlot()} 
               className="theme-btn" 
               style={{float: 'right'}}
-              disabled = {(formValidate) ? "disabled" : ""}
+              //disabled = {(formValidate) ? "disabled" : ""}
             >Next</Button>
             <Link to="/" className="theme-btn secondary-btn">Back</Link>
           </Box>

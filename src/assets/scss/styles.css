@@ -14,6 +14,10 @@ body {
   background: #040033 !important;
 }
 
+.adm-page-title-input {
+  float: right;
+}
+
 .MuiTouchRipple-root {
   border-radius: 0 !important;
 }
@@ -305,6 +309,10 @@ body {
 }
 .site__container .store_profile .date_picker .form-group.child_counter .MuiTextField-root {
   width: 150px;
+}
+.site__container .store_profile .date_picker .react-calendar .react-calendar__navigation__arrow.react-calendar__navigation__next2-button,
+.site__container .store_profile .date_picker .react-calendar .react-calendar__navigation__arrow.react-calendar__navigation__prev2-button {
+  display: none;
 }
 .site__container .store_profile .picked_date {
   color: #0d6de5;

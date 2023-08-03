@@ -13,6 +13,10 @@ export default function TimeSlots() {
   const [saturdayInputFields, setSaturdayInputFields] = useState([{id: '', saturday: ''}])
   const [disableButton, setDisableButton] = useState(false)
   var storeId = localStorage.getItem('store_id');
+  const [startingTime, setStartingTime] = useState();
+  const [endingTime, setEndingTime] = useState(startingTime);
+  const timeSlotIncrement = 30;
+  const [startTime, setStartTime] = useState('');
 
   useEffect(() => {
     getTimeslotsData();
@@ -35,13 +39,44 @@ export default function TimeSlots() {
     });
   }
 
+  const handleStartTime = (event) => {
+    setStartTime(event.target.value);
+    setStartingTime(event.target.value);
+    setEndingTime(event.target.value);
+  
+  };
+
   const handleMondayFormChange = (index, event) => {
     let data = [...mondayInputFields];
     data[index][event.target.name] = event.target.value;
     setMondayInputFields(data);
   }
   const addMondayFields = () => {
-    let newfield = { id: '', stores_id: storeId, day: 'Monday', time_slot: '' }
+    const [hours, minutes] = startingTime.split(':').map(Number);
+    let newMinutes = minutes + timeSlotIncrement;
+    let newHours = hours;    
+    if (newMinutes >= 60) {
+      newHours += Math.floor(newMinutes / 60);
+      newMinutes %= 60;
+    }
+    if (newHours >= 24) {
+      newHours %= 24;
+    }
+    setStartingTime(`${String(newHours).padStart(2, '0')}:${String(newMinutes).padStart(2, '0')}`);
+
+    let endMinutes = newMinutes + timeSlotIncrement;
+    let endHours = newHours;    
+    if (endMinutes >= 60) {
+      endHours += Math.floor(endMinutes / 60);
+      endMinutes %= 60;
+    }
+    if (endHours >= 24) {
+      endHours %= 24;
+    }
+    setEndingTime(`${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`);
+
+    let newfield = { id: '', stores_id: storeId, day: 'Monday', time_slot: startingTime+' - '+endingTime }
+
     setMondayInputFields([...mondayInputFields, newfield])
   }
   const removeMondayFields = (index, id) => {
@@ -222,12 +257,28 @@ export default function TimeSlots() {
 
   return (
     <MasterLayout title={"Time slots"}>
-      <Typography className='adm-page-title'>Time Slots</Typography>
-
+      <Typography className='adm-page-title' style={{display: 'inline-block'}}>Time Slots</Typography>
+      <div className="adm-page-title-input">
+        <input
+          type="text"
+          id="starttime"
+          name="starttime"
+          onChange={handleStartTime}
+          value={startTime}
+        />
+        {/* <Button
+          disabled={disableButton}
+          variant={"outlined"}
+          type={"Add"} 
+          onClick={setStartTime}
+        >
+          Set
+        </Button> */}
+      </div>
       <form onSubmit={onSubmit}>
         <Grid container>
           <Grid item sx={{ width: 1/6 }}>
-            <Typography className='day-label'>Monday</Typography>
+            <Typography className='day-label'>Monday</Typography>         
             {mondayInputFields.map((input, index) => {
               return (
                 <div key={index} className="slotBlock">

@@ -38,7 +38,7 @@ export default function StoreRegister() {
         if (res.data.status === 200) {
           localStorage.setItem('auth_token', res.data.token);
           localStorage.setItem('auth_name', res.data.username);
-          navigate('/login');
+          navigate('/admin/store-list');
         }
         else {
           setFormInput({ ...formInput, error_list: res.data.validation_errors });

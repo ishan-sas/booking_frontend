@@ -23,33 +23,33 @@ export default function StorePasswordReset() {
   }
 
   const getProfileDetails = () => {
-    // axios.get(`/api/edit-account/1`).then(res => {
-    //   if (res.data.status === 200) {
-    //     console.log(res.data.get_data);
-    //     setFormInput(res.data.get_data);
-    //   }
-    //   else if (res.data.status === 404) {
-    //     console.log(res.message);
-    //   }
-    // });
+    axios.get(`/api/edit-account/${storeParams.id}`).then(res => {
+      if (res.data.status === 200) {
+        console.log(res.data.get_data);
+        setFormInput(res.data.get_data);
+      }
+      else if (res.data.status === 404) {
+        console.log(res.message);
+      }
+    });
   }
 
   const resetPasswordSubmit = (e) => {
-    // e.preventDefault();
-    // const data = {
-    //   email: formInput.email,
-    //   password: formInput.password,
-    // }
-    // axios.get('sanctum/csrf-cookie').then(response => {
-    //   axios.post('/api/store-password-reset', data).then(res => {
-    //     if (res.data.status === 200) {
-    //       console.log(res.data);
-    //     }
-    //     else {
-    //       setFormInput({ ...formInput, error_list: res.data.validation_errors });
-    //     }
-    //   });
-    // });
+    e.preventDefault();
+    const data = {
+      email: formInput.email,
+      password: formInput.password,
+    }
+    axios.get('sanctum/csrf-cookie').then(response => {
+      axios.post('/api/store-password-reset', data).then(res => {
+        if (res.data.status === 200) {
+          console.log(res.data);
+        }
+        else {
+          setFormInput({ ...formInput, error_list: res.data.validation_errors });
+        }
+      });
+    });
 
   }
 
@@ -74,7 +74,7 @@ export default function StorePasswordReset() {
 
   return (
     <AdminLayout title={"Settings"}>
-      <Typography className='adm-page-title'>Reset Store Password</Typography>
+      <Typography className='adm-page-title'>{formInput.store_name} - Reset Store Password</Typography>
       <Box component={"form"} onSubmit={resetPasswordSubmit}>
         <FormGroup className="form-group">
           <TextField

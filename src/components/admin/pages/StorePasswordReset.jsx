@@ -41,7 +41,7 @@ export default function StorePasswordReset() {
       password: formInput.password,
     }
     axios.get('sanctum/csrf-cookie').then(response => {
-      axios.post('/api/store-password-reset', data).then(res => {
+      axios.put('/api/store-password-reset', data).then(res => {
         if (res.data.status === 200) {
           console.log(res.data);
         }

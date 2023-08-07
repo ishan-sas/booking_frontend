@@ -39,6 +39,9 @@ export default function LoginPage(props) {
           else if (res.data.usertype === 2) {
             navigate('/my-bookings');
           }
+          else if (res.data.usertype === 3) {
+            navigate('/admin/store-list');
+          }
           else {
             navigate('/login');
           }

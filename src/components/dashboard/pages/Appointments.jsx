@@ -143,7 +143,6 @@ export default function Appointments() {
 
   const displayTimeLable = () => {
     if(!timeSlotData || timeSlotData.length < 0) {
-      console.log(timeSlotData);
       return '';      
     }
     return timeSlotData?.map((row, i) => (
@@ -157,7 +156,11 @@ export default function Appointments() {
     const data = {
       booking_id: selectedBooking,
       status: status,
-      extra_note: formInput.extra_note
+      extra_note: formInput.extra_note,
+      customer_name:customerData.name,
+      customer_email:customerData.email,
+      booking_date: bookingData.booking_date,
+      // booking_time: displayTimeLable()
     }
     axios.post(`/api/update-status`, data).then(res => {
       if (res.data.status === 200) {

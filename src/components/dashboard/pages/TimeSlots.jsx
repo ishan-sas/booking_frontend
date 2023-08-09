@@ -52,7 +52,7 @@ export default function TimeSlots() {
     setMondayInputFields(data);
   }
   const addMondayFields = () => {
-    const [hours, minutes] = startingTime.split(':').map(Number);
+    const [hours, minutes] = startingTime.split('.').map(Number);
     let newMinutes = minutes + timeSlotIncrement;
     let newHours = hours;    
     if (newMinutes >= 60) {
@@ -62,7 +62,7 @@ export default function TimeSlots() {
     if (newHours >= 24) {
       newHours %= 24;
     }
-    setStartingTime(`${String(newHours).padStart(2, '0')}:${String(newMinutes).padStart(2, '0')}`);
+    setStartingTime(`${String(newHours).padStart(2, '0')}.${String(newMinutes).padStart(2, '0')}`);
 
     let endMinutes = newMinutes + timeSlotIncrement;
     let endHours = newHours;    
@@ -73,7 +73,7 @@ export default function TimeSlots() {
     if (endHours >= 24) {
       endHours %= 24;
     }
-    setEndingTime(`${String(endHours).padStart(2, '0')}:${String(endMinutes).padStart(2, '0')}`);
+    setEndingTime(`${String(endHours).padStart(2, '0')}.${String(endMinutes).padStart(2, '0')}`);
 
     let newfield = { id: '', stores_id: storeId, day: 'Monday', time_slot: startingTime+' - '+endingTime }
 

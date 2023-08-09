@@ -30,17 +30,18 @@ export default function StoreProfile(props) {
   const [monthLabel, setMonthLabel] = useState([]);
   const [unavailableDate, setUnavailableDate] = useState(false);
   const [formValidate, setFormValidate] = useState(false);
+  const [disabledDates, setDisabledDates] = useState([]);
 
-  const disabledDates = ['2023-07-29', '2023-08-28'];
+  
+  // useEffect(() => {
+  // },[unavailableDate])
 
-  useEffect(() => {
 
-    
-  },[unavailableDate])
   useEffect(() => {
     getStoreProfile();
+    getUnavailableDates();
 
-  }, [storeParams.slug]);
+  }, [storeParams.slug, unavailableDate]);
 
   const isDateDisabled = (date) => {
     return disabledDates.some(disabledDate =>
@@ -59,8 +60,15 @@ export default function StoreProfile(props) {
     });
   }
 
+  const getUnavailableDates = () => {
+    axios.get(`/api/get-unavailable-dates/${storeParams.slug}/all`).then(res => {
+      if(res.data.status === 200) {
+        setDisabledDates(res.data.get_data.map(element => element.unave_date));
+      }
+    });
+  }
+
   const handleSelectedDate = (value) => {
-    
     var req_date_lbl = moment(value).format("DD");
     var req_month_lbl = moment(value).format("MMM");
     var req_date = moment(value).format("DD.MM.YYYY");
@@ -253,16 +261,6 @@ export default function StoreProfile(props) {
             />
           </FormGroup>
           <FormGroup className="form-group">
-            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DesktopDatePicker
-                label="Select a Date"
-                inputFormat="DD.MM.YYYY"
-                value={selectedDateDisplay}
-                onChange={handleSelectedDate}
-                minDate={moment().toDate()}
-                renderInput={(params) => <TextField {...params} />}
-              />
-            </LocalizationProvider> */}
             <Calendar 
               inputFormat="DD.MM.YYYY"
               value={selectedDateDisplay}

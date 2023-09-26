@@ -96,6 +96,7 @@ export default function TimeSlots() {
   //   data.splice(index, 1)
   //   setMondayInputFields(data)
   // }
+  
   const handleMondayFormChange = (index, event) => {
     let data = [...mondayInputFields];
     data[index][event.target.name] = event.target.value;

@@ -46,37 +46,63 @@ export default function TimeSlots() {
   
   };
 
+  // const handleMondayFormChange = (index, event) => {
+  //   let data = [...mondayInputFields];
+  //   data[index][event.target.name] = event.target.value;
+  //   setMondayInputFields(data);
+  // }
+  // const addMondayFields = () => {
+  //   const [hours, minutes] = startingTime.split('.').map(Number);
+  //   let newMinutes = minutes + timeSlotIncrement;
+  //   let newHours = hours;    
+  //   if (newMinutes >= 60) {
+  //     newHours += Math.floor(newMinutes / 60);
+  //     newMinutes %= 60;
+  //   }
+  //   if (newHours >= 24) {
+  //     newHours %= 24;
+  //   }
+  //   setStartingTime(`${String(newHours).padStart(2, '0')}.${String(newMinutes).padStart(2, '0')}`);
+
+  //   let endMinutes = newMinutes + timeSlotIncrement;
+  //   let endHours = newHours;    
+  //   if (endMinutes >= 60) {
+  //     endHours += Math.floor(endMinutes / 60);
+  //     endMinutes %= 60;
+  //   }
+  //   if (endHours >= 24) {
+  //     endHours %= 24;
+  //   }
+  //   setEndingTime(`${String(endHours).padStart(2, '0')}.${String(endMinutes).padStart(2, '0')}`);
+
+  //   let newfield = { id: '', stores_id: storeId, day: 'Monday', time_slot: startingTime+' - '+endingTime }
+
+  //   setMondayInputFields([...mondayInputFields, newfield])
+  // }
+  // const removeMondayFields = (index, id) => {
+  //   if (id) {
+  //     axios.get('sanctum/csrf-cookie').then(response => {
+  //       axios.delete(`/api/remove-timeslot/${id}`).then(res => {
+  //         if(res.data.status === 200) {
+  //           console.log(res.data);
+  //         }
+  //         else {
+  //           console.log(res.data.errors, "error");
+  //         }
+  //       });
+  //     });
+  //   }
+  //   let data = [...mondayInputFields];
+  //   data.splice(index, 1)
+  //   setMondayInputFields(data)
+  // }
   const handleMondayFormChange = (index, event) => {
     let data = [...mondayInputFields];
     data[index][event.target.name] = event.target.value;
     setMondayInputFields(data);
   }
   const addMondayFields = () => {
-    const [hours, minutes] = startingTime.split('.').map(Number);
-    let newMinutes = minutes + timeSlotIncrement;
-    let newHours = hours;    
-    if (newMinutes >= 60) {
-      newHours += Math.floor(newMinutes / 60);
-      newMinutes %= 60;
-    }
-    if (newHours >= 24) {
-      newHours %= 24;
-    }
-    setStartingTime(`${String(newHours).padStart(2, '0')}.${String(newMinutes).padStart(2, '0')}`);
-
-    let endMinutes = newMinutes + timeSlotIncrement;
-    let endHours = newHours;    
-    if (endMinutes >= 60) {
-      endHours += Math.floor(endMinutes / 60);
-      endMinutes %= 60;
-    }
-    if (endHours >= 24) {
-      endHours %= 24;
-    }
-    setEndingTime(`${String(endHours).padStart(2, '0')}.${String(endMinutes).padStart(2, '0')}`);
-
-    let newfield = { id: '', stores_id: storeId, day: 'Monday', time_slot: startingTime+' - '+endingTime }
-
+    let newfield = { id: '', stores_id: storeId, day: 'Monday', time_slot: '' }
     setMondayInputFields([...mondayInputFields, newfield])
   }
   const removeMondayFields = (index, id) => {
@@ -277,8 +303,8 @@ export default function TimeSlots() {
       </div>
       <form onSubmit={onSubmit}>
         <Grid container>
-          <Grid item sx={{ width: 1/6 }}>
-            <Typography className='day-label'>Monday</Typography>         
+        <Grid item sx={{ width: 1/6 }}>
+            <Typography className='day-label'>Monday</Typography>
             {mondayInputFields.map((input, index) => {
               return (
                 <div key={index} className="slotBlock">
@@ -299,15 +325,10 @@ export default function TimeSlots() {
                     size="small"
                     name='time_slot'
                     placeholder='08.00 - 08.30'
-                    value={input.time_slot || ''}
+                    value={input.time_slot}
                     onChange={event => handleMondayFormChange(index, event)}
                   />
                   <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
-                  {/* {
-                    index ?
-                      <button type='button' onClick={() => removeMondayFields(index, input.id)} className="removeBtn"><DeleteIcon /></button>
-                      : null
-                  } */}
                 </div>
               )
             })}

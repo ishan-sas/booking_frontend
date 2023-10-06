@@ -87,9 +87,12 @@ export default function HomePage() {
                   <Typography className='store-address'>{row.address}</Typography>    
                   <Typography className='store-contact'>{row.contact_no}</Typography>   
                 </Link>
-                <Button onClick={e => viewSchoolList(e, row.id)} className="theme-btn"
+                <Link to={row.slug} className="theme-btn" 
+                  style={{minWidth: 100,fontSize: 11, 'padding': '4px 12px', margin: '7px 0 0', color: '#0d6de5', letterSpacing: 0, background: 'transparent'}}
+                >Book Now</Link>
+                {/* <Button onClick={e => viewSchoolList(e, row.id)} className="theme-btn"
                   style={{fontSize: '10px', fontWeight: 300, lineHeight: 1.5, padding: '5px 12px', marginTop: '5px'}}
-                >View Schools</Button>
+                >View Schools</Button> */}
               </Grid>
             ))}
           </Grid>

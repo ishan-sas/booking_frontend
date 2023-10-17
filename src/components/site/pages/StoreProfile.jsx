@@ -79,6 +79,9 @@ export default function StoreProfile(props) {
     setSelectedDateDisplay(req_date_display);
     setselectedSlotsLbl([]);
     setSelectedSlotsIds([]);
+    setMorningSlots([]);
+    setEveningSlots([]);
+
 
     let unavailability = false;
     axios.get(`/api/get-unavailable-dates/${storeParams.slug}/${req_date}`).then(res => {

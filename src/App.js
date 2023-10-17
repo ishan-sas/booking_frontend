@@ -29,8 +29,8 @@ import StoreRegister from "./components/admin/pages/StoreRegister"
 import StoreList from "./components/admin/pages/StoreList"
 import StorePasswordReset from "./components/admin/pages/StorePasswordReset"
 
-//axios.defaults.baseURL = 'http://localhost:8000/';
-axios.defaults.baseURL = 'http://api.booking.theuniformshoppe.co.nz/';
+axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+//axios.defaults.baseURL = 'http://api.booking.theuniformshoppe.co.nz/';
 axios.defaults.headers.post['Content-Type'] = "application/json";
 axios.defaults.headers.post['Accept'] = "application/json";
 axios.defaults.withCredentials = true;

@@ -31,6 +31,7 @@ export default function StoreProfile(props) {
   const [unavailableDate, setUnavailableDate] = useState(false);
   const [formValidate, setFormValidate] = useState(false);
   const [disabledDates, setDisabledDates] = useState([]);
+
   
   // useEffect(() => {
   // },[unavailableDate])
@@ -42,16 +43,11 @@ export default function StoreProfile(props) {
 
   }, [storeParams.slug, unavailableDate]);
 
-  const parseDate = (dateStr) => {
-    const [day, month, year] = dateStr.split(".");
-    return new Date(`${year}.${month}.${day}`); 
-  };
   const isDateDisabled = (date) => {
     return disabledDates.some(disabledDate =>
-      parseDate(disabledDate).toDateString() === date.toDateString()
+      new Date(disabledDate).toDateString() === date.toDateString()
     );
   };
-
 
   const getStoreProfile = () => {
     axios.get(`/api/stores/${storeParams.slug}`).then(res => {
@@ -122,13 +118,14 @@ export default function StoreProfile(props) {
   };
 
   const getNoOfChild = (e) => {
-    // if(e === 0 || e > storeProfile.no_of_ftrooms) {
-    //   setFormValidate(true);
-    // }
-    // else {
-    //   setFormValidate(false);
+    if(e === 0 || e > storeProfile.no_of_ftrooms) {
+      setFormValidate(true);
+    }
+    else {
+      setFormValidate(false);
       setNoOfChild(e);
-    //}
+    }
+
   }
 
   const handleCheckboxChange = (e, i) => {
@@ -136,10 +133,6 @@ export default function StoreProfile(props) {
     if (e.target.checked) {
       setselectedSlotsLbl([...selectedSlotsLbl, i]);
       setSelectedSlotsIds([...selectedSlotsIds, e.target.value]);
-    }
-    else {
-      setselectedSlotsLbl((prev) => prev.filter((slot) => slot !== i));
-      setSelectedSlotsIds((prev) => prev.filter((id) => id !== e.target.value));
     }
   }
 
@@ -151,19 +144,12 @@ export default function StoreProfile(props) {
       selectedSlotsLbl: selectedSlotsLbl,
       selectedSlotsIds: selectedSlotsIds
     }
-
-    const totalSlots = data.selectedSlotsIds.length*storeProfile.no_of_ftrooms;
-    if (noOfChild > totalSlots) {
-      alert('The number of children does not match the number of selected slots.');
-    }
-    else {
-      if(selectedSlotsIds != 0) {
-        navigate('/booking-submit', {
-          state: {
-            data: data
-          }
-        });
-      }
+    if(selectedSlotsIds != 0) {
+      navigate('/booking-submit', {
+        state: {
+          data: data
+        }
+      });
     }
   }
 
@@ -197,12 +183,12 @@ export default function StoreProfile(props) {
                               return options;
                             })()}
                             control={<Checkbox value={row.slot} onChange={e => handleCheckboxChange(e, row.time_slot)} />}
-                            // disabled={
-                            //   row.kids_count === storeProfile.no_of_ftrooms-row ||
-                            //   ( ( storeProfile.no_of_ftrooms - row.kids_count + 1 ) <= noOfChild )
-                            //     ? true
-                            //     : false
-                            // }
+                            disabled={
+                              row.kids_count === storeProfile.no_of_ftrooms-row ||
+                              ( ( storeProfile.no_of_ftrooms - row.kids_count + 1 ) <= noOfChild )
+                                ? true
+                                : false
+                            }
                             className="slot_block"
                           />
                         </div>
@@ -232,12 +218,12 @@ export default function StoreProfile(props) {
                               return options;
                             })()}
                             control={<Checkbox value={row.slot} onChange={e => handleCheckboxChange(e, row.time_slot)} />}
-                            // disabled={
-                            //   row.kids_count === storeProfile.no_of_ftrooms-row ||
-                            //   ( ( storeProfile.no_of_ftrooms - row.kids_count + 1 ) <= noOfChild )
-                            //     ? true
-                            //     : false
-                            // }
+                            disabled={
+                              row.kids_count === storeProfile.no_of_ftrooms-row ||
+                              ( ( storeProfile.no_of_ftrooms - row.kids_count + 1 ) <= noOfChild )
+                                ? true
+                                : false
+                            }
                             className="slot_block"
                           />
                         </div>

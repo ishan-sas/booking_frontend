@@ -11,6 +11,7 @@ import StoreProfile from "./components/site/pages/StoreProfile"
 import BookingSubmit from "./components/site/pages/BookingSubmit"
 import ThankYouPage from "./components/site/pages/ThankYouPage"
 import ResetPassword from "./components/site/pages/ResetPassword"
+import ForgetPassword from "./components/site/pages/ForgetPassword"
 
 import MyBookings from "./components/dashboard/pages/MyBookings"
 import AccountSettings from "./components/dashboard/pages/AccountSettings"
@@ -30,6 +31,7 @@ import StoreList from "./components/admin/pages/StoreList"
 import StorePasswordReset from "./components/admin/pages/StorePasswordReset"
 
 //axios.defaults.baseURL = 'http://127.0.0.1:8000/';
+//axios.defaults.baseURL = 'https://api.dev-booking-tus.it.sas.co.nz/'
 axios.defaults.baseURL = 'http://api.booking.theuniformshoppe.co.nz/';
 axios.defaults.headers.post['Content-Type'] = "application/json";
 axios.defaults.headers.post['Accept'] = "application/json";
@@ -61,7 +63,9 @@ function App() {
         <Route exact path={"/:slug"} element={<StoreProfile />} />
         <Route exact path={"/booking-submit"} element={<BookingSubmit />} />
         <Route exact path={"/thank-you/:appoinmentid"} element={<ThankYouPage />} />
-        <Route exact path={"/password-reset"} element={<ResetPassword />} />
+
+        <Route exact path={"/forget-password"} element={<ForgetPassword />} />
+        <Route exact path={"/reset-password/:token"} element={<ResetPassword />} />
 
         <Route exact path={"/my-bookings"} element={<Protected component={MyBookings} />} />
         <Route exact path={"/account-settings"} element={<Protected component={AccountSettings} />} />

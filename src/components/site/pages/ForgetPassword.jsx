@@ -2,16 +2,16 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { Grid, Container, Box, FormGroup, Button, TextField, Typography } from '@mui/material'
+import swal from 'sweetalert'
 
 import Logo from '../../../assets/images/logo-w.png'
 
-export default function ResetPassword(props) {
+export default function ForgetPassword(props) {
   const navigate = useNavigate();
+  const [validationError, setValidationError] = useState([]);
 
   const [formInput, setFormInput] = useState({
-    email: '',
-    password: '',
-    confirm_password: ''
+    email: ''
   });
 
   const handleInput = (e) => {
@@ -19,25 +19,22 @@ export default function ResetPassword(props) {
     setFormInput({ ...formInput, [e.target.name]: e.target.value });
   }
 
-  const resetSubmit = (e) => {
+  const forgetSubmit = (e) => {
     e.preventDefault();
-    var token = window.location.href.split("/").pop();
-
     const data = {
       email: formInput.email,
-      password: formInput.password,
-      token: token
     }
     axios.get('sanctum/csrf-cookie').then(response => {
-      axios.post(`/api/reset-password/${token}`, data).then(res => {
+      axios.post('/api/forget-password', data).then(res => {
         if (res.data.status === 200) {
-          navigate('/login'); 
+          setValidationError([]);
+          swal(res.data.message, "", "success");
         }
         else if (res.data.status === 401) {
-          alert('error 401')
+          setValidationError(res.data.message);
         } 
         else {
-          setFormInput({ ...formInput, error_list: res.data.validation_errors });
+          setFormInput({ ...formInput, error_list: res.data });
         }
       });
     });
@@ -55,11 +52,12 @@ export default function ResetPassword(props) {
           </Grid>
           <Grid item sm={12} md={6} pr={6}>
             <Box className='form-wrap'>
-              <Typography variant='h2'>Password Reset</Typography>
-              <Box component={"form"} onSubmit={resetSubmit}>
+              <Typography variant='h2'>Forget Password</Typography>
+              {/* <Typography variant='body2' className='body-intro'>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s standard dummy.</Typography> */}
+              <Box component={"form"} onSubmit={forgetSubmit}>
                 <FormGroup className="form-group">
                   <TextField
-                    type='email'
+                    type='text'
                     fullWidth
                     label="Email"
                     name="email"
@@ -67,26 +65,7 @@ export default function ResetPassword(props) {
                     value={formInput.email || ''}
                   />
                 </FormGroup>
-                <FormGroup className="form-group">
-                  <TextField
-                    type='text'
-                    fullWidth
-                    label="Password"
-                    name="password"
-                    onChange={handleInput}
-                    value={formInput.password || ''}
-                  />
-                </FormGroup>
-                <FormGroup className="form-group">
-                  <TextField
-                    type='text'
-                    fullWidth
-                    label="Confirm Password"
-                    name="confirm_password"
-                    onChange={handleInput}
-                    value={formInput.confirm_password || ''}
-                  />
-                </FormGroup>
+                <Typography style={{color: 'red'}}>{validationError}</Typography>
                 <Grid style={{ display: 'block', textAlign: 'center', margin: '15px 0 25px' }}>
                   <Button
                     variant={"outlined"}

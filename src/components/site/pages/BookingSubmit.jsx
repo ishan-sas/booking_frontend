@@ -132,6 +132,7 @@ export default function BookingSubmit(props) {
               <Box mt={2} mb={4} style={{ width: '100%' }}>
                 <Typography style={{display: 'inline-block'}}>Do you have an account?</Typography>
                 <Switch {...label} onClick={() => handleToggleVisibility()} />
+                <a href={'/#/forget-password'} style={{color: '#5d5d5d', fontSize: '12px', fontWeight: 600, float: 'right', textTransform: 'uppercase', margin: '10px 0 0'}} target='_blank'>Forget Password</a>   
               </Box>
               {newAccount.newAccount && (
               <Grid style={{width: '100%'}}>
